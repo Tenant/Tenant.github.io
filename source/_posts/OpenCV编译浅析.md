@@ -1,0 +1,63 @@
+---
+title: OpenCV编译浅析
+date: 2021-01-03 21:15:12
+categories: 
+  - C++
+  - 系统环境配置
+tags: 
+  - OpenCV
+---
+
+本文总结了编译OpenCV时常用的参数设置方式。
+
+<!--more-->
+
+OpenCV编译命令
+
+```bash
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+-D CMAKE_INSTALL_PREFIX=/usr/local \
+-D INSTALL_PYTHON_EXAMPLES=ON \
+-D INSTALL_C_EXAMPLES=OFF \
+-D OPENCV_EXTRA_MODULES_PATH=../contrib/modules \
+-D PYTHON3_EXCUTABLE=/usr/bin/python \
+-D WITH_CUDA=OFF \
+-D WITH_TBB=ON \
+-D WITH_V4L=ON \
+-D WITH_GTK=ON \
+-D WITH_OPENGL=ON \
+-D WITH_VTK=ON \
+-D WITH_QT=ON \
+-D WITH_FFMPEG=ON \
+-D BUILD_EXAMPLES=ON ..
+```
+
+带CUDA的OpenCV编译
+
+```bash
+###这是带cuda的，下面带颜色的数值要自己查###查询网址：查看cuda型号网址
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+-D CMAKE_INSTALL_PREFIX=/usr/local \
+-D INSTALL_PYTHON_EXAMPLES=ON \
+-D INSTALL_C_EXAMPLES=OFF \
+-D OPENCV_EXTRA_MODULES_PATH=../contrib/modules \
+-D PYTHON_EXCUTABLE=/usr/bin/python \
+-D WITH_CUDA=ON \
+-D WITH_CUBLAS=ON \
+-D DCUDA_NVCC_FLAGS="-D_FORCE_INLINES" \
+#-D CUDA_ARCH_BIN="5.2" \
+#-D CUDA_ARCH_PTX="" \
+-D ENABLE_FAST_MATH=1 \
+-D CUDA_FAST_MATH=ON \
+-D WITH_CUFFT=ON \
+-D WITH_NVCUVID=ON \
+-D WITH_TBB=ON \
+-D WITH_V4L=ON \
+-D WITH_GTK=ON \
+-D WITH_OPENGL=ON \
+-D WITH_VTK=ON \
+-D WITH_QT=ON \
+-D WITH_FFMPEG=ON \
+-D BUILD_EXAMPLES=ON ..
+```
+

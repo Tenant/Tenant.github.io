@@ -5,7 +5,7 @@
 # Site
 title: 亓淇小站
 subtitle: ''
-description: ''
+description: '小小眼睛充满大大迷惑'
 keywords:
 author: 亓淇
 language: en
@@ -41,7 +41,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: true
+post_asset_folder: false
 relative_link: false
 future: true
 highlight:
@@ -86,7 +86,7 @@ updated_option: 'mtime'
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 2
+per_page: 50 # 每页显示记录数
 pagination_dir: page
 
 # Include / Exclude file(s)

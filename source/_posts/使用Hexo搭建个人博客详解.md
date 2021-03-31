@@ -140,3 +140,66 @@ Typora可以和PicGo联动，实现从剪切板复制到Typora的图片自动通
 ### 4.2 七牛云
 
 七牛云的免费域名只有一个月的使用期，到期将被回收，所以暂时不使用。
+
+## 5. 设置自定义域名
+
+使用GitHub搭建网站时会根据你的用户名获得一个`*.github.io`域名，但考虑到未来将网站迁移到自建服务器的可能性，可以申请自己的域名，并将`*.github.io`域名重新向到自己的固定域名。
+
+### 5.1 购买域名
+
+可以前往[腾讯云](https://dnspod.cloud.tencent.com/)购买自己的域名。
+
+购买域名后需要设置域名解析。在[页面]([我的域名 - 域名注册 - 控制台 (tencent.com)](https://console.cloud.tencent.com/domain))下选择对应域名后的`解析`选项，然后安装下图所示进行设置：
+
+![](使用Hexo搭建个人博客详解.assets/20210116155856.png)
+
+其中，`主机记录`对应于域名的前缀，可以自行设置，`记录类型`须设置为`CNAME`，记录值为你的GitHub域名，其他项无需修改，然后点击确认即可。
+
+然后打开本地终端，输入如下命令安装插件：
+
+```bash
+npm install hexo-generator-cname --save
+```
+
+之后打开站点配置文件`_config.yaml`，进行如下配置：
+
+```yaml
+# URL
+## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
+url: https://blog.calria.plus
+
+plugins:
+- hexo-generator-cname
+```
+
+其中，`url`是文件已有项，进行替换即可，`plugins`项非默认项，通常需要手工添加（不排除你之前安装其他插件时已经添加）。
+
+至此，配置完成，可以使用新注册的域名访问自己之前配置的GitHub博客了。
+
+## 6. SEO
+
+### 6.1 添加百度统计
+
+在[管理页面]([网站列表 - 网站中心 (baidu.com)](https://tongji.baidu.com/sc-web/10000313605/home/site/index?from=3))中新增网站，添加自己的博客域名，然后在弹出的页面中可以看到如下一段javascript代码：
+
+```javascript
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9f1****************dd";
+  var s = document.getElementsByTagName("script")[0]; 
+```
+
+这段代码本来是要手动嵌入到网页中的，但是`NexT`主题已经帮我们嵌入了，所以我们只需配置Baidu Analytics ID即可，这个ID就是上述代码的`hm.js?`后面那一串。
+
+打开`hexo`站点根目录`\themes\next\`路径下的配置文件`_config.yml`，然后搜索`Baidu Analytics ID`，找到如下配置项：
+
+```bash
+# Baidu Analytics ID
+baidu_analytics: 9f1****************dd
+```
+
+去掉`baidu_analytics`前面的#号开启百度统计，值设置成刚在百度统计后台复制的Baidu Analytics ID即可。
+
+至此配置完成，可以在刚刚复制Baidu Analytics ID的页面点击`代码安装检查`查看安装结果，也可打开[页面]([主页 - 百度统计 (baidu.com)](https://tongji.baidu.com/web/homepage/index))查看统计数据。

@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: http://example.com
+url: https://blog.calria.plus
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -30,6 +30,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - "sitemap/**"
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -106,3 +107,6 @@ deploy:
   type: 'git'
   repo: https://github.com/Tenant/Tenant.github.io.git
   branch: master
+
+plugins:
+- hexo-generator-cname

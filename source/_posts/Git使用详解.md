@@ -5,7 +5,7 @@ categories:
   - Git
 tags:
   - Git
-descriptions: 本文介绍了Git常用的命令。
+description: 本文介绍了Git常用的命令。
 ---
 
 

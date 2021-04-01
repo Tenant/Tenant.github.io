@@ -1,7 +1,10 @@
 ---
 title: Latex详解（一）：本地安装和环境配置
 date: 2021-01-14 11:42:17
+categories:
+  - LaTex
 tags:
+  - LaTex
 description: LaTex用法详解
 ---
 

@@ -11,14 +11,31 @@ description: 本文记录了Windows平台下用的命令。
 
 ## 1. 系统和文件
 
-### 1.1 强制重新加载环境变量
+### 1.1 文件硬链接
+
+```powershell
+mklink \H destination_file source_file # 在destination_file路径下创建指向source_file的硬链接
+fsutil hardlink list filename.txt # 查找所有和filename.txt指向同一文件的硬链接
+```
+
+### 1.2 强制重新加载环境变量
 
 ```bash
 set PATH=C:
 echo %PATH%
 ```
 
-### 1.2 用U盘制作启动盘后空间变小的恢复方法
+打开磁盘管理器为U盘重新建立分区。
+
+### 1.3 在CMD中计算文件MD5值
+
+```bash
+certutil -hashfile filename MD5
+certutil -hashfile filename SHA1
+certutil -hashfile filename SHA256
+```
+
+### 1.4 用U盘制作启动盘后空间变小的恢复方法
 
 在命令行窗口执行如下命令:
 
@@ -32,22 +49,6 @@ diskpart
 list disk
 select disk 1
 clean
-```
-
-打开磁盘管理器为U盘重新建立分区。
-
-### 1.3 在CMD中计算文件MD5值
-
-```bash
-certutil -hashfile filename MD5
-certutil -hashfile filename SHA1
-certutil -hashfile filename SHA256
-```
-
-### 1.4 在CMD中创建文件硬链接
-
-```bash
-mklink /H destination_file_path source_file_path
 ```
 
 ## 2. 软件程序

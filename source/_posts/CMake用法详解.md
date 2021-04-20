@@ -8,6 +8,21 @@ tags:
 description: 本文对CMake的常见用法进行了总结归纳。
 ---
 
+## 1. 常用命令
+
+## 2. Interface Changing
+
+`CMake 3.12`中将`add_definitions`修改为``add_compile_definitions()` 。
+
+```cmake
+add_definitions(-DQURL_NO_CAST_FROM_STRING) # < 3.12
+add_compile_definitions(QURL_NO_CAST_FROM_STRING) # >= 3.12
+```
+
+
+
+
+
 ### Demo
 
 ```cmake

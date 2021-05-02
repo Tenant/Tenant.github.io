@@ -11,13 +11,74 @@ description: 本文记录了Ubuntu平台下用的命令。
 
 ## 1. 系统内核和文件系统
 
-### 1.1 检查系统内核版本
+### 1.1 系统安装与配置
+
+**更新系统软件源**
+
+由于国内访问Ubuntu默认软件源速度较慢，在安装系统后需要更新软件源为国内镜像地址。下面的设置以阿里云为例。通过如下命令打开系统软件源文件。
+
+```bash
+vim /etc/apt/sources.list
+```
+
+使用如下内容替换`sources.list`里面的内容：
+
+```bash
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+ 
+# src
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+```
+
+替换完成后，执行如下命令更新软件源数据库。
+
+```bash
+sudo apt update
+```
+
+**更新Python源**
+
+由于国内访问Python默认源速度较慢，在安装好Python后需要更新Python源为国内镜像地址。下面以清华源为例。通过如下命令打开Python源文件。
+
+```bash
+vim ~/.pip/pip.conf
+```
+
+如果该文件不存在，则使用下述命令创建文件。
+
+```bash
+mkdir -p ~/.pip
+vim ~/.pip/pip.conf
+```
+
+使用如下内容替换`pip.conf`中的内容。
+
+```bash
+[global]
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+[install]
+trusted-host = https://pypi.tuna.tsinghua.edu.cn
+```
+
+替换完成后，之后的Python包安装就会使用国内源了。
+
+**检查系统内核版本**
+
+使用如下命令查看系统内核版本。
 
 ```bash
 lsb_release -a
 ```
 
-### 1.2 生成`SSH`公钥和密钥
+### 1.2 联网协同
+
+**生成`SSH`公钥和密钥**
 
 On your client computer generate public key:
 ```bash
@@ -252,6 +313,7 @@ sudo apt install pip // install pip
 
 pip3 install virtualenv // install virtualenv via pip3
 
+python -m virtualenv venv # 用这个命令替换下面的
 virtualenv -p /usr/bin/python3 --no-site-packages venv // create new virtual enviroments named venv
 
 source venv/bin/activate // activate virtual enviroment

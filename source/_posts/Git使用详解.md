@@ -10,6 +10,8 @@ description: 本文介绍了Git常用的命令。
 
 
 
+## 常用命令
+
 **Transfer codes from `GitLab` to`GitHub`**:
 
 - create an empty repo on GitHub
@@ -100,7 +102,15 @@ git diff HEAD
 git diff --cached
 ```
 
+## 常见问题
 
+### 部分仓库下载缓慢/失败问题
 
+对于不包含submodule的仓库，出现这种问题后，从网页版GitHub中下载源码即可。而对于包含submodule的仓库，一般是主仓库可以下载，但是其submodule下载失败。此时，可以在clone主仓库后，分别clone每个子仓库，再将其放置到父仓库对应的目录下。如对于spconv仓库而言，可以通过如下操作解决问题。
 
+```bash
+git clone ... --recursive
+cd spconv/third_party
+git clone ... --recursive
+```
 

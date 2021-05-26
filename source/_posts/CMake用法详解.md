@@ -8,9 +8,23 @@ tags:
 description: 本文对CMake的常见用法进行了总结归纳。
 ---
 
-## 1. 常用命令
+## 安装
 
-## 2. Interface Changing
+使用源码安装CMAKE可以对版本进行指定。
+
+首先从官网下载对应平台的源码，并进行解压。解压后执行如下命令：
+
+```bash
+./bootstrap
+make
+make install
+```
+
+
+
+## 常用命令
+
+### Interface Changing
 
 `CMake 3.12`中将`add_definitions`修改为``add_compile_definitions()` 。
 
@@ -21,9 +35,7 @@ add_compile_definitions(QURL_NO_CAST_FROM_STRING) # >= 3.12
 
 
 
-
-
-### Demo
+## 示例
 
 ```cmake
 cmake_minimum_required(VERSION 3.5)

@@ -4,14 +4,14 @@ date: 2021-04-09 21:29:21
 categories:
   - 操作系统
 tags:
-  - 操作系统
+  - 操作系统c
   - Ubuntu
 description: 本文记录了Ubuntu平台下用的命令。
 ---
 
-## 1. 系统内核和文件系统
+## 系统内核和文件系统
 
-### 1.1 系统安装与配置
+### 系统安装与配置
 
 **更新系统软件源**
 
@@ -35,6 +35,8 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted univer
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 ```
+
+需要注意，不同版本Ubuntu内核名称不同。其中20.04对应的内核名称为`focal`。
 
 替换完成后，执行如下命令更新软件源数据库。
 
@@ -76,7 +78,31 @@ trusted-host = https://pypi.tuna.tsinghua.edu.cn
 lsb_release -a
 ```
 
-### 1.2 联网协同
+### 环境变量
+
+Python版本确定
+
+```bash
+python -V
+```
+
+CMAKE版本确定
+
+```python
+cmake --version
+```
+
+
+
+CUDA版本确定
+
+```bash
+
+```
+
+
+
+### 联网协同
 
 **生成`SSH`公钥和密钥**
 

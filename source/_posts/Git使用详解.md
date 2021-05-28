@@ -12,17 +12,6 @@ description: 本文介绍了Git常用的命令。
 
 ## 常用命令
 
-**Transfer codes from `GitLab` to`GitHub`**:
-
-- create an empty repo on GitHub
-
-  ```c++
-  git remote add githubhttps://yourLogin@github.com/yourLogin/yourRepoName.git
-  git push --mirror github
-  ```
-
-
-
 **Convert remote's URL from `https` to `ssh`**:
 
 ```bash
@@ -32,15 +21,11 @@ git remote -v
 git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
 ```
 
-
-
 **Untrack files and don't change working directory**:
 
 ```bash
 git rm --cached [filename]
 ```
-
-
 
 **Reset `git add` operations**:
 
@@ -62,8 +47,6 @@ git reset <commit>
 git reset --hard <commit>
 ```
 
-
-
 **Clean files**:
 
 ```bash
@@ -74,23 +57,17 @@ git clean -n
 git clean -f
 ```
 
-
-
 **Append changes to last commit**:
 
 ```bash
 git commit --amend
 ```
 
-
-
 **Display `commits` concerned with the specific file**:
 
 ```bash
 git log -- <file>
 ```
-
-
 
 **Git diff**:
 
@@ -106,11 +83,23 @@ git diff --cached
 
 ### 部分仓库下载缓慢/失败问题
 
-对于不包含submodule的仓库，出现这种问题后，从网页版GitHub中下载源码即可。而对于包含submodule的仓库，一般是主仓库可以下载，但是其submodule下载失败。此时，可以在clone主仓库后，分别clone每个子仓库，再将其放置到父仓库对应的目录下。如对于spconv仓库而言，可以通过如下操作解决问题。
+**方法一**
+
+对于不包含submodule的仓库，出现这种问题后，从网页版GitHub中下载源码即可。
+
+**方法二**
+
+对于包含submodule的仓库，一般是主仓库可以下载，但是其submodule下载失败。此时，可以在clone主仓库后，分别clone每个子仓库，再将其放置到父仓库对应的目录下，然后通过`git reset --hard commit_id`将子仓库切换到对应版本。
 
 ```bash
-git clone ... --recursive
-cd spconv/third_party
-git clone ... --recursive
+git clone xxx.git repo-a --recursive # failed
+git clone xxx.git repo-a # success
+cd repo-a/third_parth
+git clone xxxx.git repo-b --recursive # success or fail
+cd repo-b
+git reset --hard commit_id
 ```
 
+**方法三**
+
+除了上述两种方法外，可以借助[我的工作台 - Gitee.com](https://gitee.com/)解决该问题。操作时首先将需要clone的仓库从GitHub中fork到Gitee中，然后从Gitee clone即可。对于包含submodule的仓库，可以将其submodule均fork到Gitee，并修改`.submodule`中对应仓库的路径为Gitee下的路径（注意此处路径结尾不包含`.git`字段）.

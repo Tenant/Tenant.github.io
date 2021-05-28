@@ -4,7 +4,7 @@ date: 2021-04-09 21:29:21
 categories:
   - 操作系统
 tags:
-  - 操作系统c
+  - 操作系统
   - Ubuntu
 description: 本文记录了Ubuntu平台下用的命令。
 ---
@@ -36,7 +36,7 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted univers
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 ```
 
-需要注意，不同版本Ubuntu内核名称不同。其中20.04对应的内核名称为`focal`。
+需要注意，不同版本Ubuntu内核名称不同。其中，16.04对应的内核名称为`bionic`，20.04对应的内核名称为`focal`。
 
 替换完成后，执行如下命令更新软件源数据库。
 
@@ -78,7 +78,9 @@ trusted-host = https://pypi.tuna.tsinghua.edu.cn
 lsb_release -a
 ```
 
-### 环境变量
+### 开发环境配置
+
+#### Python
 
 Python版本确定
 
@@ -86,18 +88,22 @@ Python版本确定
 python -V
 ```
 
-CMAKE版本确定
+#### CMake
+
+查询CMAKE版本：
 
 ```python
 cmake --version
 ```
 
+Ubuntu系统自带的CMake通常为低版本。由于CMake在3.12版本后进行了较大的更新，因此一些开源程序不支持使用低版本CMake进行编译。为此需要自行安装高版本CMake。CMake安装方法见[CMake用法详解 | 亓淇小站 (calria.plus)](https://blog.calria.plus/2021/01/05/CMake%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/)。
 
+#### CUDA
 
 CUDA版本确定
 
 ```bash
-
+nvcc --version
 ```
 
 

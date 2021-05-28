@@ -2,25 +2,32 @@
 title: CMake用法详解
 date: 2021-01-05 12:24:12
 categories:
+  - 编程
   - C++
-  - CMakelist
+  - CMake
 tags: 
-description: 本文对CMake的常见用法进行了总结归纳。
+  - C++
+  - CMake
+description: 本文对CMake安装、常见用法进行了总结归纳。
 ---
 
 ## 安装
 
-使用源码安装CMAKE可以对版本进行指定。
+使用源码安装CMake可以对版本进行指定。
 
-首先从官网下载对应平台的源码，并进行解压。解压后执行如下命令：
+首先从[Installing | CMake](https://cmake.org/install/)下载对应平台的源码，并进行解压。解压后执行如下命令：
 
 ```bash
 ./bootstrap
 make
-make install
+sudo make install # optional
 ```
 
+上述第三条指令为可选指令，仅当拥有超级权限且准备为所有用户安装新版本的CMake时推荐使用，负责使用如下命令在CMake添加到`PATH`即可。
 
+```bash
+export PATH=/home/sukie/cmake-3.20.2/bin:$PATH
+```
 
 ## 常用命令
 

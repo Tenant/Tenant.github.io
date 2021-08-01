@@ -36,7 +36,7 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted univers
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 ```
 
-需要注意，不同版本Ubuntu内核名称不同。其中，16.04对应的内核名称为`bionic`，20.04对应的内核名称为`focal`。
+需要注意，不同版本Ubuntu内核名称不同。其中，16.04对应的内核名称为`bionic`，18.04对应的内核名称为`melodic`，20.04对应的内核名称为`focal`。
 
 替换完成后，执行如下命令更新软件源数据库。
 
@@ -104,6 +104,10 @@ CUDA版本确定
 
 ```bash
 nvcc --version
+```
+
+```
+export LD_LIBRARY_PATH=/home/sukie/program/cuda-10.1/lib64:$LD_LIBRARY_PATH
 ```
 
 

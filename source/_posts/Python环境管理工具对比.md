@@ -93,8 +93,8 @@ conda deactivate
 #### spconv
 
 ```bash
-conda create --name spconv-1.0 python=3.6 pytorch=1.4 cudatoolkit=10.1 --channel pytorch --channel=conda-forge
-conda activate spconv-1.0
+conda create --name spconv-1.2 python=3.6 pytorch=1.4 cudatoolkit=10.1 --channel pytorch --channel=conda-forge
+conda activate spconv-1.2
 conda install cudnn
 conda install boost
 git clone https://gitee.com/calcite/spconv.git --recursive

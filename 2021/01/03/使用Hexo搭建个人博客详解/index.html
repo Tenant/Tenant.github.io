@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/qwe/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.calria.plus","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文简单介绍了使用Hexo搭建个人博客的方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Hexo搭建个人博客详解">
+<meta property="og:url" content="https://blog.calria.plus/2021/01/03/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="亓淇小站">
+<meta property="og:description" content="本文简单介绍了使用Hexo搭建个人博客的方法。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3llZmNpb24vUGljRGF0YS9tYXN0ZXIvaW1nLzE1NTIzMTQ5MDc3OTQucG5n">
+<meta property="og:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/image-20210114005827658.png">
+<meta property="og:image" content="https://blog.calria.plus/2021/01/03/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%A6%E8%A7%A3/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%A6%E8%A7%A3.assets/20210116155856.png">
+<meta property="article:published_time" content="2021-01-03T13:51:55.000Z">
+<meta property="article:modified_time" content="2021-08-01T02:57:04.366Z">
+<meta property="article:author" content="亓淇">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3llZmNpb24vUGljRGF0YS9tYXN0ZXIvaW1nLzE1NTIzMTQ5MDc3OTQucG5n">
+
+<link rel="canonical" href="https://blog.calria.plus/2021/01/03/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%A6%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>使用Hexo搭建个人博客详解 | 亓淇小站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9f1a35a3bc5f5a1c0a5aaed14fbe54dd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">亓淇小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap/hexconvert/" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2021/01/03/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="亓淇">
+      <meta itemprop="description" content="小小眼睛充满大大迷惑">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亓淇小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用Hexo搭建个人博客详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-03 21:51:55" itemprop="dateCreated datePublished" datetime="2021-01-03T21:51:55+08:00">2021-01-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/" itemprop="url" rel="index"><span itemprop="name">网站搭建</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">本文简单介绍了使用Hexo搭建个人博客的方法。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1. 环境配置"></a>1. 环境配置</h2><p>搭建个人网站前，首先从<a target="_blank" rel="noopener" href="http://nodejs.cn/download/">链接</a>下载<code>nodejs</code>安装包并进行安装，建议安装最新版本。安装后需确认将<code>node.js</code>安装路径添加到了系统环境变量中，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Program\nodejs\</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Hexo安装及操作"><a href="#2-Hexo安装及操作" class="headerlink" title="2. Hexo安装及操作"></a>2. Hexo安装及操作</h2><h3 id="2-1-安装Hexo"><a href="#2-1-安装Hexo" class="headerlink" title="2.1 安装Hexo"></a>2.1 安装Hexo</h3><p>输入如下命令安装<code>Hexo</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后输入以下指令验证是否安装成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+
+<p>运行上述指令时可能弹出“在此系统上禁止运行脚本”错误，其原因是Windows系统处于安全考虑，默认禁止脚本文件运行，可以通过在以管理员身份运行的<code>Powershell</code>中执行以下命令并选择<code>Y</code>选项解决：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure>
+
+<p>之后输入如下命令安装其他依赖项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-初始化博客文件夹"><a href="#2-2-初始化博客文件夹" class="headerlink" title="2.2 初始化博客文件夹"></a>2.2 初始化博客文件夹</h3><p>创建用于存放博客内容的文件夹，并在该文件夹内打开<code>Powershell</code>输入如下命令，初始化文件夹：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init </span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-常用操作"><a href="#2-3-常用操作" class="headerlink" title="2.3 常用操作"></a>2.3 常用操作</h3><p>创建新的`post：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;文件名&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>从当前<code>Markdown</code>文档生成网页：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<p>本地预览生成的网站：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo static</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>将网站布置到云端：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br><span class="line">hexo d                                                              </span><br></pre></td></tr></table></figure>
+
+<h2 id="3-主题选择"><a href="#3-主题选择" class="headerlink" title="3. 主题选择"></a>3. 主题选择</h2><h2 id="4-图床选择"><a href="#4-图床选择" class="headerlink" title="4. 图床选择"></a>4. 图床选择</h2><h3 id="4-1-Github图床"><a href="#4-1-Github图床" class="headerlink" title="4.1 Github图床"></a>4.1 Github图床</h3><p>我们可以选择Github仓库作为图床。</p>
+<h4 id="4-1-1-创建Github-Repository"><a href="#4-1-1-创建Github-Repository" class="headerlink" title="4.1.1 创建Github Repository"></a>4.1.1 创建Github Repository</h4><p>创建用于保存图片的仓库，将访问权限设置为公开。</p>
+<h4 id="4-1-2-创建Token"><a href="#4-1-2-创建Token" class="headerlink" title="4.1.2 创建Token"></a>4.1.2 创建Token</h4><p>点击Github网页版右上角头像，进入<code>设置</code>，在页面最下找到<code>Developer settings</code>点击进入，然后依次点击<code>Personal access token </code>，<code>创建token</code>，创建时设置如下：</p>
+<p><img src="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3llZmNpb24vUGljRGF0YS9tYXN0ZXIvaW1nLzE1NTIzMTQ5MDc3OTQucG5n" alt="img"></p>
+<p>Token description根据实际情况填写，<code>repo</code>下项必须勾选，其他项随意，创建成功后会生成一团字符token。</p>
+<h4 id="4-1-3-PicGo安装和配置"><a href="#4-1-3-PicGo安装和配置" class="headerlink" title="4.1.3 PicGo安装和配置"></a>4.1.3 PicGo安装和配置</h4><p>PicGo是一个开源的图床工具，非常优秀。从<a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo">官网</a>下载安装后，打开软件，在图床设置中选择<code>Github图床</code>，根据实际情况填写相应项目。</p>
+<h4 id="4-1-4-Typora配置"><a href="#4-1-4-Typora配置" class="headerlink" title="4.1.4 Typora配置"></a>4.1.4 Typora配置</h4><p>Typora可以和PicGo联动，实现从剪切板复制到Typora的图片自动通过PicGo上传图床并在Typora中引用。配置时依次打开Typora的Preference-&gt;Image，然后按照下图进行配置。</p>
+<p><img src="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/image-20210114005827658.png" alt="image-20210114005827658"></p>
+<p>配置完成后将剪切板中的图片复制到Typora，然后右键选择“上传图片”即可。</p>
+<h4 id="4-1-5-其它问题"><a href="#4-1-5-其它问题" class="headerlink" title="4.1.5 其它问题"></a>4.1.5 其它问题</h4><p>将Github作为图床有时候会出现图片加载失败的现象，这多半是由于DNS污染引起的，通过在<code>C:\Windows\System32\drivers\etc</code>内的<code>hosts</code>文件中添加如下内容直接对相关IP地址进行解析即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">192.30.253.112    github.com </span><br><span class="line">192.30.253.119    gist.github.com</span><br><span class="line">151.101.184.133    assets-cdn.github.com</span><br><span class="line">151.101.184.133    raw.githubusercontent.com</span><br><span class="line">151.101.184.133    gist.githubusercontent.com</span><br><span class="line">151.101.184.133    cloud.githubusercontent.com</span><br><span class="line">151.101.184.133    camo.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars0.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars1.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars2.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars3.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars4.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars5.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars6.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars7.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars8.githubusercontent.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-七牛云"><a href="#4-2-七牛云" class="headerlink" title="4.2 七牛云"></a>4.2 七牛云</h3><p>七牛云的免费域名只有一个月的使用期，到期将被回收，所以暂时不使用。</p>
+<h2 id="5-设置自定义域名"><a href="#5-设置自定义域名" class="headerlink" title="5. 设置自定义域名"></a>5. 设置自定义域名</h2><p>使用GitHub搭建网站时会根据你的用户名获得一个<code>*.github.io</code>域名，但考虑到未来将网站迁移到自建服务器的可能性，可以申请自己的域名，并将<code>*.github.io</code>域名重新向到自己的固定域名。</p>
+<h3 id="5-1-购买域名"><a href="#5-1-购买域名" class="headerlink" title="5.1 购买域名"></a>5.1 购买域名</h3><p>可以前往<a target="_blank" rel="noopener" href="https://dnspod.cloud.tencent.com/">腾讯云</a>购买自己的域名。</p>
+<p>购买域名后需要设置域名解析。在[页面](<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/domain">我的域名 - 域名注册 - 控制台 (tencent.com)</a>)下选择对应域名后的<code>解析</code>选项，然后安装下图所示进行设置：</p>
+<p><img src="%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%A6%E8%A7%A3.assets/20210116155856.png"></p>
+<p>其中，<code>主机记录</code>对应于域名的前缀，可以自行设置，<code>记录类型</code>须设置为<code>CNAME</code>，记录值为你的GitHub域名，其他项无需修改，然后点击确认即可。</p>
+<p>然后打开本地终端，输入如下命令安装插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-cname --save</span><br></pre></td></tr></table></figure>
+
+<p>之后打开站点配置文件<code>_config.yaml</code>，进行如下配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://example.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">https://blog.calria.plus</span></span><br><span class="line"></span><br><span class="line"><span class="attr">plugins:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">hexo-generator-cname</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>url</code>是文件已有项，进行替换即可，<code>plugins</code>项非默认项，通常需要手工添加（不排除你之前安装其他插件时已经添加）。</p>
+<p>至此，配置完成，可以使用新注册的域名访问自己之前配置的GitHub博客了。</p>
+<h2 id="6-SEO"><a href="#6-SEO" class="headerlink" title="6. SEO"></a>6. SEO</h2><h3 id="6-1-添加百度统计"><a href="#6-1-添加百度统计" class="headerlink" title="6.1 添加百度统计"></a>6.1 添加百度统计</h3><p>在[管理页面](<a target="_blank" rel="noopener" href="https://tongji.baidu.com/sc-web/10000313605/home/site/index?from=3">网站列表 - 网站中心 (baidu.com)</a>)中新增网站，添加自己的博客域名，然后在弹出的页面中可以看到如下一段javascript代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> _hmt = _hmt || [];</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> hm = <span class="built_in">document</span>.createElement(<span class="string">&quot;script&quot;</span>);</span><br><span class="line">  hm.src = <span class="string">&quot;https://hm.baidu.com/hm.js?9f1****************dd&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> s = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;script&quot;</span>)[<span class="number">0</span>]; </span><br></pre></td></tr></table></figure>
+
+<p>这段代码本来是要手动嵌入到网页中的，但是<code>NexT</code>主题已经帮我们嵌入了，所以我们只需配置Baidu Analytics ID即可，这个ID就是上述代码的<code>hm.js?</code>后面那一串。</p>
+<p>打开<code>hexo</code>站点根目录<code>\themes\next\</code>路径下的配置文件<code>_config.yml</code>，然后搜索<code>Baidu Analytics ID</code>，找到如下配置项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Baidu Analytics ID</span></span><br><span class="line">baidu_analytics: 9f1****************dd</span><br></pre></td></tr></table></figure>
+
+<p>去掉<code>baidu_analytics</code>前面的#号开启百度统计，值设置成刚在百度统计后台复制的Baidu Analytics ID即可。</p>
+<p>至此配置完成，可以在刚刚复制Baidu Analytics ID的页面点击<code>代码安装检查</code>查看安装结果，也可打开[页面](<a target="_blank" rel="noopener" href="https://tongji.baidu.com/web/homepage/index">主页 - 百度统计 (baidu.com)</a>)查看统计数据。</p>
+
+    </div>
+
+    
+    
+    
+	
+	
+      <div>
+        
+    <div style="text-align:center;color: #ccc;font-size:14px;">
+        ------ 本文结束 ------</div>
+
+      </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/03/OpenCV%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E7%BC%96%E8%AF%91%E4%B8%8E%E5%AE%89%E8%A3%85/" rel="prev" title="OpenCV详解（一）：编译与安装">
+      <i class="fa fa-chevron-left"></i> OpenCV详解（一）：编译与安装
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/05/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" rel="next" title="系统安装与配置">
+      系统安装与配置 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">1. 环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Hexo%E5%AE%89%E8%A3%85%E5%8F%8A%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">2. Hexo安装及操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%AE%89%E8%A3%85Hexo"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 安装Hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8D%9A%E5%AE%A2%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 初始化博客文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 常用操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%B8%BB%E9%A2%98%E9%80%89%E6%8B%A9"><span class="nav-number">3.</span> <span class="nav-text">3. 主题选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%9B%BE%E5%BA%8A%E9%80%89%E6%8B%A9"><span class="nav-number">4.</span> <span class="nav-text">4. 图床选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Github%E5%9B%BE%E5%BA%8A"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 Github图床</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-1-%E5%88%9B%E5%BB%BAGithub-Repository"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 创建Github Repository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-2-%E5%88%9B%E5%BB%BAToken"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 创建Token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-3-PicGo%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.3.</span> <span class="nav-text">4.1.3 PicGo安装和配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-4-Typora%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.4.</span> <span class="nav-text">4.1.4 Typora配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-5-%E5%85%B6%E5%AE%83%E9%97%AE%E9%A2%98"><span class="nav-number">4.1.5.</span> <span class="nav-text">4.1.5 其它问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E4%B8%83%E7%89%9B%E4%BA%91"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 七牛云</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D"><span class="nav-number">5.</span> <span class="nav-text">5. 设置自定义域名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E8%B4%AD%E4%B9%B0%E5%9F%9F%E5%90%8D"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 购买域名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-SEO"><span class="nav-number">6.</span> <span class="nav-text">6. SEO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E6%B7%BB%E5%8A%A0%E7%99%BE%E5%BA%A6%E7%BB%9F%E8%AE%A1"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 添加百度统计</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="亓淇"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">亓淇</p>
+  <div class="site-description" itemprop="description">小小眼睛充满大大迷惑</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Tenant" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Tenant" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gaoshuqi@pku.edu.cn" title="E-Mail → mailto:gaoshuqi@pku.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亓淇</span>
+</div>
+
+<!--
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/qwe/anime.min.js"></script>
+  <script src="/qwe/velocity/velocity.min.js"></script>
+  <script src="/qwe/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

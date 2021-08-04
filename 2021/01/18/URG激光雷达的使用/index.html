@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/qwe/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.calria.plus","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文详解了URG激光雷达的使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="URG激光雷达的使用">
+<meta property="og:url" content="https://blog.calria.plus/2021/01/18/URG%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="亓淇小站">
+<meta property="og:description" content="本文详解了URG激光雷达的使用">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/image-20210118204026200.png">
+<meta property="article:published_time" content="2021-01-18T12:24:03.000Z">
+<meta property="article:modified_time" content="2021-08-01T02:57:04.349Z">
+<meta property="article:author" content="亓淇">
+<meta property="article:tag" content="传感器">
+<meta property="article:tag" content="LiDAR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/image-20210118204026200.png">
+
+<link rel="canonical" href="https://blog.calria.plus/2021/01/18/URG%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>URG激光雷达的使用 | 亓淇小站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9f1a35a3bc5f5a1c0a5aaed14fbe54dd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">亓淇小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap/hexconvert/" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2021/01/18/URG%E6%BF%80%E5%85%89%E9%9B%B7%E8%BE%BE%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="亓淇">
+      <meta itemprop="description" content="小小眼睛充满大大迷惑">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亓淇小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          URG激光雷达的使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-18 20:24:03" itemprop="dateCreated datePublished" datetime="2021-01-18T20:24:03+08:00">2021-01-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BC%A0%E6%84%9F%E5%99%A8/" itemprop="url" rel="index"><span itemprop="name">传感器</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BC%A0%E6%84%9F%E5%99%A8/LiDAR/" itemprop="url" rel="index"><span itemprop="name">LiDAR</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">本文详解了URG激光雷达的使用</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>Hokuyo的2D单线激光雷达URG系列因其低廉的成本在机器人领域得到了较多的应用。</p>
+<h2 id="2-在线数据读取"><a href="#2-在线数据读取" class="headerlink" title="2. 在线数据读取"></a>2. 在线数据读取</h2><p>ROS支持UGR激光雷达数据的在线读取，仓库链接见<a target="_blank" rel="noopener" href="https://github.com/ros-drivers/urg_node">ros-drivers/urg_node: ROS wrapper for the Hokuyo urg_c library. </a>，使用方法见<a target="_blank" rel="noopener" href="http://wiki.ros.org/hokuyo_node/Tutorials/UsingTheHokuyoNode">hokuyo_node/Tutorials/UsingTheHokuyoNode - ROS Wiki</a>.</p>
+<p>配置安装上述仓库后，可以通过如下命令在<code>launch</code>文件中启动<code>urg node</code>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;urgip&quot;</span> <span class="attr">default</span>=<span class="string">&quot;192.168.0.10&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;urgport&quot;</span> <span class="attr">default</span>=<span class="string">&quot;/dev/ttyACM0&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;urgbaud&quot;</span> <span class="attr">default</span>=<span class="string">&quot;115200&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">arg</span> <span class="attr">name</span>=<span class="string">&quot;urgframeid&quot;</span> <span class="attr">default</span>=<span class="string">&quot;laser&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;urg_node&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;urg_node&quot;</span> <span class="attr">type</span>=<span class="string">&quot;urg_node&quot;</span> <span class="attr">output</span>=<span class="string">&quot;screen&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;ip_address&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$(arg urgip)&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;serial_port&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$(arg urgport)&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;serial_baud&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$(arg urgbaud)&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;frame_id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$(arg urgframeid)&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;calibrate_time&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;publish_intensity&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;publish_multiecho&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;angle_min&quot;</span> <span class="attr">value</span>=<span class="string">&quot;-1.5707963&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;angle_max&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1.5707963&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如需录制数据，可以在<code>launch</code>文件中添加如下命令：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">node</span> <span class="attr">name</span>=<span class="string">&quot;urgrecord&quot;</span> <span class="attr">pkg</span>=<span class="string">&quot;rosbag&quot;</span> <span class="attr">type</span>=<span class="string">&quot;record&quot;</span> <span class="attr">args</span>=<span class="string">&quot;/scan /GPSIMUdata -o /root/data/urg&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>数据将以<code>rosbag</code>的形式保存在指定路径下，消息类型为<code>sensor_msgs/LaserScan</code>。</p>
+<h2 id="3-数据解析"><a href="#3-数据解析" class="headerlink" title="3. 数据解析"></a>3. 数据解析</h2><p><code>sensor_msgs/LaserScan</code>类型的数据可以直接被<code>ROS</code>解析识别，无需转换，可以直接使用。</p>
+<p>但在一些情况下，需要将URG数据转换为其他格式，此处以自定义<code>lms</code>格式为例。格式定义如下：</p>
+<img src="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/image-20210118204026200.png" alt="image-20210118204026200" style="zoom:80%;" />
+
+<p>文件最开始的12个字节依次为<code>angle range</code>，<code>angle resolution</code>和<code>unit</code>，均为4字节的<code>float</code>型变量，小端模式。其中<code>angle range</code>表示单线激光测距的角度范围，<code>angle resolution</code>表示单线激光测距的水平角分辨率，<code>unit</code>表示距离记录结果的单位，记录中的值除以<code>unit</code>为真实的距离测量值，单位为<code>m</code>。文件之后的内容为按照时间顺序排列的测量记录，测量记录数不定。每条记录包含两部分：第一部分是4字节<code>long</code>型变量，表示时间戳；第二部分为<code>ang_range / angle resolution + 1</code>个<code>uint16</code>变量，表示每一条激光线的测距记录值。</p>
+<p>解析程序示例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_urg_lms</span>(<span class="params">fn</span>):</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(fn, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        ang_range = struct.unpack(<span class="string">&#x27;&lt;f&#x27;</span>, f.read(<span class="number">4</span>))[<span class="number">0</span>] <span class="comment"># ang range: float, 4 byte, = 180</span></span><br><span class="line">        ang_resol = struct.unpack(<span class="string">&#x27;&lt;f&#x27;</span>, f.read(<span class="number">4</span>))[<span class="number">0</span>] <span class="comment"># ang resolution: float, 4 byte, = 0.125</span></span><br><span class="line">        unit = struct.unpack(<span class="string">&#x27;&lt;f&#x27;</span>, f.read(<span class="number">4</span>))[<span class="number">0</span>] <span class="comment"># unit: float, 4 byte, = 100</span></span><br><span class="line">        bim_numbers = <span class="built_in">int</span>(ang_range // ang_resol + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            p_data = f.read(<span class="number">4</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(p_data) &lt; <span class="number">4</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            timestamp = struct.unpack(<span class="string">&#x27;&lt;l&#x27;</span>, p_data)[<span class="number">0</span>]</span><br><span class="line">            p_data = f.read(bim_numbers * <span class="number">2</span>)</span><br><span class="line">            </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_urg_lms</span>(<span class="params">fn</span>):</span></span><br><span class="line">    unit = <span class="number">100.0</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(fn) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(struct.pack(<span class="string">&#x27;f&#x27;</span>, <span class="number">180.0</span>))</span><br><span class="line">        f.write(struct.pack(<span class="string">&#x27;f&#x27;</span>, <span class="number">0.125</span>))</span><br><span class="line">        f.write(struct.pack(<span class="string">&#x27;f&#x27;</span>, unit))</span><br><span class="line">        <span class="keyword">for</span> _time, _<span class="built_in">range</span> <span class="keyword">in</span> <span class="built_in">zip</span>(timestamps, ranges):</span><br><span class="line">            f.write(struct.pack(<span class="string">&#x27;i&#x27;</span>, _time))</span><br><span class="line">            <span class="keyword">for</span> dist <span class="keyword">in</span> _<span class="built_in">range</span>:</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> math.isnan(dist):</span><br><span class="line">                	f.write(struct.pack(<span class="string">&#x27;h&#x27;</span>, <span class="built_in">int</span>(dist * unit))</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    f.write(struct.pack(<span class="string">&#x27;h&#x27;</span>, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+
+<p><code>rosbag</code>转<code>lms</code>示例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">This script saves each topic in a bagfile as a csv.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Accepts a filename as an optional argument. Operates on all bagfiles in current directory if no argument provided</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Written by Nick Speal in May 2013 at McGill University&#x27;s Aerospace Mechatronics Laboratory</span></span><br><span class="line"><span class="string">www.speal.ca</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Supervised by Professor Inna Sharf, Professor Meyer Nahon </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> rosbag, sys, csv</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> os <span class="comment">#for file management make directory</span></span><br><span class="line"><span class="keyword">import</span> shutil <span class="comment">#for file management, copy file</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#verify correct input arguments: 1 or 2</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">len</span>(sys.argv) &gt; <span class="number">2</span>):</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&quot;invalid number of arguments:   &quot;</span> + <span class="built_in">str</span>(<span class="built_in">len</span>(sys.argv))</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&quot;should be 2: &#x27;bag2csv.py&#x27; and &#x27;bagName&#x27;&quot;</span></span><br><span class="line">	<span class="built_in">print</span> <span class="string">&quot;or just 1  : &#x27;bag2csv.py&#x27;&quot;</span></span><br><span class="line">	sys.exit(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">elif</span> (<span class="built_in">len</span>(sys.argv) == <span class="number">2</span>):</span><br><span class="line">	listOfBagFiles = [sys.argv[<span class="number">1</span>]]</span><br><span class="line">	numberOfFiles = <span class="string">&quot;1&quot;</span></span><br><span class="line">	<span class="built_in">print</span> <span class="string">&quot;reading only 1 bagfile: &quot;</span> + <span class="built_in">str</span>(listOfBagFiles[<span class="number">0</span>])</span><br><span class="line"><span class="keyword">elif</span> (<span class="built_in">len</span>(sys.argv) == <span class="number">1</span>):</span><br><span class="line">	listOfBagFiles = [f <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(<span class="string">&quot;.&quot;</span>) <span class="keyword">if</span> f[-<span class="number">4</span>:] == <span class="string">&quot;.bag&quot;</span>]	<span class="comment">#get list of only bag files in current dir.</span></span><br><span class="line">	numberOfFiles = <span class="built_in">str</span>(<span class="built_in">len</span>(listOfBagFiles))</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&quot;reading all &quot;</span> + numberOfFiles + <span class="string">&quot; bagfiles in current directory: \n&quot;</span></span><br><span class="line">	<span class="keyword">for</span> f <span class="keyword">in</span> listOfBagFiles:</span><br><span class="line">		<span class="built_in">print</span> f</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&quot;\n press ctrl+c in the next 2 seconds to cancel \n&quot;</span></span><br><span class="line">	time.sleep(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="built_in">print</span> <span class="string">&quot;bad argument(s): &quot;</span> + <span class="built_in">str</span>(sys.argv)	<span class="comment">#shouldnt really come up</span></span><br><span class="line">	sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> bagFile <span class="keyword">in</span> listOfBagFiles:</span><br><span class="line">	count += <span class="number">1</span></span><br><span class="line">	<span class="built_in">print</span> <span class="string">&quot;reading file &quot;</span> + <span class="built_in">str</span>(count) + <span class="string">&quot; of  &quot;</span> + numberOfFiles + <span class="string">&quot;: &quot;</span> + bagFile</span><br><span class="line">	<span class="comment">#access bag</span></span><br><span class="line">	bag = rosbag.Bag(bagFile)</span><br><span class="line">	bagContents = bag.read_messages()</span><br><span class="line">	bagName = bag.filename</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">#create a new directory</span></span><br><span class="line">	folder = string.rstrip(bagName, <span class="string">&quot;.bag&quot;</span>)</span><br><span class="line">	<span class="keyword">try</span>:	<span class="comment">#else already exists</span></span><br><span class="line">		os.makedirs(folder)</span><br><span class="line">	<span class="keyword">except</span>:</span><br><span class="line">		<span class="keyword">pass</span></span><br><span class="line">	shutil.copyfile(bagName, folder + <span class="string">&#x27;/&#x27;</span> + bagName)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">#get list of topics from the bag</span></span><br><span class="line">	listOfTopics = []</span><br><span class="line">	<span class="keyword">for</span> topic, msg, t <span class="keyword">in</span> bagContents:</span><br><span class="line">		<span class="keyword">if</span> topic <span class="keyword">not</span> <span class="keyword">in</span> listOfTopics:</span><br><span class="line">			listOfTopics.append(topic)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> topicName <span class="keyword">in</span> listOfTopics:</span><br><span class="line">		<span class="comment">#Create a new CSV file for each topic</span></span><br><span class="line">		filename = folder + <span class="string">&#x27;/&#x27;</span> + string.replace(topicName, <span class="string">&#x27;/&#x27;</span>, <span class="string">&#x27;_slash_&#x27;</span>) + <span class="string">&#x27;.csv&#x27;</span></span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w+&#x27;</span>) <span class="keyword">as</span> csvfile:</span><br><span class="line">			filewriter = csv.writer(csvfile, delimiter = <span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">			firstIteration = <span class="literal">True</span>	<span class="comment">#allows header row</span></span><br><span class="line">			<span class="keyword">for</span> subtopic, msg, t <span class="keyword">in</span> bag.read_messages(topicName):	<span class="comment"># for each instant in time that has data for topicName</span></span><br><span class="line">				<span class="comment">#parse data from this instant, which is of the form of multiple lines of &quot;Name: value\n&quot;</span></span><br><span class="line">				<span class="comment">#	- put it in the form of a list of 2-element lists</span></span><br><span class="line">				msgString = <span class="built_in">str</span>(msg)</span><br><span class="line">				msgList = string.split(msgString, <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">				instantaneousListOfData = []</span><br><span class="line">				<span class="keyword">for</span> nameValuePair <span class="keyword">in</span> msgList:</span><br><span class="line">					splitPair = string.split(nameValuePair, <span class="string">&#x27;:&#x27;</span>)</span><br><span class="line">					<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(splitPair)):	<span class="comment">#should be 0 to 1</span></span><br><span class="line">						splitPair[i] = string.strip(splitPair[i])</span><br><span class="line">					instantaneousListOfData.append(splitPair)</span><br><span class="line">				<span class="comment">#write the first row from the first element of each pair</span></span><br><span class="line">				<span class="keyword">if</span> firstIteration:	<span class="comment"># header</span></span><br><span class="line">					headers = [<span class="string">&quot;rosbagTimestamp&quot;</span>]	<span class="comment">#first column header</span></span><br><span class="line">					<span class="keyword">for</span> pair <span class="keyword">in</span> instantaneousListOfData:</span><br><span class="line">						headers.append(pair[<span class="number">0</span>])</span><br><span class="line">					filewriter.writerow(headers)</span><br><span class="line">					firstIteration = <span class="literal">False</span></span><br><span class="line">				<span class="comment"># write the value from each pair to the file</span></span><br><span class="line">				values = [<span class="built_in">str</span>(t)]	<span class="comment">#first column will have rosbag timestamp</span></span><br><span class="line">				<span class="keyword">for</span> pair <span class="keyword">in</span> instantaneousListOfData:</span><br><span class="line">					<span class="keyword">if</span> <span class="built_in">len</span>(pair) &gt; <span class="number">1</span>:</span><br><span class="line">						values.append(pair[<span class="number">1</span>])</span><br><span class="line">				filewriter.writerow(values)</span><br><span class="line">	bag.close()</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;Done reading all &quot;</span> + numberOfFiles + <span class="string">&quot; bag files.&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+	
+	
+      <div>
+        
+    <div style="text-align:center;color: #ccc;font-size:14px;">
+        ------ 本文结束 ------</div>
+
+      </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BC%A0%E6%84%9F%E5%99%A8/" rel="tag"># 传感器</a>
+              <a href="/tags/LiDAR/" rel="tag"># LiDAR</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/17/VINS-Mono%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A%E5%8E%9F%E7%90%86%E5%8F%8Acamera-models%E6%A8%A1%E5%9D%97%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="prev" title="VINS-Mono详解（三）：相机标定原理及camera_models模块源码解析">
+      <i class="fa fa-chevron-left"></i> VINS-Mono详解（三）：相机标定原理及camera_models模块源码解析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/01/Latex%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="Latex笔记（一）：常用命令">
+      Latex笔记（一）：常用命令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">1. 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%9C%A8%E7%BA%BF%E6%95%B0%E6%8D%AE%E8%AF%BB%E5%8F%96"><span class="nav-number">2.</span> <span class="nav-text">2. 在线数据读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">3. 数据解析</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="亓淇"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">亓淇</p>
+  <div class="site-description" itemprop="description">小小眼睛充满大大迷惑</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Tenant" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Tenant" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gaoshuqi@pku.edu.cn" title="E-Mail → mailto:gaoshuqi@pku.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亓淇</span>
+</div>
+
+<!--
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/qwe/anime.min.js"></script>
+  <script src="/qwe/velocity/velocity.min.js"></script>
+  <script src="/qwe/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

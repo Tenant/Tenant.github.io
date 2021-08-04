@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/qwe/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.calria.plus","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文记录了Ubuntu平台下用的命令。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu常用命令">
+<meta property="og:url" content="https://blog.calria.plus/2021/04/09/Ubuntu%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="亓淇小站">
+<meta property="og:description" content="本文记录了Ubuntu平台下用的命令。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-09T13:29:21.000Z">
+<meta property="article:modified_time" content="2021-08-01T02:57:04.358Z">
+<meta property="article:author" content="亓淇">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="Ubuntu">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.calria.plus/2021/04/09/Ubuntu%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Ubuntu常用命令 | 亓淇小站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9f1a35a3bc5f5a1c0a5aaed14fbe54dd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">亓淇小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap/hexconvert/" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2021/04/09/Ubuntu%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="亓淇">
+      <meta itemprop="description" content="小小眼睛充满大大迷惑">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亓淇小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ubuntu常用命令
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-04-09 21:29:21" itemprop="dateCreated datePublished" datetime="2021-04-09T21:29:21+08:00">2021-04-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">本文记录了Ubuntu平台下用的命令。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="系统内核和文件系统"><a href="#系统内核和文件系统" class="headerlink" title="系统内核和文件系统"></a>系统内核和文件系统</h2><h3 id="系统安装与配置"><a href="#系统安装与配置" class="headerlink" title="系统安装与配置"></a>系统安装与配置</h3><p><strong>更新系统软件源</strong></p>
+<p>由于国内访问Ubuntu默认软件源速度较慢，在安装系统后需要更新软件源为国内镜像地址。下面的设置以阿里云为例。通过如下命令打开系统软件源文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+
+<p>使用如下内容替换<code>sources.list</code>里面的内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"> </span><br><span class="line"><span class="comment"># src</span></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+
+<p>需要注意，不同版本Ubuntu内核名称不同。其中，16.04对应的内核名称为<code>bionic</code>，18.04对应的内核名称为<code>melodic</code>，20.04对应的内核名称为<code>focal</code>。</p>
+<p>替换完成后，执行如下命令更新软件源数据库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+
+<p><strong>更新Python源</strong></p>
+<p>由于国内访问Python默认源速度较慢，在安装好Python后需要更新Python源为国内镜像地址。下面以清华源为例。通过如下命令打开Python源文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.pip/pip.conf</span><br></pre></td></tr></table></figure>
+
+<p>如果该文件不存在，则使用下述命令创建文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.pip</span><br><span class="line">vim ~/.pip/pip.conf</span><br></pre></td></tr></table></figure>
+
+<p>使用如下内容替换<code>pip.conf</code>中的内容。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">[install]</span><br><span class="line">trusted-host = https://pypi.tuna.tsinghua.edu.cn</span><br></pre></td></tr></table></figure>
+
+<p>替换完成后，之后的Python包安装就会使用国内源了。</p>
+<p><strong>检查系统内核版本</strong></p>
+<p>使用如下命令查看系统内核版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsb_release -a</span><br></pre></td></tr></table></figure>
+
+<h3 id="开发环境配置"><a href="#开发环境配置" class="headerlink" title="开发环境配置"></a>开发环境配置</h3><h4 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h4><p>Python版本确定</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -V</span><br></pre></td></tr></table></figure>
+
+<h4 id="CMake"><a href="#CMake" class="headerlink" title="CMake"></a>CMake</h4><p>查询CMAKE版本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake --version</span><br></pre></td></tr></table></figure>
+
+<p>Ubuntu系统自带的CMake通常为低版本。由于CMake在3.12版本后进行了较大的更新，因此一些开源程序不支持使用低版本CMake进行编译。为此需要自行安装高版本CMake。CMake安装方法见<a href="https://blog.calria.plus/2021/01/05/CMake%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/">CMake用法详解 | 亓淇小站 (calria.plus)</a>。</p>
+<h4 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a>CUDA</h4><p>CUDA版本确定</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc --version</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export LD_LIBRARY_PATH=/home/sukie/program/cuda-10.1/lib64:$LD_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="联网协同"><a href="#联网协同" class="headerlink" title="联网协同"></a>联网协同</h3><p><strong>生成<code>SSH</code>公钥和密钥</strong></p>
+<p>On your client computer generate public key:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+
+<p>Copy the client public key to the server:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ~/.ssh/id_rsa.pub user@222.22.2.2.:~</span><br></pre></td></tr></table></figure>
+
+<p>Check whether <code>authorized_keys</code> exists in the directory <code>~/.ssh/</code> on the server. If not, create it:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch authorized_keys</span><br><span class="line">chmod 600 authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>Append the client public key to the server’s authorized_keys:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-Change-Shell-Version"><a href="#1-3-Change-Shell-Version" class="headerlink" title="1.3 Change Shell Version"></a>1.3 Change Shell Version</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># List the all installed shells</span></span><br><span class="line">cat /etc/shells</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check which Terminal you are using</span></span><br><span class="line">ls -l /proc/$$/exe</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$SHELL</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Change default shell for the current user</span></span><br><span class="line">chsh -s /path/to/shell</span><br></pre></td></tr></table></figure>
+
+<p>However, if you are using ssh to connect to a remote server, the abovementioned prompt may be invalid. Using the following prompt instead.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> /bin/dash</span><br><span class="line"><span class="built_in">exec</span> /bin/zsh</span><br></pre></td></tr></table></figure>
+
+<p><strong>Mount and unmount disk remotely</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l <span class="comment"># list all available disks</span></span><br><span class="line">mount -t ntfs /dev/sdb2 /media/sukie/Data <span class="comment"># mount</span></span><br><span class="line">df -lh <span class="comment"># check disk usage</span></span><br><span class="line">umount /dev/sdb2 <span class="comment"># unmount</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Check disk usage &amp; spare space</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df -h <span class="comment"># list all partions&#x27; usage condition</span></span><br><span class="line">du -hs /path/to/directory <span class="comment"># list the disk usage of each FILE recursively</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Calculate amounts of FILES</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Reference: https://blog.csdn.net/xh_hit/article/details/80651565</span></span><br><span class="line">ls -l|grep <span class="string">&quot;^-&quot;</span>| wc -l</span><br><span class="line">ls -lR|grep <span class="string">&quot;^-&quot;</span>| wc -l</span><br><span class="line">ls -l|grep <span class="string">&quot;^d&quot;</span>| wc -l</span><br></pre></td></tr></table></figure>
+
+<p>Recursively coping files with specified extension**</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp --parents -R folder_src/**/*.mp4 ./folder_dst</span><br></pre></td></tr></table></figure>
+
+<p><strong>nohup</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./scripts/train.sh &gt; log.txt 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Batch rename files</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls *jpg | awk -F\. <span class="string">&#x27;&#123;print &quot;mv &quot;$0&quot; C&quot;NR&quot;.jpg&quot;&#125;&#x27;</span> | sh</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Empty Trash in Command Line</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/.<span class="built_in">local</span>/share/Trash/*</span><br></pre></td></tr></table></figure>
+
+<p><strong>Calculate md5</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">certutil -hashfile filename MD5 <span class="comment"># windows</span></span><br><span class="line">md5sum filename <span class="comment"># ubuntu</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Summarize disk usage of each FILE recursively</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -hs /path/to/directory <span class="comment"># ubuntu</span></span><br></pre></td></tr></table></figure>
+
+<p><code>grep</code> display multiple lines infomation</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> grep -C 5 foo file 显示file文件里匹配foo字串那行以及上下5行</span><br><span class="line">grep -B 5 foo file 显示foo及前5行</span><br><span class="line">grep -A 5 foo file 显示foo及后5行</span><br></pre></td></tr></table></figure>
+<p>修改用户文件夹路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.config/user-dirs.dirs</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-SSH"><a href="#2-SSH" class="headerlink" title="2. SSH"></a>2. SSH</h3><p><strong>Install SSH server</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure>
+
+<p><strong>Start SSH server</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/ssh start</span><br></pre></td></tr></table></figure>
+
+<p><strong>Set password for user</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd user-name</span><br></pre></td></tr></table></figure>
+
+<p><strong>Enable SSH password authentication</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ssh/sshd_config</span><br><span class="line"><span class="comment"># set PasswordAuthentication as yes</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Restart SSH service</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service sshd restart</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>Install SSH client</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-client</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-VNC"><a href="#3-VNC" class="headerlink" title="3. VNC"></a>3. VNC</h3><p><strong>Install VNC server</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install x11vnc</span><br></pre></td></tr></table></figure>
+<p><strong>Set VNC password</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -storepasswd</span><br></pre></td></tr></table></figure>
+
+<p><strong>Start VNC service</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -usepw</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-TensorboardX"><a href="#4-TensorboardX" class="headerlink" title="4. TensorboardX"></a>4. TensorboardX</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --host 0.0.0.0 --logdir runs --port 6006 <span class="comment"># tensorflow and tensorboardX are required</span></span><br></pre></td></tr></table></figure>
+<p>Then open the link <code>http://162.105.92.77:6006</code> in your local browser.</p>
+<p>The following command may be useful</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsof -i: 6006 <span class="comment"># list process that occupying port 6006</span></span><br><span class="line"><span class="built_in">kill</span> PID <span class="comment"># use the actual value instead of PID</span></span><br></pre></td></tr></table></figure>
+
+<p>tensorboard: <code>Permission denied: &#39;/tmp/.tensorboard-info/pid-2274.info&#39;</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 申明环境变量</span></span><br><span class="line"><span class="built_in">export</span> TMPDIR=/tmp/<span class="variable">$USER</span>; </span><br><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">mkdir -p <span class="variable">$TMPDIR</span>;</span><br><span class="line"><span class="comment"># 打开tensorboard</span></span><br><span class="line">tensorboard --logdir <span class="variable">$LOGDIR</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-CUDA"><a href="#5-CUDA" class="headerlink" title="5. CUDA"></a>5. CUDA</h3><p><strong>Check cuda version</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/cuda/bin/nvcc --version</span><br></pre></td></tr></table></figure>
+
+<p><strong>Activate and deactivate enviroment</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> activate tensorflow</span><br><span class="line"><span class="built_in">source</span> deactive tensorflow</span><br></pre></td></tr></table></figure>
+
+<p><strong>Install commonly used packages</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda install ipython</span><br><span class="line">conda install jupyter</span><br><span class="line">conda install opencv</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-Virtualenv"><a href="#6-Virtualenv" class="headerlink" title="6. Virtualenv"></a>6. Virtualenv</h3><p><strong>Install virtualenv and create new venv</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install pip // install pip</span><br><span class="line"></span><br><span class="line">pip3 install virtualenv // install virtualenv via pip3</span><br><span class="line"></span><br><span class="line">python -m virtualenv venv <span class="comment"># 用这个命令替换下面的</span></span><br><span class="line">virtualenv -p /usr/bin/python3 --no-site-packages venv // create new virtual enviroments named venv</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> venv/bin/activate // activate virtual enviroment</span><br></pre></td></tr></table></figure>
+
+<p><strong>List all installed packaegs</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 list</span><br></pre></td></tr></table></figure>
+
+<p><strong>Build into Virtualenv</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> <span class="variable">$VIRTUAL_ENV</span>=[your_path_to_env]</span><br><span class="line">cmake -D MAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=<span class="variable">$VIRTUAL_ENV</span>/<span class="built_in">local</span>/ -D PYTHON_EXECUTABLE=<span class="variable">$VIRTUAL_ENV</span>/bin/python -D PYTHON_PACKAGES_PATH=<span class="variable">$VIRTUAL_ENV</span>/lib/python2.7/site-packages -D INSTALL_PYTHON_EXAMPLES=ON ..</span><br><span class="line">make -j</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p><strong>Deactivate virtalenv</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate venv</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-Media"><a href="#7-Media" class="headerlink" title="7. Media"></a>7. Media</h3><p><strong>Converting batches images into video</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -framerate 25 -i C%06d.jpg -c:v libx264 -profile:v high -crf 20 -pix_fmt yuv420p output.mp4</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-Jupyter-Notebook"><a href="#8-Jupyter-Notebook" class="headerlink" title="8. Jupyter Notebook"></a>8. Jupyter Notebook</h3><p><strong>Install</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create a virtual environment to install ipython and jupyter notebbook</span></span><br><span class="line">pip3 install ipython[all] <span class="comment"># Install packages in the virutal environment</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Set remote access</strong></p>
+<p>Generate the template configuration file.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook --generate-config</span><br></pre></td></tr></table></figure>
+
+<p>Open your python environment in the terminal, and then input the following commands.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> IPython.lib <span class="keyword">import</span> passwd</span><br><span class="line">passwd()</span><br></pre></td></tr></table></figure>
+
+<p>Copy the output<code>sha1</code> value, and edit the configuration file <code>~/.jupyter/jupyter_notebook_config.py</code> as the following.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c.NotebookApp.ip=<span class="string">&#x27;*&#x27;</span></span><br><span class="line">c.NotebookApp.password = u<span class="string">&#x27;sha:ce...&#x27;</span></span><br><span class="line">c.NotebookApp.open_browser = False</span><br><span class="line">c.NotebookApp.port =8888 <span class="comment">#可自行指定一个端口, 访问时使用该端口</span></span><br></pre></td></tr></table></figure>
+
+<p>Run the jupyter notebook in thte background</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup jupyter notebook &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<p>Now you can access the jupyter notebook in your server at the url <code>http://162.122.11.23:8888</code>.</p>
+<h3 id="Nvidia"><a href="#Nvidia" class="headerlink" title="Nvidia"></a>Nvidia</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+	
+	
+      <div>
+        
+    <div style="text-align:center;color: #ccc;font-size:14px;">
+        ------ 本文结束 ------</div>
+
+      </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+              <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/01/Latex%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="prev" title="Latex笔记（一）：常用命令">
+      <i class="fa fa-chevron-left"></i> Latex笔记（一）：常用命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/09/Windows%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="Windows常用命令">
+      Windows常用命令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E5%92%8C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">系统内核和文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">系统安装与配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">开发环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Python"><span class="nav-number">1.2.1.</span> <span class="nav-text">Python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMake"><span class="nav-number">1.2.2.</span> <span class="nav-text">CMake</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CUDA"><span class="nav-number">1.2.3.</span> <span class="nav-text">CUDA</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E7%BD%91%E5%8D%8F%E5%90%8C"><span class="nav-number">1.3.</span> <span class="nav-text">联网协同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Change-Shell-Version"><span class="nav-number">1.4.</span> <span class="nav-text">1.3 Change Shell Version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-SSH"><span class="nav-number">1.5.</span> <span class="nav-text">2. SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-VNC"><span class="nav-number">1.6.</span> <span class="nav-text">3. VNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-TensorboardX"><span class="nav-number">1.7.</span> <span class="nav-text">4. TensorboardX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CUDA"><span class="nav-number">1.8.</span> <span class="nav-text">5. CUDA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Virtualenv"><span class="nav-number">1.9.</span> <span class="nav-text">6. Virtualenv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Media"><span class="nav-number">1.10.</span> <span class="nav-text">7. Media</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Jupyter-Notebook"><span class="nav-number">1.11.</span> <span class="nav-text">8. Jupyter Notebook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nvidia"><span class="nav-number">1.12.</span> <span class="nav-text">Nvidia</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="亓淇"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">亓淇</p>
+  <div class="site-description" itemprop="description">小小眼睛充满大大迷惑</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Tenant" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Tenant" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gaoshuqi@pku.edu.cn" title="E-Mail → mailto:gaoshuqi@pku.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亓淇</span>
+</div>
+
+<!--
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/qwe/anime.min.js"></script>
+  <script src="/qwe/velocity/velocity.min.js"></script>
+  <script src="/qwe/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

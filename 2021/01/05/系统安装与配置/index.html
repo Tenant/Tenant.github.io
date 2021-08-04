@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/qwe/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.calria.plus","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文记录了Windows以及Ubuntu平台下操作系统及常用工具的安装，并对常用的命令进行了归纳总结。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统安装与配置">
+<meta property="og:url" content="https://blog.calria.plus/2021/01/05/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="亓淇小站">
+<meta property="og:description" content="本文记录了Windows以及Ubuntu平台下操作系统及常用工具的安装，并对常用的命令进行了归纳总结。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-05T03:33:47.000Z">
+<meta property="article:modified_time" content="2021-08-01T02:57:04.366Z">
+<meta property="article:author" content="亓淇">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.calria.plus/2021/01/05/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>系统安装与配置 | 亓淇小站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9f1a35a3bc5f5a1c0a5aaed14fbe54dd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">亓淇小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap/hexconvert/" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2021/01/05/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="亓淇">
+      <meta itemprop="description" content="小小眼睛充满大大迷惑">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亓淇小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          系统安装与配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-05 11:33:47" itemprop="dateCreated datePublished" datetime="2021-01-05T11:33:47+08:00">2021-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">本文记录了Windows以及Ubuntu平台下操作系统及常用工具的安装，并对常用的命令进行了归纳总结。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-网络"><a href="#1-网络" class="headerlink" title="1. 网络"></a>1. 网络</h2><p>浏览器推荐使用Microsoft Edge，平替Google Chrome。</p>
+<h2 id="2-资料整理"><a href="#2-资料整理" class="headerlink" title="2. 资料整理"></a>2. 资料整理</h2><p>笔记分四类整理：</p>
+<p>思维导图软件推荐<a target="_blank" rel="noopener" href="https://mm.edrawsoft.cn/files">MindMaster - 在线思维导图</a>和KnowledgeBase Builder。其中，MindMaster是功能较为多样的传统思维道路软件，Knewlege Builder则是一个去中心化的思维导图软件。</p>
+<p>偏理论专业知识使用<a target="_blank" rel="noopener" href="https://www.latex-project.org/get/">LATEX</a>整理，方便输入公式；专业领域代码片段使用<a target="_blank" rel="noopener" href="https://github.com/">Github</a>整理。论文、电子书及网页使用Zerote整理。代码使用<a target="_blank" rel="noopener" href="https://github.com/">Github</a>整理。本地编辑<code>MarkDown</code>文档采用<a target="_blank" rel="noopener" href="https://typora.io/">Typora</a>。富媒体使用PowerPoint管理，并同步于BDWP。</p>
+<p>机械性记忆知识点推荐<a target="_blank" rel="noopener" href="https://apps.ankiweb.net/">Anki</a>，灵感以及碎片化知识管理推荐<a target="_blank" rel="noopener" href="https://trello.com/">Trello</a>。</p>
+<p>PDF文档阅读推荐<a target="_blank" rel="noopener" href="http://www.zhizhireader.com/">知之阅读</a>。</p>
+<p>归档文件的备份使用移动硬盘,<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/disk/home#/all?path=%2F&vmode=list">百度网盘</a>，<br><a target="_blank" rel="noopener" href="https://www.google.com/drive/">Google Drive</a>。<br>其中百度网盘用于存放大体积、不常用且丢失后损失不大的文件，该部分文件无二次备份，<br>Google Drive用于保存重要的私人文件，<br>移动硬盘用于二次备份重要的私人文件，以及大体积的常用文件，<br>大体积常用文件亦无二次备份。</p>
+<h2 id="3-Coding"><a href="#3-Coding" class="headerlink" title="3. Coding"></a>3. Coding</h2><p>Ubuntu下C++程序开发推荐<a target="_blank" rel="noopener" href="https://www.jetbrains.com/clion/download/#section=windows">Clion</a>，<br>Ubuntu和Windows下Python程序开发推荐<a target="_blank" rel="noopener" href="https://www.jetbrains.com/pycharm-edu/download/#section=windows">PyCharm</a>，<br>Windows远程调试服务器代码推荐<a target="_blank" rel="noopener" href="https://code.visualstudio.com/insiders/">VSCode Insider</a>，<br>代码版本管理推荐使用<a target="_blank" rel="noopener" href="https://github.com/">Github</a>。</p>
+<h2 id="4-Tools"><a href="#4-Tools" class="headerlink" title="4. Tools"></a>4. Tools</h2><p>文本文件编辑推荐<a target="_blank" rel="noopener" href="https://notepad-plus-plus.org/download/v7.7.1.html">Notepad++</a>，<br>压缩文件软件推荐<a target="_blank" rel="noopener" href="https://www.7-zip.org/">7z</a>，<br>Windows录屏软件推荐Bandicam，<br>Ubuntu录屏软推荐GifCam，<br>Windows截屏软件推荐FSCapture，<br>Windows磁盘文件搜索推荐<a target="_blank" rel="noopener" href="https://www.voidtools.com/downloads/">Everything</a>,<br>Windows资源管理器插件推荐[Listary](<a target="_blank" rel="noopener" href="https://www.listary.com/%EF%BC%89%EF%BC%8C">https://www.listary.com/），</a><br>快到飞起，<br>Windows磁盘占用查看推荐SpaceSniffer，<br>Windows快捷键设置推荐WinHotK，<br>Windows品台Flash播放需安装<a target="_blank" rel="noopener" href="https://get.adobe.com/cn/air/otherversions/">Adobe AIR</a>，<br>启动盘制作推荐Rufus或UltraISO。<br>FTP客户端使用<a target="_blank" rel="noopener" href="https://filezilla-project.org/">FileZilla</a>。<br>IEEE 754单精度二进制表示在线计算器见<a target="_blank" rel="noopener" href="https://www.binaryconvert.com/convert_float.html">链接</a>。<br>IEEE 754双精度二进制表示在线计算器见<a target="_blank" rel="noopener" href="https://www.binaryconvert.com/convert_double.html">链接</a>。<br>UTC时间戳转换在线计算器见<a target="_blank" rel="noopener" href="https://tool.chinaz.com/tools/unixtime.aspx">链接</a>。<br>经纬度CSV转kml在线计算器见<a target="_blank" rel="noopener" href="http://www.convertcsv.com/csv-to-kml.htm">链接</a>,使用时仅需在CSV中保留<code>Latitude</code>和<code>Longitude</code>和<code> Altitude</code>三列即可，上传文件后无需进行其它操作。<br>Windows下磁盘数据恢复软件推荐EaseUS。<br>Matrix Calcus在线计算器见<a target="_blank" rel="noopener" href="http://www.matrixcalculus.org/">链接</a>。</p>
+
+    </div>
+
+    
+    
+    
+	
+	
+      <div>
+        
+    <div style="text-align:center;color: #ccc;font-size:14px;">
+        ------ 本文结束 ------</div>
+
+      </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/03/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%A6%E8%A7%A3/" rel="prev" title="使用Hexo搭建个人博客详解">
+      <i class="fa fa-chevron-left"></i> 使用Hexo搭建个人博客详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/05/Docker%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/" rel="next" title="Docker详解（一）：安装和常见操作">
+      Docker详解（一）：安装和常见操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%BD%91%E7%BB%9C"><span class="nav-number">1.</span> <span class="nav-text">1. 网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">2. 资料整理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Coding"><span class="nav-number">3.</span> <span class="nav-text">3. Coding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Tools"><span class="nav-number">4.</span> <span class="nav-text">4. Tools</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="亓淇"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">亓淇</p>
+  <div class="site-description" itemprop="description">小小眼睛充满大大迷惑</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Tenant" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Tenant" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gaoshuqi@pku.edu.cn" title="E-Mail → mailto:gaoshuqi@pku.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亓淇</span>
+</div>
+
+<!--
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/qwe/anime.min.js"></script>
+  <script src="/qwe/velocity/velocity.min.js"></script>
+  <script src="/qwe/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

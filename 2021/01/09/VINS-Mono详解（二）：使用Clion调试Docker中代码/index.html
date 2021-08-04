@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/qwe/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.calria.plus","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本节详述了如何在Docker中配置VINS-Mono的环境并使用本地的Clion进行调试开发。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VINS-Mono详解（二）：使用Clion调试Docker中代码">
+<meta property="og:url" content="https://blog.calria.plus/2021/01/09/VINS-Mono%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8Clion%E8%B0%83%E8%AF%95Docker%E4%B8%AD%E4%BB%A3%E7%A0%81/index.html">
+<meta property="og:site_name" content="亓淇小站">
+<meta property="og:description" content="本节详述了如何在Docker中配置VINS-Mono的环境并使用本地的Clion进行调试开发。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-09T07:41:43.000Z">
+<meta property="article:modified_time" content="2021-08-01T02:57:04.358Z">
+<meta property="article:author" content="亓淇">
+<meta property="article:tag" content="SLAM">
+<meta property="article:tag" content="vSLAM">
+<meta property="article:tag" content="VINS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.calria.plus/2021/01/09/VINS-Mono%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8Clion%E8%B0%83%E8%AF%95Docker%E4%B8%AD%E4%BB%A3%E7%A0%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>VINS-Mono详解（二）：使用Clion调试Docker中代码 | 亓淇小站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9f1a35a3bc5f5a1c0a5aaed14fbe54dd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">亓淇小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap/hexconvert/" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2021/01/09/VINS-Mono%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8Clion%E8%B0%83%E8%AF%95Docker%E4%B8%AD%E4%BB%A3%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="亓淇">
+      <meta itemprop="description" content="小小眼睛充满大大迷惑">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亓淇小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VINS-Mono详解（二）：使用Clion调试Docker中代码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-09 15:41:43" itemprop="dateCreated datePublished" datetime="2021-01-09T15:41:43+08:00">2021-01-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SLAM/" itemprop="url" rel="index"><span itemprop="name">SLAM</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SLAM/vSLAM/" itemprop="url" rel="index"><span itemprop="name">vSLAM</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SLAM/vSLAM/VINS/" itemprop="url" rel="index"><span itemprop="name">VINS</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">本节详述了如何在Docker中配置VINS-Mono的环境并使用本地的Clion进行调试开发。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本节内容参考<a target="_blank" rel="noopener" href="https://blog.jetbrains.com/clion/2020/01/using-docker-with-clion/">链接</a>。</p>
+<h2 id="1-构建Docker"><a href="#1-构建Docker" class="headerlink" title="1. 构建Docker"></a>1. 构建Docker</h2><p>为了构建支持远程调试的Docker，需要在<code>Docker</code>文件中添加如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">RUN apt-get update &amp;&amp; apt-get install -y openssh-server rsync gdb gdbserver &amp;&amp; \</span><br><span class="line">    mkdir /var/run/sshd &amp;&amp; \</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&#x27;root:root&#x27;</span> | chpasswd &amp;&amp; \</span><br><span class="line">    sed -i <span class="string">&#x27;s/PermitRootLogin prohibit-password/PermitRootLogin yes/&#x27;</span> /etc/ssh/sshd_config</span><br><span class="line">    sed -i <span class="string">&#x27;s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g&#x27;</span> /etc/pam.d/sshd &amp;&amp; \</span><br><span class="line">    sed -i <span class="string">&#x27;s/\(^Port\)/#\1/&#x27;</span> /etc/ssh/sshd_config &amp;&amp; <span class="built_in">echo</span> Port 2233 &gt;&gt; /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line">ENV NOTVISIBLE <span class="string">&quot;in users profile&quot;</span></span><br><span class="line">RUN <span class="built_in">echo</span> <span class="string">&quot;export VISIBLE=now&quot;</span> &gt;&gt; /etc/profile</span><br><span class="line"></span><br><span class="line">EXPOSE 2233 7777 <span class="comment"># 22 for ssh server. 7777 for gdb server</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># RUN useradd -ms /bin/bash debugger</span></span><br><span class="line"><span class="comment"># RUN echo &#x27;debugger:pwd&#x27; | chpasswd</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，上面的命令中，为了防止<code>Docker</code>和<code>Host</code>的SSH端口发生冲突，将<code>Docke</code>的<code>SSH</code>端口重定向到了<code>2233</code></p>
+<p>端口。</p>
+<p>然后运行如下命令，构建镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t ros:vins-mono-screen .</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-实例化镜像"><a href="#2-实例化镜像" class="headerlink" title="2. 实例化镜像"></a>2. 实例化镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name vins-mono-screen --network host ros:vins-mono-screen</span><br></pre></td></tr></table></figure>
+
+<p>示例化镜像后通过以下命令测试<code>ssh</code>配置是否成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 2233 root@localhost</span><br></pre></td></tr></table></figure>
+
+<p>若提示密码设置不成功，可以通过以下命令重设密码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd root</span><br></pre></td></tr></table></figure>
+
+<p>若<code>Docker</code>中SSH服务没有启动，或手工更改了<code>\etc\ssh\sshd_config</code>中的参数，可以通过以下命令操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/ssh restart</span><br><span class="line">/etc/init.d/ssh start</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-配置Clion"><a href="#3-配置Clion" class="headerlink" title="3. 配置Clion"></a>3. 配置Clion</h2><h3 id="3-1-配置Toolchains"><a href="#3-1-配置Toolchains" class="headerlink" title="3.1 配置Toolchains"></a>3.1 配置Toolchains</h3><img src = "http://qmt3iojod.hn-bkt.clouddn.com/FoyKTY1LxsYpFCEwtE3zlbWjckQ-" width="600px"/>
+
+
+
+<h3 id="3-2-配置Deployment"><a href="#3-2-配置Deployment" class="headerlink" title="3.2 配置Deployment"></a>3.2 配置Deployment</h3><img src = "http://qmt3iojod.hn-bkt.clouddn.com/FvB7rmC9FnuaTiQIKIQwOan1NXMd" width="600px"/>
+
+<img src = "http://qmt3iojod.hn-bkt.clouddn.com/FkJf3pZQw4NiCYVWV6lKVeAxmbjV" width="600px"/>
+
+<p><code>Local Path</code>的文件会上传到<code>Deployment Path</code>，然后在远程编译，完成配置后记得Resync代码。</p>
+<h3 id="4-打开项目"><a href="#4-打开项目" class="headerlink" title="4. 打开项目"></a>4. 打开项目</h3><p>完成以上配置后，打开工程项目。此时注意因为Clion通过SSH连接到Container时，是没有<code>source</code>ROS的安装路径的，所以此时<code>CMakelists.txt</code>中<code>find_package(catkin)</code>将报错，此时，需要在<code>CMakelists.txt</code>中<code>find_package(catkin)</code>前添加如下命令：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_PREFIX_PATH /opt/ros/kinetic /root/catkin_ws/devel)</span><br></pre></td></tr></table></figure>
+
+<p>另外，需要在Clion的Run/Debug Configurations中，增加相应的环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROS_MASTER_URI=http://localhost:11311 <span class="comment"># ros master</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+	
+	
+      <div>
+        
+    <div style="text-align:center;color: #ccc;font-size:14px;">
+        ------ 本文结束 ------</div>
+
+      </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SLAM/" rel="tag"># SLAM</a>
+              <a href="/tags/vSLAM/" rel="tag"># vSLAM</a>
+              <a href="/tags/VINS/" rel="tag"># VINS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/08/Shell%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/" rel="prev" title="Shell使用详解">
+      <i class="fa fa-chevron-left"></i> Shell使用详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/14/Latex%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="next" title="Latex详解（一）：本地安装和环境配置">
+      Latex详解（一）：本地安装和环境配置 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%9E%84%E5%BB%BADocker"><span class="nav-number">1.</span> <span class="nav-text">1. 构建Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AE%9E%E4%BE%8B%E5%8C%96%E9%95%9C%E5%83%8F"><span class="nav-number">2.</span> <span class="nav-text">2. 实例化镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AEClion"><span class="nav-number">3.</span> <span class="nav-text">3. 配置Clion</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E9%85%8D%E7%BD%AEToolchains"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 配置Toolchains</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E9%85%8D%E7%BD%AEDeployment"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 配置Deployment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%89%93%E5%BC%80%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.3.</span> <span class="nav-text">4. 打开项目</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="亓淇"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">亓淇</p>
+  <div class="site-description" itemprop="description">小小眼睛充满大大迷惑</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Tenant" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Tenant" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gaoshuqi@pku.edu.cn" title="E-Mail → mailto:gaoshuqi@pku.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亓淇</span>
+</div>
+
+<!--
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/qwe/anime.min.js"></script>
+  <script src="/qwe/velocity/velocity.min.js"></script>
+  <script src="/qwe/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

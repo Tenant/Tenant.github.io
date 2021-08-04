@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/qwe/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.calria.plus","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文总结了PCAP的格式，并展示了简单的读取demo。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PCAP格式解析及读取示例">
+<meta property="og:url" content="https://blog.calria.plus/2021/01/15/PCAP%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90%E5%8F%8A%E8%AF%BB%E5%8F%96%E7%A4%BA%E4%BE%8B/index.html">
+<meta property="og:site_name" content="亓淇小站">
+<meta property="og:description" content="本文总结了PCAP的格式，并展示了简单的读取demo。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/L3Byb3h5L2h0dHAvaGkuY3Nkbi5uZXQvYXR0YWNobWVudC8yMDEwMDMvMjgvNDYzMzYzOV8xMjY5NzUyMDI4ZzlDQi5wbmc%3D.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/2021-01-15_235541-1610769627577.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/2021-01-15_235504-1610769572062.png">
+<meta property="article:published_time" content="2021-01-15T15:59:22.000Z">
+<meta property="article:modified_time" content="2021-08-01T02:57:04.349Z">
+<meta property="article:author" content="亓淇">
+<meta property="article:tag" content="PCAP">
+<meta property="article:tag" content="Velodyne">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/L3Byb3h5L2h0dHAvaGkuY3Nkbi5uZXQvYXR0YWNobWVudC8yMDEwMDMvMjgvNDYzMzYzOV8xMjY5NzUyMDI4ZzlDQi5wbmc%3D.jpg">
+
+<link rel="canonical" href="https://blog.calria.plus/2021/01/15/PCAP%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90%E5%8F%8A%E8%AF%BB%E5%8F%96%E7%A4%BA%E4%BE%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>PCAP格式解析及读取示例 | 亓淇小站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9f1a35a3bc5f5a1c0a5aaed14fbe54dd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">亓淇小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap/hexconvert/" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2021/01/15/PCAP%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90%E5%8F%8A%E8%AF%BB%E5%8F%96%E7%A4%BA%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="亓淇">
+      <meta itemprop="description" content="小小眼睛充满大大迷惑">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亓淇小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PCAP格式解析及读取示例
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-15 23:59:22" itemprop="dateCreated datePublished" datetime="2021-01-15T23:59:22+08:00">2021-01-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+              </span>
+
+          
+            <div class="post-description">本文总结了PCAP的格式，并展示了简单的读取demo。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-通用PCAP格式"><a href="#1-通用PCAP格式" class="headerlink" title="1. 通用PCAP格式"></a>1. 通用PCAP格式</h2><p>PCAP是一种通用的数据流格式，很多开源的项目都需要用到这种格式的文件。PCAP文件可以分为三个部分：</p>
+<ul>
+<li>Global Header：24 Byte，定义如下：<ul>
+<li>Magic：4 Byte，标记PCAP文件的开始，用来识别文件开头和文件大小端。其中<code>\xa1\xb2\xc3\d4</code>表示大端模式，<code>\xd4\xc3\b2\xa1</code>表示小端模式</li>
+<li>Major：2 Byte，uint16，当前文件主要版本号</li>
+<li>Minor：2 Byte，uint6，当前文件次要版本号</li>
+<li>ThisZone：4 Byte，int32，当地标准时间</li>
+<li>SigFigs：4 Byte，uint32，时间戳的精度</li>
+<li>SnapLen：4 Byte，uint32，最大存储长度</li>
+</ul>
+</li>
+<li>Packet Header：16 Byte，每一个抓取的Packet都有一个Packet Header，Packet Header记录了Packet Data的长度和时间戳等信息，定义如下：<ul>
+<li>Seconds：4 Byte， uint32， Unix时间戳以秒为单位的整数部分</li>
+<li>uSeconds：4 Byte， uint32， Unix时间戳以秒为单位的小数部分，单位是<code>1e-6</code>秒</li>
+<li>CapLen：4 Byte， uint32， 抓取得到的的数据帧的长度，即Packet Data的长度，由此可以计算下一个数据帧的位置</li>
+<li>Len：4 Byte， uint32，网络中实际数据帧的长度，一般不大于CapLen，多数情况下和CapLen相等</li>
+</ul>
+</li>
+<li>Packet Data：紧跟在自己的Packet Header后面，长度为CapLen Byte，为记录的消息的本体。</li>
+</ul>
+<p>PCAP的标准格式示例如下：</p>
+<p><img src="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/L3Byb3h5L2h0dHAvaGkuY3Nkbi5uZXQvYXR0YWNobWVudC8yMDEwMDMvMjgvNDYzMzYzOV8xMjY5NzUyMDI4ZzlDQi5wbmc%3D.jpg" alt="img"></p>
+<h2 id="2-LiDAR-PCAP示例"><a href="#2-LiDAR-PCAP示例" class="headerlink" title="2. LiDAR PCAP示例"></a>2. LiDAR PCAP示例</h2><p>LiDAR传感器通常通过UDP网络报的形式发送数据，因此通常将LiDAR数据报文录制为PCAP文件进行后处理。</p>
+<h3 id="2-1-报文录制"><a href="#2-1-报文录制" class="headerlink" title="2.1 报文录制"></a>2.1 报文录制</h3><p>录制LiDAR报文数据和录制其他网络包一样，使用如下命令即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">ID=`id -un`</span><br><span class="line">TS=`date <span class="string">&quot;+%Y-%m-%d-%H-%M-%S&quot;</span>`.pcap</span><br><span class="line">mkdir -p ~/data</span><br><span class="line"><span class="built_in">cd</span> ~/data</span><br><span class="line">/usr/sbin/tcpdump -i <span class="variable">$1</span> -Z <span class="variable">$ID</span> -s 0 -w <span class="variable">$TS</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-数据格式"><a href="#2-2-数据格式" class="headerlink" title="2.2 数据格式"></a>2.2 数据格式</h3><p>录制的完整PCAP文件的格式如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/2021-01-15_235541-1610769627577.png" alt="2021-01-15_235541"></p>
+<p>其中前24 Byte表示PCAP文件的文件头，后续部分为按顺序排列的一个个报文，每个报文包含了16 Byte字节的Packet Header和相应长度的Packet Data。</p>
+<p>在Wireshark中打开PCAP文件效果如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/2021-01-15_235504-1610769572062.png" alt="2021-01-15_235504"></p>
+<p>解析数据时，按照上述格式读取即可。</p>
+<h3 id="2-3-解析程序示例"><a href="#2-3-解析程序示例" class="headerlink" title="2.3 解析程序示例"></a>2.3 解析程序示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_uint16</span>(<span class="params">data, idx</span>):</span></span><br><span class="line">  <span class="keyword">return</span> data[idx+<span class="number">1</span>]*<span class="number">256</span> + data[idx+<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_uint32</span>(<span class="params">data, idx</span>):</span></span><br><span class="line">  <span class="keyword">return</span> data[idx+<span class="number">3</span>]*<span class="number">256</span>*<span class="number">256</span>*<span class="number">256</span> + data[idx+<span class="number">2</span>]*<span class="number">256</span>*<span class="number">256</span> + data[idx+<span class="number">1</span>]*<span class="number">256</span> + data[idx+<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_uint64</span>(<span class="params">data, idx</span>):</span></span><br><span class="line">  <span class="keyword">return</span> read_uint32(data, idx+<span class="number">4</span>)*<span class="number">256</span>*<span class="number">256</span>*<span class="number">256</span>*<span class="number">256</span> + read_uint32(data, idx)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_sint32</span>(<span class="params">data, idx</span>):</span></span><br><span class="line">  val = data[idx+<span class="number">3</span>]*<span class="number">256</span>*<span class="number">256</span>*<span class="number">256</span> + data[idx+<span class="number">2</span>]*<span class="number">256</span>*<span class="number">256</span> + data[idx+<span class="number">1</span>]*<span class="number">256</span> + data[idx+<span class="number">0</span>] </span><br><span class="line">  <span class="keyword">return</span> val-<span class="number">2</span>**<span class="number">32</span> <span class="keyword">if</span> val &gt; <span class="number">2</span>**<span class="number">31</span>-<span class="number">1</span> <span class="keyword">else</span> val</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert_unix_to_local</span>(<span class="params">ss, us</span>):</span></span><br><span class="line">    t_max = <span class="number">60</span> * <span class="number">60</span> * <span class="number">24</span></span><br><span class="line">    t = (ss % t_max + <span class="number">60</span> * <span class="number">60</span> * <span class="number">8</span>) * <span class="number">1000</span> + us // <span class="number">1000</span></span><br><span class="line">    <span class="keyword">return</span> t</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_pcap_header</span>(<span class="params">f</span>):</span></span><br><span class="line">    p_data = f.read(<span class="number">24</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(p_data) &lt; <span class="number">24</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> p_data[<span class="number">0</span>:<span class="number">4</span>] == <span class="string">b&#x27;\xd4\xc3\xb2\xa1&#x27;</span>:</span><br><span class="line">        version_major = read_uint16(p_data, <span class="number">4</span>)</span><br><span class="line">        version_minor = read_uint16(p_data, <span class="number">6</span>)</span><br><span class="line">        thiszone = read_sint32(p_data, <span class="number">8</span>)</span><br><span class="line">        timestamp = read_uint32(p_data, <span class="number">12</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;version: &#123;&#125;.&#123;&#125;&quot;</span>.<span class="built_in">format</span>(version_major, version_minor))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;timezone: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(thiszone))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;timestamp: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(timestamp))</span><br><span class="line">        <span class="keyword">return</span> p_data</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;This is not a pcap file&quot;</span>) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">split_pcap_file</span>(<span class="params">fn</span>):</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(fn, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        pcap_header = read_pcap_header(f)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> pcap_header:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            p_data = f.read(<span class="number">16</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(p_data) &lt; <span class="number">16</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                s_seconds = read_uint32(p_data,<span class="number">0</span>)</span><br><span class="line">                u_seconds = read_uint32(p_data,<span class="number">4</span>)</span><br><span class="line">                m_seconds = convert_unix_to_local(s_seconds, u_seconds)</span><br><span class="line">                data_len = read_uint16(p_data, <span class="number">12</span>)</span><br><span class="line">                <span class="keyword">if</span> data_len &gt; <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">if</span> head &lt;= m_seconds &lt;= tail:</span><br><span class="line">                        out_info.append(p_data)</span><br><span class="line">                    p_data = f.read(data_len)</span><br><span class="line">                    <span class="keyword">if</span> head &lt;= m_seconds &lt;= tail:</span><br><span class="line">                        out_info.append(p_data)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    split_csv_file(sys.argv[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<p>注：开发二进制解析程序时，可以结合WinHex和Wireshark等软件以及产品文档了解清楚数据的格式定义，然后进行对应的读取即可。</p>
+
+    </div>
+
+    
+    
+    
+	
+	
+      <div>
+        
+    <div style="text-align:center;color: #ccc;font-size:14px;">
+        ------ 本文结束 ------</div>
+
+      </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PCAP/" rel="tag"># PCAP</a>
+              <a href="/tags/Velodyne/" rel="tag"># Velodyne</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/14/OpenAI%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/" rel="prev" title="OpenAI详解（一）：安装和常见操作">
+      <i class="fa fa-chevron-left"></i> OpenAI详解（一）：安装和常见操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/17/VINS-Mono%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E7%9B%B8%E6%9C%BA%E6%A0%87%E5%AE%9A%E5%8E%9F%E7%90%86%E5%8F%8Acamera-models%E6%A8%A1%E5%9D%97%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="next" title="VINS-Mono详解（三）：相机标定原理及camera_models模块源码解析">
+      VINS-Mono详解（三）：相机标定原理及camera_models模块源码解析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%80%9A%E7%94%A8PCAP%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">1. 通用PCAP格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-LiDAR-PCAP%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">2. LiDAR PCAP示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%8A%A5%E6%96%87%E5%BD%95%E5%88%B6"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 报文录制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E8%A7%A3%E6%9E%90%E7%A8%8B%E5%BA%8F%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 解析程序示例</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="亓淇"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">亓淇</p>
+  <div class="site-description" itemprop="description">小小眼睛充满大大迷惑</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Tenant" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Tenant" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gaoshuqi@pku.edu.cn" title="E-Mail → mailto:gaoshuqi@pku.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亓淇</span>
+</div>
+
+<!--
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/qwe/anime.min.js"></script>
+  <script src="/qwe/velocity/velocity.min.js"></script>
+  <script src="/qwe/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

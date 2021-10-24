@@ -246,6 +246,10 @@ sudo apt-get install openssh-server
 
 ```bash
 sudo /etc/init.d/ssh start
+sudo service sshd start
+sudo service sshd restart
+sudo service sshd status
+sudo service sshd stop
 ```
 
 **Set password for user**

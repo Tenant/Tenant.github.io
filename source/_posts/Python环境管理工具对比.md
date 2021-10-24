@@ -5,6 +5,7 @@ categories:
   - 编程
   - Python
 tags:
+  - 编程
   - Python
 description: 本文对常用的Python环境管理工具及其使用方法进行了整理。
 ---
@@ -17,35 +18,44 @@ description: 本文对常用的Python环境管理工具及其使用方法进行�
 
 ### 安装和配置源
 
-#### 安装
+1. 官网下载安装脚本：
 
-```bash
-wget 
-chmod +X A
-./A
-```
+   [Installing on Linux — Anaconda documentation](https://docs.anaconda.com/anaconda/install/linux/)
 
-安装过程中选择默认选项即可。
+2. 执行如下命令安装脚本
 
-```bash
-conda config --set auto_activate_base false
-conda activate base
-```
+   ```bash
+   mkdir -p ~/net_ws/3rd/conda
+   bash Anaconda3-xxxx.xx-Linux-x86_64.sh
+   ```
 
-#### 配置源
+   在随后的启动的安装流程中，将anaconda安装路径设置为`~/net_ws/3rd/conda`，并拒绝之后脚本自动修改bash的选项。
 
-在`~/.condarc`中添加如下内容：
+3. 然后在anaconda目录下新建`setup.sh`脚本，输入如下信息：
 
-```bash
-channels:
-  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
-  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
-  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-  - defaults
-show_channel_urls: true
-```
+   ```bash
+   eval "$(/home/calc/net_ws/3rd/conda/bin/conda shell.bash hook)"
+   conda config --set auto_activate_base true
+   ```
 
+4. 之后需要使用anaconda时，在bash中source该脚本即可。可以在terminal中输入如下命令检测是否安装成功：
 
+   ```bash
+   conda list
+   ```
+
+5. 更换Conda源
+
+   创建`~/.condarc`文件，并填写如下内容：
+
+   ```bash
+   channels:
+     - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+     - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+     - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+     - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+   ssl_verify: true
+   ```
 
 ### 创建、删除、激活和退出环境
 
@@ -105,7 +115,11 @@ python setup.py bdist_wheel
 pip install spconv-1.2.1-cp36-cp36m-linux_x86_64.whl
 ```
 
+#### Pytorch
 
+```bash
+conda install pytorch torchvision torchaudio cudatoolkit=11.2 -c pytorch
+```
 
 ## VirtualEnv
 

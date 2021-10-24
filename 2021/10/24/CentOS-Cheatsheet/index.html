@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文记录了CentOS安装及使用的一些经验。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-10-24T13:29:21.000Z">
-<meta property="article:modified_time" content="2021-10-24T05:09:33.931Z">
+<meta property="article:modified_time" content="2021-10-24T05:26:33.106Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="CentOS">
@@ -206,7 +206,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-10-24 21:29:21 / Modified: 13:09:33" itemprop="dateCreated datePublished" datetime="2021-10-24T21:29:21+08:00">2021-10-24</time>
+              <time title="Created: 2021-10-24 21:29:21 / Modified: 13:26:33" itemprop="dateCreated datePublished" datetime="2021-10-24T21:29:21+08:00">2021-10-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +250,11 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum --disablerepo=<span class="string">&quot;*&quot;</span> --enablerepo=<span class="string">&quot;elrepo-kernel&quot;</span> list available</span><br></pre></td></tr></table></figure></li>
 <li><p>安装内核</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum --enablerepo=elrepo-kernel install kernel-ml</span><br></pre></td></tr></table></figure>
-<h3 id="从源码编译内核"><a href="#从源码编译内核" class="headerlink" title="从源码编译内核"></a>从源码编译内核</h3></li>
+
+
+</li>
+</ol>
+<h3 id="从源码编译内核"><a href="#从源码编译内核" class="headerlink" title="从源码编译内核"></a>从源码编译内核</h3><ol>
 <li><p>从官方网站下载指定版本的内核，网址如下：<a target="_blank" rel="noopener" href="https://www.kernel.org/%EF%BC%8C%E4%BE%8B%E5%A6%82linux-4.14.1.tar.xz">https://www.kernel.org/，例如linux-4.14.1.tar.xz</a></p>
 </li>
 <li><p>安装开发工具包，包括内核源码编译所需要的一些环境：</p>
@@ -267,12 +271,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;boot&#x2F;config-3.10.0-1127.el7.x86_64 .config</span><br></pre></td></tr></table></figure></li>
 <li><p>修改配置文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&#x27;yes &quot;&quot; | make oldconfig&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>进行编辑</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">make -j2 bzImage</span><br><span class="line">make -j2 modules</span><br><span class="line">make -j2 modules_install</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></li>
+<li><p>进行编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">make -j2 bzImage</span><br><span class="line">make -j2 modules</span><br><span class="line">make -j2 modules_install</span><br><span class="line">make install <span class="comment"># may some error, ignore it</span></span><br></pre></td></tr></table></figure></li>
 <li><p>查看编译是否成功</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F\<span class="string">&#x27; &#x27;</span><span class="variable">$1</span>==<span class="string">&quot;menuentry &quot;</span> &#123;<span class="built_in">print</span> <span class="variable">$2</span>&#125;<span class="string">&#x27; /etc/grub2.cfg</span></span><br></pre></td></tr></table></figure></li>
 <li><p>将内核设置为默认启动，并重新启动</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub2-set-default 0 &amp;&amp; init 6</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grub2-set-default 0 &amp;&amp; init 6 <span class="comment"># centos-7</span></span><br><span class="line">sed -i <span class="string">&#x27;s/^default=.*/default=0/g&#x27;</span> /boot/grub/grub.conf <span class="comment"># centos-6</span></span><br></pre></td></tr></table></figure></li>
 <li><p>重启成功后，检查内核是否安装成功</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
 
@@ -316,8 +320,8 @@
       <i class="fa fa-chevron-left"></i> MAC OS从入门到嫌弃
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/10/24/Vim%E4%BD%BF%E7%94%A8/" rel="next" title="Vim使用手册">
-      Vim使用手册 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/10/24/GDB%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" rel="next" title="GDB调试工具使用">
+      GDB调试工具使用 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -393,20 +397,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

@@ -32,8 +32,9 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/fig3.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/fig4.png">
 <meta property="article:published_time" content="2021-01-03T13:15:12.000Z">
-<meta property="article:modified_time" content="2021-08-01T02:57:04.349Z">
+<meta property="article:modified_time" content="2021-10-24T05:37:19.609Z">
 <meta property="article:author" content="亓淇">
+<meta property="article:tag" content="C++">
 <meta property="article:tag" content="OpenCV">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/fig1.png">
@@ -215,7 +216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+                <time title="Modified: 2021-10-24 13:37:19" itemprop="dateModified" datetime="2021-10-24T13:37:19+08:00">2021-10-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,16 +244,13 @@
 
       
         <p>本文总结了编译OpenCV时常用的参数设置方式。</p>
-<span id="more"></span>
+<a id="more"></a>
 
 <h2 id="1-Ubuntu环境"><a href="#1-Ubuntu环境" class="headerlink" title="1. Ubuntu环境"></a>1. Ubuntu环境</h2><h3 id="1-1-Without-CUDA"><a href="#1-1-Without-CUDA" class="headerlink" title="1.1 Without CUDA"></a>1.1 Without CUDA</h3><p>OpenCV编译命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cmake -D CMAKE_BUILD_TYPE=RELEASE \</span><br><span class="line">-D CMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span> \</span><br><span class="line">-D INSTALL_PYTHON_EXAMPLES=ON \</span><br><span class="line">-D INSTALL_C_EXAMPLES=OFF \</span><br><span class="line">-D OPENCV_EXTRA_MODULES_PATH=../contrib/modules \</span><br><span class="line">-D PYTHON3_EXCUTABLE=/usr/bin/python \</span><br><span class="line">-D WITH_CUDA=OFF \</span><br><span class="line">-D WITH_TBB=ON \</span><br><span class="line">-D WITH_V4L=ON \</span><br><span class="line">-D WITH_GTK=ON \</span><br><span class="line">-D WITH_OPENGL=ON \</span><br><span class="line">-D WITH_VTK=ON \</span><br><span class="line">-D WITH_QT=ON \</span><br><span class="line">-D WITH_FFMPEG=ON \</span><br><span class="line">-D BUILD_EXAMPLES=ON ..</span><br></pre></td></tr></table></figure>
-
 <h3 id="1-2-With-CUDA"><a href="#1-2-With-CUDA" class="headerlink" title="1.2 With CUDA"></a>1.2 With CUDA</h3><p>带CUDA的OpenCV编译</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">###这是带cuda的，下面带颜色的数值要自己查###查询网址：查看cuda型号网址</span></span><br><span class="line">cmake -D CMAKE_BUILD_TYPE=RELEASE \</span><br><span class="line">-D CMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span> \</span><br><span class="line">-D INSTALL_PYTHON_EXAMPLES=ON \</span><br><span class="line">-D INSTALL_C_EXAMPLES=OFF \</span><br><span class="line">-D OPENCV_EXTRA_MODULES_PATH=../contrib/modules \</span><br><span class="line">-D PYTHON_EXCUTABLE=/usr/bin/python \</span><br><span class="line">-D WITH_CUDA=ON \</span><br><span class="line">-D WITH_CUBLAS=ON \</span><br><span class="line">-D DCUDA_NVCC_FLAGS=<span class="string">&quot;-D_FORCE_INLINES&quot;</span> \</span><br><span class="line"><span class="comment">#-D CUDA_ARCH_BIN=&quot;5.2&quot; \</span></span><br><span class="line"><span class="comment">#-D CUDA_ARCH_PTX=&quot;&quot; \</span></span><br><span class="line">-D ENABLE_FAST_MATH=1 \</span><br><span class="line">-D CUDA_FAST_MATH=ON \</span><br><span class="line">-D WITH_CUFFT=ON \</span><br><span class="line">-D WITH_NVCUVID=ON \</span><br><span class="line">-D WITH_TBB=ON \</span><br><span class="line">-D WITH_V4L=ON \</span><br><span class="line">-D WITH_GTK=ON \</span><br><span class="line">-D WITH_OPENGL=ON \</span><br><span class="line">-D WITH_VTK=ON \</span><br><span class="line">-D WITH_QT=ON \</span><br><span class="line">-D WITH_FFMPEG=ON \</span><br><span class="line">-D BUILD_EXAMPLES=ON ..</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_IPP=OFF -DWITH_FFMPEG=OFF -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.3.1/modules/ -D BUILD_opencv_dnn=ON ..</span></span><br><span class="line"></span><br><span class="line">cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/<span class="built_in">local</span> -D FORCE_VTK=ON -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON -D WITH_CUBLAS=ON -D CUDA_NVCC_FLAGS=<span class="string">&quot;-D_FORCE_INLINES&quot;</span> -D WITH_GDAL=ON -D WITH_XINE=ON -D BUILD_EXAMPLES=ON -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-3.3.1/modules/ ..</span><br><span class="line"></span><br><span class="line">make -j $(($(nproc) + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-
 
 
 <h2 id="2-Windows环境"><a href="#2-Windows环境" class="headerlink" title="2. Windows环境"></a>2. Windows环境</h2><h3 id="2-1-使用预编译版本"><a href="#2-1-使用预编译版本" class="headerlink" title="2.1 使用预编译版本"></a>2.1 使用预编译版本</h3><p>OpenCV在Windows环境下有预编译版本可以直接从<a target="_blank" rel="noopener" href="https://opencv.org/releases/">官网</a>下载使用，但是需要注意预编译版本所依赖的<code>vc</code>版本一定要与本地开发用的<code>vc</code>版本一致。下载预编译版本后的使用方法参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/maizousidemao/article/details/81474834">链接</a>。</p>
@@ -295,6 +293,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
               <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
           </div>
 
@@ -303,7 +302,10 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/01/%E5%8D%9A%E5%AE%A2%E6%A8%A1%E6%9D%BF/" rel="prev" title="博客模板">
+      <i class="fa fa-chevron-left"></i> 博客模板
+    </a></div>
       <div class="post-nav-item">
     <a href="/2021/01/03/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%A6%E8%A7%A3/" rel="next" title="使用Hexo搭建个人博客详解">
       使用Hexo搭建个人博客详解 <i class="fa fa-chevron-right"></i>

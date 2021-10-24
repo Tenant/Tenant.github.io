@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"blog.calria.plus","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="本文介绍了Git常用的命令。">
+  <meta name="description" content="本文记录了Vim使用的一些经验。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git使用详解">
-<meta property="og:url" content="https://blog.calria.plus/2021/01/14/Git%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:title" content="Vim使用手册">
+<meta property="og:url" content="https://blog.calria.plus/2021/10/24/Vim%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="亓淇小站">
-<meta property="og:description" content="本文介绍了Git常用的命令。">
+<meta property="og:description" content="本文记录了Vim使用的一些经验。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-14T05:24:00.000Z">
-<meta property="article:modified_time" content="2021-08-01T02:57:04.339Z">
+<meta property="article:published_time" content="2021-10-24T13:29:21.000Z">
+<meta property="article:modified_time" content="2021-10-24T05:07:58.988Z">
 <meta property="article:author" content="亓淇">
-<meta property="article:tag" content="Git">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Vim">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.calria.plus/2021/01/14/Git%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">
+<link rel="canonical" href="https://blog.calria.plus/2021/10/24/Vim%E4%BD%BF%E7%94%A8/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>Git使用详解 | 亓淇小站</title>
+  <title>Vim使用手册 | 亓淇小站</title>
   
 
 
@@ -180,7 +182,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2021/01/14/Git%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2021/10/24/Vim%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -193,7 +195,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Git使用详解
+          Vim使用手册
         </h1>
 
         <div class="post-meta">
@@ -202,28 +204,26 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-01-14 13:24:00" itemprop="dateCreated datePublished" datetime="2021-01-14T13:24:00+08:00">2021-01-14</time>
+              <time title="Created: 2021-10-24 21:29:21 / Modified: 13:07:58" itemprop="dateCreated datePublished" datetime="2021-10-24T21:29:21+08:00">2021-10-24</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
                 </span>
             </span>
 
           
-            <div class="post-description">本文介绍了Git常用的命令。</div>
+            <div class="post-description">本文记录了Vim使用的一些经验。</div>
 
         </div>
       </header>
@@ -234,35 +234,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><strong>Convert remote’s URL from <code>https</code> to <code>ssh</code></strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># To check if remote&#x27;s URL is ssh or https</span></span><br><span class="line">git remote -v</span><br><span class="line"><span class="comment"># To switch from https to ssh</span></span><br><span class="line">git remote set-url origin git@github.com:USERNAME/REPOSITORY.git</span><br></pre></td></tr></table></figure>
-
-<p><strong>Untrack files and don’t change working directory</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached [filename]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Reset <code>git add</code> operations</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># reset staging area, but leave the working directory unchanged</span></span><br><span class="line">git reset HEAD .</span><br><span class="line">git reset</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove &lt;file&gt; from the staging area, but leave the working directory unchanged</span></span><br><span class="line">git reset &lt;file&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># reset staging area and reset working directory to match last commit</span></span><br><span class="line">git reset --hard</span><br><span class="line"></span><br><span class="line"><span class="comment"># move the current brach tip backward to &lt;commit&gt;, reset the staging area to match, but leave the working directory alone</span></span><br><span class="line">git reset &lt;commit&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># same as precious, but resets both the staging area and working directory</span></span><br><span class="line">git reset --hard &lt;commit&gt;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Clean files</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Show which files would be removed from working directory</span></span><br><span class="line">git clean -n</span><br><span class="line"></span><br><span class="line"><span class="comment"># Execute the clean</span></span><br><span class="line">git clean -f</span><br></pre></td></tr></table></figure>
-
-<p><strong>Append changes to last commit</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
-
-<p><strong>Display <code>commits</code> concerned with the specific file</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> -- &lt;file&gt;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Git diff</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show difference between working directory and last commit</span></span><br><span class="line">git diff HEAD</span><br><span class="line"></span><br><span class="line"><span class="comment"># show difference between changes and last commit</span></span><br><span class="line">git diff --cached</span><br></pre></td></tr></table></figure>
-
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="部分仓库下载缓慢-失败问题"><a href="#部分仓库下载缓慢-失败问题" class="headerlink" title="部分仓库下载缓慢/失败问题"></a>部分仓库下载缓慢/失败问题</h3><p><strong>方法一</strong></p>
-<p>对于不包含submodule的仓库，出现这种问题后，从网页版GitHub中下载源码即可。</p>
-<p><strong>方法二</strong></p>
-<p>对于包含submodule的仓库，一般是主仓库可以下载，但是其submodule下载失败。此时，可以在clone主仓库后，分别clone每个子仓库，再将其放置到父仓库对应的目录下，然后通过<code>git reset --hard commit_id</code>将子仓库切换到对应版本。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> xxx.git repo-a --recursive <span class="comment"># failed</span></span><br><span class="line">git <span class="built_in">clone</span> xxx.git repo-a <span class="comment"># success</span></span><br><span class="line"><span class="built_in">cd</span> repo-a/third_parth</span><br><span class="line">git <span class="built_in">clone</span> xxxx.git repo-b --recursive <span class="comment"># success or fail</span></span><br><span class="line"><span class="built_in">cd</span> repo-b</span><br><span class="line">git reset --hard commit_id</span><br></pre></td></tr></table></figure>
-
-<p><strong>方法三</strong></p>
-<p>除了上述两种方法外，可以借助<a target="_blank" rel="noopener" href="https://gitee.com/">我的工作台 - Gitee.com</a>解决该问题。操作时首先将需要clone的仓库从GitHub中fork到Gitee中，然后从Gitee clone即可。对于包含submodule的仓库，可以将其submodule均fork到Gitee，并修改<code>.submodule</code>中对应仓库的路径为Gitee下的路径（注意此处路径结尾不包含<code>.git</code>字段）.</p>
+        <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>在命令模式按<code>/</code>或``?<code>进行搜索，后接要搜索的字符，然后回车即可，其中</code>/<code>为顺序搜索，</code>?<code>为逆序搜索，按</code>n<code>搜索下一个匹配项，按</code>N<code>搜索上一个匹配项。命令模式下光标移动到关键字到任意位置，按</code>*`进行该关键字到搜索。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:<span class="built_in">set</span> hlsearch  <span class="comment"># 设置为高量搜索</span></span><br><span class="line">:<span class="built_in">set</span> incsearch <span class="comment"># 设置为递进搜索，每输入一个字符，进行一次搜索</span></span><br><span class="line">:<span class="built_in">set</span> ignorecase <span class="comment"># 搜索时不区分大小写</span></span><br><span class="line">:<span class="built_in">set</span> noignorecase <span class="comment"># 搜索区分大小写</span></span><br></pre></td></tr></table></figure>
+<p><strong>匹配搜索</strong></p>
+<p>可是使用<code>/\&lt;head tail\&gt; </code>的形式进行匹配搜索，其中<code>head</code>表示匹配前缀，<code>tail</code>表示匹配后缀，可以只使用前缀形式<code>/\&lt;head</code>或后缀形式<code>/tail\&gt;</code>进行匹配搜索。</p>
+<h3 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h3><p>命令模式下输入<code>gg</code>跳到第一行，<code>ngg</code>或<code>:n</code>跳到第<code>n</code>行，<code>G</code>跳到最后一行。</p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>命令模式下输入<code>dd</code>删除当前光标所在行，输入<code>ndd</code>删除光标所在行以下n行，输入<code>32,65d</code>删除第32至65行，按<code>u</code>可以撤销删除操作。</p>
+<h3 id="复制粘贴"><a href="#复制粘贴" class="headerlink" title="复制粘贴"></a>复制粘贴</h3><p>输入<code>yy</code>复制当前行，输入<code>nyy</code>复制当前行以下n行，输入<code>p</code>将复制内容粘贴到当前行下面。</p>
+<h3 id="显示行号"><a href="#显示行号" class="headerlink" title="显示行号"></a>显示行号</h3><p>命令模式下输入<code>:set number</code>或<code>:set nu</code>显示行号。</p>
+<h3 id="区块模式"><a href="#区块模式" class="headerlink" title="区块模式"></a>区块模式</h3><p>命令模式下按<code>Ctrl</code>+<code>v</code>进入区块模式通过上下剪头键选择多行，然后按下<code>I</code>键进入插入模式，在首行输入的内容会同步到其它行，可以用来进行<strong>多行注释</strong>。在区块模式下选中要处理的行，通过<code>d</code>或<code>x</code>可以批量删除，比如可以实现取消注释的功能。</p>
 
     </div>
 
@@ -281,7 +261,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Git/" rel="tag"># Git</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/Vim/" rel="tag"># Vim</a>
           </div>
 
         
@@ -290,13 +272,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/14/Latex%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="prev" title="Latex详解（一）：本地安装和环境配置">
-      <i class="fa fa-chevron-left"></i> Latex详解（一）：本地安装和环境配置
+    <a href="/2021/10/24/CentOS-Cheatsheet/" rel="prev" title="CentOS安装及使用心得">
+      <i class="fa fa-chevron-left"></i> CentOS安装及使用心得
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/14/ROS%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/" rel="next" title="ROS详解（一）：安装和常见操作">
-      ROS详解（一）：安装和常见操作 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -355,7 +334,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E4%BB%93%E5%BA%93%E4%B8%8B%E8%BD%BD%E7%BC%93%E6%85%A2-%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">部分仓库下载缓慢&#x2F;失败问题</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2"><span class="nav-number">1.1.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%B3%E8%BD%AC"><span class="nav-number">1.2.</span> <span class="nav-text">跳转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4"><span class="nav-number">1.4.</span> <span class="nav-text">复制粘贴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E8%A1%8C%E5%8F%B7"><span class="nav-number">1.5.</span> <span class="nav-text">显示行号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.6.</span> <span class="nav-text">区块模式</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

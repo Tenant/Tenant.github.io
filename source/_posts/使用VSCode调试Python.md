@@ -1,7 +1,13 @@
 ---
 title: 使用VSCode调试Python
 date: 2021-05-04 17:17:28
+categories:
+  - 编程
+  - Python
 tags:
+  - 编程
+  - Python
+descriptions:
 ---
 
 首先通过单击`Run`启动调试程序，然后选择创建配置文件`launch.json`，配置文件内容示例如下：

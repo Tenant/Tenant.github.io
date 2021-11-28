@@ -3,9 +3,10 @@ title: Shell使用详解
 date: 2021-01-08 16:41:25
 categories:
   - 操作系统
-  - Shell
+  - Linux
 tags:
   - 操作系统
+  - Linux
   - Shell
 description: 本节总结了常用的Shell编程。
 ---
@@ -55,7 +56,13 @@ echo "两数之和为 : $val"
 
 本节详细内容可参考[链接](https://www.runoob.com/linux/linux-shell-process-control.html)。
 
-## 6. 其它常见命令
+## 6. Bash模式
+
+```bash
+set -e # set -e stops the execution of a script if a command or pipeline has an error - which is the opposite of the default shell behaviour, which is to ignore errors in scripts.
+```
+
+## 7. 其它常见命令
 
 **wait命令**
 
@@ -71,3 +78,20 @@ wait [PID-number]
 sleep [sleep-time]
 ```
 
+## 8. 代码片段
+
+```bash
+BUILD_CORE=$(grep -c ^processor /proc/cpuinfo)
+```
+
+```bash
+clean() {
+6	    echo "rm build & output"
+7	    if [ -d build ]; then
+8	        rm -r build
+9	    fi
+10	    if [ -d output ]; then
+11	        rm -r output
+12	    fi
+13	}
+```

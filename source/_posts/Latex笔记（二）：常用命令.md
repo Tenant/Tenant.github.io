@@ -1,5 +1,5 @@
 ---
-title: Latex笔记（一）：常用命令
+title: Latex笔记（二）：常用命令
 date: 2021-04-01 21:24:19
 categories:
   - LaTex

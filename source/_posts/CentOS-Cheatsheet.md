@@ -1,10 +1,12 @@
 ---
-title: CentOS Cookbook
+title: CentOS安装及使用心得
 date: 2021-10-24 21:29:21
 categories:
   - 操作系统
+  - Linux
 tags:
   - 操作系统
+  - Linux
   - CentOS
 description: 本文记录了CentOS安装及使用的一些经验。
 ---
@@ -59,6 +61,8 @@ yum makecache
    yum --enablerepo=elrepo-kernel install kernel-ml
    ```
 
+
+
 ### 从源码编译内核
 
 1. 从官方网站下载指定版本的内核，网址如下：https://www.kernel.org/，例如linux-4.14.1.tar.xz
@@ -105,13 +109,13 @@ yum makecache
    sh -c 'yes "" | make oldconfig'
    ```
 
-9. 进行编辑
+9. 进行编译
 
    ```bash
    make -j2 bzImage
    make -j2 modules
    make -j2 modules_install
-   make install
+   make install # may some error, ignore it
    ```
 
 10. 查看编译是否成功
@@ -123,7 +127,8 @@ yum makecache
 11. 将内核设置为默认启动，并重新启动
 
     ```bash
-    grub2-set-default 0 && init 6
+    grub2-set-default 0 && init 6 # centos-7
+    sed -i 's/^default=.*/default=0/g' /boot/grub/grub.conf # centos-6
     ```
 
 12. 重启成功后，检查内核是否安装成功

@@ -1,7 +1,14 @@
 ---
-title: Vim使用
-date: 2021-08-05 00:38:28
+title: Vim使用手册
+date: 2021-10-24 21:29:21
+categories:
+  - 操作系统
+  - Linux
 tags:
+  - 操作系统
+  - Linux
+  - Vim
+description: 本文记录了Vim使用的一些经验。
 ---
 
 ## 常用命令

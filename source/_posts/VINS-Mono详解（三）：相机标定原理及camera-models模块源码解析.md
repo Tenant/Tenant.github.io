@@ -1,8 +1,15 @@
 ---
 title: VINS-Mono详解（三）：相机标定原理及camera_models模块源码解析
 date: 2021-01-17 11:33:22
+categories:
+  - SLAM
+  - vSLAM
+  - VINS
 tags:
-description: Hi
+  - SLAM
+  - vSLAM
+  - VINS
+descriptions: 
 ---
 
 ## 1. 针孔相机

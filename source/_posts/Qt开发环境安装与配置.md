@@ -2,11 +2,13 @@
 title: Qt开发环境安装与配置
 date: 2021-04-16 18:06:14
 categories:
-  - Qt
+  - 编程
+  - C++
 tags:
-  - Qt
-  - Coding
-description: 本文介绍了Git常用的命令。
+  - 编程
+  - C++
+  - QT
+description:
 ---
 
 ```bash

@@ -1,9 +1,13 @@
 ---
 title: Python常用命令
 date: 2021-04-14 20:06:43
-categories: Python
-tags: Python
-descriptions: Python常用命令整理
+categories:
+  - 编程
+  - Python
+tags:
+  - 编程
+  - Python
+descriptions:
 ---
 
 ##  Python常用命令

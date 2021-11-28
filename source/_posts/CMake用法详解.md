@@ -31,6 +31,13 @@ export PATH=/home/sukie/cmake-3.20.2/bin:$PATH
 
 ## 常用命令
 
+### 编译选项
+
+```bash
+cmake -DCMAKE_INSTALL_PREFIX=../install ..
+cmake --install .. --prefix ../install
+```
+
 ### Interface Changing
 
 `CMake 3.12`中将`add_definitions`修改为``add_compile_definitions()` 。

@@ -2,9 +2,11 @@
 title: Tensorflow详解（一）：安装和常见操作
 date: 2021-01-14 13:47:23
 categories:
+  - 编程
   - Python
   - Tensorflow
 tags:
+  - 编程
   - Python
   - Tensorflow
   - 深度学习

@@ -1,10 +1,12 @@
 ---
-title: Ubuntu常用命令
+title: Ubuntu安装及使用心得
 date: 2021-04-09 21:29:21
 categories:
   - 操作系统
+  - Linux
 tags:
   - 操作系统
+  - Linux
   - Ubuntu
 description: 本文记录了Ubuntu平台下用的命令。
 ---
@@ -110,7 +112,24 @@ nvcc --version
 export LD_LIBRARY_PATH=/home/sukie/program/cuda-10.1/lib64:$LD_LIBRARY_PATH
 ```
 
+查看显卡信息：
 
+```bash
+lspci -vnn | grep VGA -A 12
+```
+
+列出当前可以按照的全部驱动：
+
+```bash
+sudo apt list nvidia-driver*
+```
+
+安装指定版本驱动
+
+```bash
+sudo apt install nvidia-driver-450
+sudo reboot
+```
 
 ### 联网协同
 
@@ -429,8 +448,11 @@ nohup jupyter notebook > /dev/null 2>&1 &
 
 Now you can access the jupyter notebook in your server at the url `http://162.122.11.23:8888`.
 
-### Nvidia
+### 9. 系统命令
+
+使用如下命令每0.5秒查看一次显卡状态
 
 ```bash
-nvidia-smi
+watch -n 0.5 nvidia-smi
 ```
+

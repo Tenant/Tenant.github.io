@@ -28,10 +28,11 @@
 <meta property="og:description" content="本节总结了常用的Shell编程。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-08T08:41:25.000Z">
-<meta property="article:modified_time" content="2021-08-01T02:57:04.349Z">
+<meta property="article:modified_time" content="2021-11-28T04:33:12.378Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="Shell">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://blog.calria.plus/2021/01/08/Shell%E4%BD%BF%E7%94%A8%E8%AF%A6%E8%A7%A3/">
@@ -211,7 +212,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+                <time title="Modified: 2021-11-28 12:33:12" itemprop="dateModified" datetime="2021-11-28T12:33:12+08:00">2021-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -223,7 +224,7 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a>
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
                 </span>
             </span>
 
@@ -241,23 +242,21 @@
       
         <h2 id="1-Shell变量"><a href="#1-Shell变量" class="headerlink" title="1. Shell变量"></a>1. Shell变量</h2><p>本部分详细内容可参考<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell-variable.html">链接</a>，下面所示为部分示例：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">myUrl=<span class="string">&quot;https://www.google.com&quot;</span> <span class="comment"># 定义变量</span></span><br><span class="line"><span class="built_in">readonly</span> myUrl <span class="comment"># 设置变量为只读</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;myUrl&#125;</span> <span class="comment"># 访问变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#myUrl&#125;</span> <span class="comment"># 获取字符串长度</span></span><br><span class="line"><span class="built_in">unset</span> myUrl <span class="comment"># 删除变量</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="2-Shell参数传递"><a href="#2-Shell参数传递" class="headerlink" title="2. Shell参数传递"></a>2. Shell参数传递</h2><p>本部分详细内容可参考<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell-passing-arguments.html">链接</a>。</p>
 <p>我们可以在执行 Shell 脚本时，向脚本传递参数，脚本内获取参数的格式为：<code>$n</code>。<code>n</code>代表一个数字，1 为执行脚本的第一个参数，2 为执行脚本的第二个参数，以此类推。</p>
 <h2 id="3-Shell数组"><a href="#3-Shell数组" class="headerlink" title="3. Shell数组"></a>3. Shell数组</h2><p>本部分详细内容可参考<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell-array.html">链接</a>。</p>
 <p>数组中可以存放多个值。Bash Shell 只支持一维数组（不支持多维数组），初始化时不需要定义数组大小。与大部分编程语言类似，数组元素的下标由0开始。Shell 数组用括号来表示，元素用”空格”符号分割开。</p>
 <h2 id="4-Shell运算符"><a href="#4-Shell运算符" class="headerlink" title="4. Shell运算符"></a>4. Shell运算符</h2><p>本节详细内容可参考<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell-basic-operators.html">链接</a>。原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如<code>awk</code>和<code>expr</code>，<code>expr</code>最常用，示例如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">val=`expr 2 + 2` <span class="comment"># 表达式和运算符之间要有空格</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;两数之和为 : <span class="variable">$val</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="4-1-关系运算符"><a href="#4-1-关系运算符" class="headerlink" title="4.1 关系运算符"></a>4.1 关系运算符</h3><h2 id="5-Shell流程控制"><a href="#5-Shell流程控制" class="headerlink" title="5. Shell流程控制"></a>5. Shell流程控制</h2><p>本节详细内容可参考<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell-process-control.html">链接</a>。</p>
-<h2 id="6-其它常见命令"><a href="#6-其它常见命令" class="headerlink" title="6. 其它常见命令"></a>6. 其它常见命令</h2><p><strong>wait命令</strong></p>
+<h2 id="6-Bash模式"><a href="#6-Bash模式" class="headerlink" title="6. Bash模式"></a>6. Bash模式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -e <span class="comment"># set -e stops the execution of a script if a command or pipeline has an error - which is the opposite of the default shell behaviour, which is to ignore errors in scripts.</span></span><br></pre></td></tr></table></figure>
+<h2 id="7-其它常见命令"><a href="#7-其它常见命令" class="headerlink" title="7. 其它常见命令"></a>7. 其它常见命令</h2><p><strong>wait命令</strong></p>
 <p><code>wait</code>命令一个很重要用途就是在<code>Bash shell</code>的并行编程中，可以在<code>Bash shell</code>脚本中启动多个后台进程（使用<code>&amp;</code>），然后调用<code>wait</code>命令，等待所有后台进程都运行完毕，<code>Bash shell</code>脚本再继续向下执行。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">wait</span> [PID-number]</span><br></pre></td></tr></table></figure>
-
 <p><strong>sleep命令</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep [sleep-time]</span><br></pre></td></tr></table></figure>
-
-
+<h2 id="8-代码片段"><a href="#8-代码片段" class="headerlink" title="8. 代码片段"></a>8. 代码片段</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BUILD_CORE=$(grep -c ^processor /proc/cpuinfo)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">clean</span></span>() &#123;</span><br><span class="line">6	    <span class="built_in">echo</span> <span class="string">&quot;rm build &amp; output&quot;</span></span><br><span class="line">7	    <span class="keyword">if</span> [ -d build ]; <span class="keyword">then</span></span><br><span class="line">8	        rm -r build</span><br><span class="line">9	    <span class="keyword">fi</span></span><br><span class="line">10	    <span class="keyword">if</span> [ -d output ]; <span class="keyword">then</span></span><br><span class="line">11	        rm -r output</span><br><span class="line">12	    <span class="keyword">fi</span></span><br><span class="line">13	&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -277,6 +276,7 @@
           <div class="post-tags">
               <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
               <a href="/tags/Shell/" rel="tag"># Shell</a>
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
           </div>
 
         
@@ -350,7 +350,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Shell%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">1. Shell变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Shell%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="nav-number">2.</span> <span class="nav-text">2. Shell参数传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Shell%E6%95%B0%E7%BB%84"><span class="nav-number">3.</span> <span class="nav-text">3. Shell数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Shell%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">4.</span> <span class="nav-text">4. Shell运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 关系运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Shell%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">5.</span> <span class="nav-text">5. Shell流程控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%85%B6%E5%AE%83%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">6. 其它常见命令</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Shell%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">1. Shell变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Shell%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="nav-number">2.</span> <span class="nav-text">2. Shell参数传递</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Shell%E6%95%B0%E7%BB%84"><span class="nav-number">3.</span> <span class="nav-text">3. Shell数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Shell%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">4.</span> <span class="nav-text">4. Shell运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 关系运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Shell%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">5.</span> <span class="nav-text">5. Shell流程控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Bash%E6%A8%A1%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">6. Bash模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E5%85%B6%E5%AE%83%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="nav-number">7.</span> <span class="nav-text">7. 其它常见命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5"><span class="nav-number">8.</span> <span class="nav-text">8. 代码片段</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -366,20 +366,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

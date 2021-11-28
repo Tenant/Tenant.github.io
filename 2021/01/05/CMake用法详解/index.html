@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文对CMake安装、常见用法进行了总结归纳。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-05T04:24:12.000Z">
-<meta property="article:modified_time" content="2021-08-01T02:57:04.339Z">
+<meta property="article:modified_time" content="2021-11-28T04:40:25.490Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="CMake">
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+                <time title="Modified: 2021-11-28 12:40:25" itemprop="dateModified" datetime="2021-11-28T12:40:25+08:00">2021-11-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,13 +246,11 @@
         <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用源码安装CMake可以对版本进行指定。</p>
 <p>首先从<a target="_blank" rel="noopener" href="https://cmake.org/install/">Installing | CMake</a>下载对应平台的源码，并进行解压。解压后执行如下命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./bootstrap</span><br><span class="line">make</span><br><span class="line">sudo make install <span class="comment"># optional</span></span><br></pre></td></tr></table></figure>
-
 <p>上述第三条指令为可选指令，仅当拥有超级权限且准备为所有用户安装新版本的CMake时推荐使用，负责使用如下命令在CMake添加到<code>PATH</code>即可。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/home/sukie/cmake-3.20.2/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="Interface-Changing"><a href="#Interface-Changing" class="headerlink" title="Interface Changing"></a>Interface Changing</h3><p><code>CMake 3.12</code>中将<code>add_definitions</code>修改为``add_compile_definitions()` 。</p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="编译选项"><a href="#编译选项" class="headerlink" title="编译选项"></a>编译选项</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmake -DCMAKE_INSTALL_PREFIX=../install ..</span><br><span class="line">cmake --install .. --prefix ../install</span><br></pre></td></tr></table></figure>
+<h3 id="Interface-Changing"><a href="#Interface-Changing" class="headerlink" title="Interface Changing"></a>Interface Changing</h3><p><code>CMake 3.12</code>中将<code>add_definitions</code>修改为``add_compile_definitions()` 。</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_definitions</span>(-DQURL_NO_CAST_FROM_STRING) <span class="comment"># &lt; 3.12</span></span><br><span class="line"><span class="keyword">add_compile_definitions</span>(QURL_NO_CAST_FROM_STRING) <span class="comment"># &gt;= 3.12</span></span><br></pre></td></tr></table></figure>
-
 
 
 <h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.5</span>)</span><br><span class="line"><span class="keyword">project</span>(LOAM)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">14</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_BUILD_TYPE Debug)</span><br><span class="line"></span><br><span class="line"><span class="keyword">find_package</span>(OpenCV REQUIRED)</span><br><span class="line"><span class="keyword">find_package</span>(PCL REQUIRED)</span><br><span class="line"><span class="keyword">find_package</span>(Boost <span class="number">1.6</span> REQUIRED)</span><br><span class="line"></span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span>)</span><br><span class="line">        <span class="variable">$&#123;PCL_INCLUDE_DIRS&#125;</span></span><br><span class="line">        <span class="variable">$&#123;Boost_INCLUDE_DIRS&#125;</span></span><br><span class="line">        .</span><br><span class="line">        ./DsvLoading</span><br><span class="line">        ./ScanRegistration</span><br><span class="line">        ./LaserOdometry</span><br><span class="line">        ./LaserMapping)</span><br><span class="line"><span class="keyword">link_directories</span>(<span class="variable">$&#123;PCL_LIBRARY_DIRS&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">AUX_SOURCE_DIRECTORY</span>(. DIR_SRCS)</span><br><span class="line"><span class="keyword">AUX_SOURCE_DIRECTORY</span>(./DsvLoading DIR_DL_SRCS)</span><br><span class="line"><span class="keyword">AUX_SOURCE_DIRECTORY</span>(./ScanRegistration DIR_SR_SRCS)</span><br><span class="line"><span class="keyword">AUX_SOURCE_DIRECTORY</span>(./LaserOdometry DIR_LO_SRCS)</span><br><span class="line"><span class="keyword">AUX_SOURCE_DIRECTORY</span>(./LaserMapping DIR_LM_SRCS)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(LOAM</span><br><span class="line">        <span class="variable">$&#123;DIR_SRCS&#125;</span></span><br><span class="line">        <span class="variable">$&#123;DIR_DL_SRCS&#125;</span></span><br><span class="line">        <span class="variable">$&#123;DIR_SR_SRCS&#125;</span></span><br><span class="line">        <span class="variable">$&#123;DIR_LO_SRCS&#125;</span></span><br><span class="line">        <span class="variable">$&#123;DIR_LM_SRCS&#125;</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(LOAM</span><br><span class="line">        <span class="variable">$&#123;PCL_LIBRARIES&#125;</span></span><br><span class="line">        <span class="variable">$&#123;OpenCV_LIBS&#125;</span></span><br><span class="line">        <span class="variable">$&#123;Boost_LIBRARIES&#125;</span>)</span><br></pre></td></tr></table></figure>
@@ -283,8 +281,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/05/Docker%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/" rel="prev" title="Docker详解（一）：安装和常见操作">
-      <i class="fa fa-chevron-left"></i> Docker详解（一）：安装和常见操作
+    <a href="/2021/01/05/Ubuntu%20C++%20Performance%20Profile/" rel="prev" title="Ubuntu C++ Performance Profile">
+      <i class="fa fa-chevron-left"></i> Ubuntu C++ Performance Profile
     </a></div>
       <div class="post-nav-item">
     <a href="/2021/01/05/Orthogonal-Procrustes%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8APytorch%E5%AE%9E%E7%8E%B0/" rel="next" title="Orthogonal-Procrustes的原理及Pytorch实现">
@@ -348,7 +346,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface-Changing"><span class="nav-number">2.1.</span> <span class="nav-text">Interface Changing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9"><span class="nav-number">2.1.</span> <span class="nav-text">编译选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Interface-Changing"><span class="nav-number">2.2.</span> <span class="nav-text">Interface Changing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -364,20 +362,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

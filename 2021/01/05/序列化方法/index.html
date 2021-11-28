@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/qwe/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.calria.plus","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="本文对C++和Python中常见的序列化、反序列化工具进行了总结。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="序列化方法">
+<meta property="og:url" content="https://blog.calria.plus/2021/01/05/%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="亓淇小站">
+<meta property="og:description" content="本文对C++和Python中常见的序列化、反序列化工具进行了总结。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-05T04:24:12.000Z">
+<meta property="article:modified_time" content="2021-11-28T05:27:50.588Z">
+<meta property="article:author" content="亓淇">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="Serialization">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.calria.plus/2021/01/05/%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>序列化方法 | 亓淇小站</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?9f1a35a3bc5f5a1c0a5aaed14fbe54dd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">亓淇小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap/hexconvert/" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2021/01/05/%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="亓淇">
+      <meta itemprop="description" content="小小眼睛充满大大迷惑">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="亓淇小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          序列化方法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-05 12:24:12" itemprop="dateCreated datePublished" datetime="2021-01-05T12:24:12+08:00">2021-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-28 13:27:50" itemprop="dateModified" datetime="2021-11-28T13:27:50+08:00">2021-11-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">编程</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E7%A8%8B/C/Serialization/" itemprop="url" rel="index"><span itemprop="name">Serialization</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">本文对C++和Python中常见的序列化、反序列化工具进行了总结。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="序列化方法"><a href="#序列化方法" class="headerlink" title="序列化方法"></a>序列化方法</h1><h2 id="总述"><a href="#总述" class="headerlink" title="总述"></a>总述</h2><p>序列化(serialization、marshalling)的过程是指将数据结构或者对象的状态转换成可以存储(比如文件、内存)或者传输的格式(比如网络)。反向操作就是反序列化(deserialization、unmarshalling)的过程。</p>
+<p>1987年曾经的Sun Microsystems发布了XDR。</p>
+<p>二十世纪九十年代后期，XML开始流行，它是一种人类易读的基于文本的编码方式，易于阅读和理解，但是失去了紧凑的基于字节流的编码的优势。</p>
+<p>JSON是一种更轻量级的基于文本的编码方式，经常用在client/server端的通讯中。</p>
+<p>YAML类似JSON，新的特性更强大，更适合人类阅读，也更紧凑。</p>
+<p>还有苹果系统的property list。</p>
+<p>除了上面这些和Protobuf，还有许许多多的序列化格式，比如Thrift、Avro、BSON、CBOR、MessagePack, 还有很多非跨语言的编码格式。项目<a target="_blank" rel="noopener" href="https://github.com/smallnest/gosercomp">gosercomp</a>对比了各种go的序列化库，包括序列化和反序列的性能，以及序列化后的数据大小。总体来说Protobuf序列化和反序列的性能都是比较高的，编码后的数据大小也不错。</p>
+<p>Protobuf支持很多语言，比如C++、C#、Dart、Go、Java、Python、Rust等，同时也是跨平台的，所以得到了广泛的应用。</p>
+<p>Protobuf包含序列化格式的定义、各种语言的库以及一个IDL编译器。正常情况下你需要定义proto文件，然后使用IDL编译器编译成你需要的语言。</p>
+<p>出于个人习惯，通常数据类型文件可以保存为文本型的<code>json</code>或二进制型的<code>protobuf</code>，配置文件可以保存为<code>yaml</code>或<code>xml</code>等。</p>
+<h2 id="Protobuf"><a href="#Protobuf" class="headerlink" title="Protobuf"></a>Protobuf</h2><p><a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/cpptutorial">https://developers.google.com/protocol-buffers/docs/cpptutorial</a></p>
+<h3 id="安装与卸载"><a href="#安装与卸载" class="headerlink" title="安装与卸载"></a>安装与卸载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">sudo pip install protobuf == 3.6.1</span><br><span class="line">sudo apt install protobuf-compiler</span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载</span></span><br><span class="line">pip uninstall protobuf</span><br><span class="line">sudo rm /usr/<span class="built_in">local</span>/bin/protoc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 版本检查</span></span><br><span class="line">./protoc --version</span><br><span class="line">pip list | grep -i protobuf</span><br></pre></td></tr></table></figure>
+<h3 id="protoc使用"><a href="#protoc使用" class="headerlink" title="protoc使用"></a>protoc使用</h3><p><code>protoc</code>是官方提供的跨语言编码解码工具，通过该工具可以生成多种开发语言对应的<code>protobuf</code>协议文件，同时也可以实现二进制和文本形式的<code>proto</code>数据间的转换。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --proto_path=./folder1/ --proto_path=./folder2 --python_out=./python_out/ ./folder1/a.proto ./folder2/b.proto</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">protoc --decode=MESSAGE_NAME --proto_path=./folder1/ --proto_path=./folder2 ./folder1/a.proto ./folder2/b.proto &lt; binary_proto.bin</span><br><span class="line"></span><br><span class="line">protoc --decode=[package].[Message <span class="built_in">type</span>] proto.file &lt; protobuf.response</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --encode=MESSAGE_NAME --proto_path=./folder1/ --proto_path=./folder2 ./folder1/a.proto ./folder2/b.proto</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --proto_path=<span class="variable">$&#123;protobuf_path&#125;</span> --encode=<span class="variable">$&#123;protobuf_message&#125;</span> <span class="variable">$&#123;protobuf_file&#125;</span> &lt; <span class="variable">$&#123;source_file&#125;</span> &gt; <span class="variable">$&#123;output_file&#125;</span></span><br></pre></td></tr></table></figure>
+<p>更多详细的命令解释可以参考<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e87c3c753aa4">博客</a>。</p>
+<h3 id="其它用法"><a href="#其它用法" class="headerlink" title="其它用法"></a>其它用法</h3><h4 id="Streaming-Multiple-Messages"><a href="#Streaming-Multiple-Messages" class="headerlink" title="Streaming Multiple Messages"></a>Streaming Multiple Messages</h4><p>If you want to write multiple messages to a single file or stream, it is up to you to keep track of where one message ends and the next begins. The Protocol Buffer wire format is not self-delimiting, so protocol buffer parsers cannot determine where a message ends on their own. The easiest way to solve this problem is to write the size of each message before you write the message itself. When you read the messages back in, you read the size, then read the bytes into a separate buffer, then parse from that buffer. (If you want to avoid copying bytes to a separate buffer, check out the <code>CodedInputStream</code> class (in both C++ and Java) which can be told to limit reads to a certain number of bytes.)</p>
+<h4 id="Self-describing-Messages"><a href="#Self-describing-Messages" class="headerlink" title="Self-describing Messages"></a>Self-describing Messages</h4><p>Protocol Buffers do not contain descriptions of their own types. Thus, given only a raw message without the corresponding <code>.proto</code> file defining its type, it is difficult to extract any useful data.</p>
+<p>However, note that the contents of a .proto file can itself be represented using protocol buffers. The file <code>src/google/protobuf/descriptor.proto</code> in the source code package defines the message types involved. <code>protoc</code> can output a <code>FileDescriptorSet</code> – which represents a set of .proto files – using the <code>--descriptor_set_out</code> option. With this, you could define a self-describing protocol message like so:</p>
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><h3 id="JSON格式定义"><a href="#JSON格式定义" class="headerlink" title="JSON格式定义"></a>JSON格式定义</h3><p>在<code>JSON</code>中每个对象都是一个无序的键值对的集合，每个对象以<code>&#123;</code>开始，以<code>&#125;</code>结束，每个键后都紧接<code>:</code>，键值对间使用<code>,</code>分隔。<code>array</code>是一系列值的有序集合，以<code>[</code>开始，以<code>]</code>结束，值之间通过<code>,</code>分隔。<code>JSON</code>中值可以为<code>string</code>，数字，<code>true</code>，<code>false</code>或<code>null</code>，以及对象和<code>array</code>，结构间允许嵌套。更多内容可以参考<a target="_blank" rel="noopener" href="https://www.json.org/json-en.html">官方定义</a>。</p>
+<h3 id="读写实例"><a href="#读写实例" class="headerlink" title="读写实例"></a>读写实例</h3><h4 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h4><p>读文件实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">json_file = <span class="string">&quot;./demo.json&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(json_file, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">  data = json.load(f)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+    </div>
+
+    
+    
+    
+	
+	
+      <div>
+        
+    <div style="text-align:center;color: #ccc;font-size:14px;">
+        ------ 本文结束 ------</div>
+
+      </div>
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"># 编程</a>
+              <a href="/tags/Serialization/" rel="tag"># Serialization</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/05/Docker%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%AE%89%E8%A3%85%E5%92%8C%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/" rel="prev" title="Docker详解（一）：安装和常见操作">
+      <i class="fa fa-chevron-left"></i> Docker详解（一）：安装和常见操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/05/Ubuntu%20C++%20Performance%20Profile/" rel="next" title="Ubuntu C++ Performance Profile">
+      Ubuntu C++ Performance Profile <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">序列化方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">总述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Protobuf"><span class="nav-number">1.2.</span> <span class="nav-text">Protobuf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8D%B8%E8%BD%BD"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装与卸载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#protoc%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">protoc使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E7%94%A8%E6%B3%95"><span class="nav-number">1.2.3.</span> <span class="nav-text">其它用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Streaming-Multiple-Messages"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">Streaming Multiple Messages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Self-describing-Messages"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">Self-describing Messages</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON"><span class="nav-number">1.3.</span> <span class="nav-text">JSON</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON%E6%A0%BC%E5%BC%8F%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">JSON格式定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">读写实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Python"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Python</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="亓淇"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">亓淇</p>
+  <div class="site-description" itemprop="description">小小眼睛充满大大迷惑</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Tenant" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Tenant" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gaoshuqi@pku.edu.cn" title="E-Mail → mailto:gaoshuqi@pku.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">亓淇</span>
+</div>
+
+<!--
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/qwe/anime.min.js"></script>
+  <script src="/qwe/velocity/velocity.min.js"></script>
+  <script src="/qwe/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

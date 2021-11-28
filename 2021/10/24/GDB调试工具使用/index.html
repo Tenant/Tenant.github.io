@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文记录了使用GDB进行调试的一些经验。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-10-24T13:29:21.000Z">
-<meta property="article:modified_time" content="2021-10-24T05:25:48.861Z">
+<meta property="article:modified_time" content="2021-11-28T08:58:19.019Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="编程">
@@ -203,10 +203,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-10-24 21:29:21 / Modified: 13:25:48" itemprop="dateCreated datePublished" datetime="2021-10-24T21:29:21+08:00">2021-10-24</time>
+              <time title="Created: 2021-10-24 21:29:21" itemprop="dateCreated datePublished" datetime="2021-10-24T21:29:21+08:00">2021-10-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-28 16:58:19" itemprop="dateModified" datetime="2021-11-28T16:58:19+08:00">2021-11-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -235,6 +241,7 @@
       
         <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gdb --args executable_program arg1 arg2 arg3</span><br><span class="line">&gt; show args</span><br><span class="line">&gt; start</span><br><span class="line">&gt; step</span><br><span class="line">&gt; <span class="built_in">continue</span></span><br><span class="line">&gt; <span class="built_in">return</span></span><br><span class="line">&gt; <span class="built_in">return</span> <span class="comment"># or `r`</span></span><br><span class="line">&gt; quit <span class="comment"># or `q`</span></span><br><span class="line">&gt; b function_name</span><br><span class="line">&gt; b lidar/lib/main.cc:60</span><br><span class="line">&gt; bt</span><br></pre></td></tr></table></figure>
 <h3 id="查看变量和代码"><a href="#查看变量和代码" class="headerlink" title="查看变量和代码"></a>查看变量和代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; info variables <span class="comment"># list all static and global variables</span></span><br><span class="line">&gt; info locals <span class="comment"># list all local variables</span></span><br><span class="line">&gt; info args <span class="comment"># list all args</span></span><br></pre></td></tr></table></figure>
+<h3 id="关于调试：使用GDB调试从Shell脚本调用的C-程序"><a href="#关于调试：使用GDB调试从Shell脚本调用的C-程序" class="headerlink" title="关于调试：使用GDB调试从Shell脚本调用的C ++程序"></a>关于调试：使用GDB调试从Shell脚本调用的C ++程序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv program _program</span><br><span class="line">(<span class="built_in">echo</span><span class="string">&quot;#!/bin/sh&quot;</span>; <span class="built_in">echo</span><span class="string">&quot;exec gdb <span class="variable">$PWD</span>/_program&quot;</span>) &gt; program</span><br><span class="line">chmod +x program</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -328,7 +335,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">流程控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%8F%98%E9%87%8F%E5%92%8C%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">查看变量和代码</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">1.1.</span> <span class="nav-text">流程控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%8F%98%E9%87%8F%E5%92%8C%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">查看变量和代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%B0%83%E8%AF%95%EF%BC%9A%E4%BD%BF%E7%94%A8GDB%E8%B0%83%E8%AF%95%E4%BB%8EShell%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E7%9A%84C-%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.3.</span> <span class="nav-text">关于调试：使用GDB调试从Shell脚本调用的C ++程序</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -1,5 +1,5 @@
 ---
-title: C++ Cheatsheet: Multi-thread
+title: C++ Cheatsheet Multi-thread
 date: 2021-01-05 12:24:12
 categories:
   - 编程

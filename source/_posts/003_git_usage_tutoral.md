@@ -12,6 +12,12 @@ description: 本文介绍了Git常用的命令。
 
 ## 常用命令
 
+**设置默认编辑器为vim**
+
+```bash
+git config --global core.editor "vim"
+```
+
 **Convert remote's URL from `https` to `ssh`**:
 
 ```bash

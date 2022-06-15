@@ -1,6 +1,6 @@
 ---
-title: Ubuntu安装及使用心得
-date: 2021-04-09 21:29:21
+title: Ubuntu安装及使用指南
+date: 2022-06-15 23:43:00
 categories:
   - 操作系统
   - Linux
@@ -8,7 +8,7 @@ tags:
   - 操作系统
   - Linux
   - Ubuntu
-description: 本文记录了Ubuntu平台下用的命令。
+description: 本文记录了Ubuntu系统安装方法及日常使用命令。
 ---
 
 ## 系统内核和文件系统
@@ -219,6 +219,11 @@ nohup ./scripts/train.sh > log.txt 2>&1 &
 ls *jpg | awk -F\. '{print "mv "$0" C"NR".jpg"}' | sh
 ```
 
+批量去除文件行尾的^M字符
+
+```bash
+dos2unix ./*/*.txt
+```
 
 
 **Empty Trash in Command Line**
@@ -296,6 +301,32 @@ sudo service sshd restart
 ```bash
 sudo apt-get install openssh-client
 ```
+
+**使用X11在Windows上运行GUI程序**
+
+修改Ubuntu Server上sshd配置文件，路径为`/etc/ssh/sshd_config`，修改以下三项：
+
+```bash
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
+```
+
+修改完成后，重庆sshd服务：
+
+```bash
+sudo systemctl restart sshd.service
+```
+
+至此，Ubuntu Server的配置已经完成。
+
+在Windows Client上，需要安装XMing软件，提供可视化服务。XMing软件安装运行后，可以在托盘区看到一个X形的图标，鼠标悬浮在上面可以看到当前映射的桌面的编号，在ssh软件中使能X11连接，并且填入桌面变换，如：
+
+```bash
+localhost:0
+```
+
+
 
 ### 3. VNC
 

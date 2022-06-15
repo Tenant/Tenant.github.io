@@ -9,7 +9,7 @@ tags:
   - SLAM
   - vSLAM
   - VINS
-descriptions: 
+description: 本篇介绍了针孔相机模型
 ---
 
 ## 1. 针孔相机

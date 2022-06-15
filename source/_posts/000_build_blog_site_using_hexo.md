@@ -1,28 +1,43 @@
 ---
 title: 使用Hexo搭建个人博客详解
-date: 2021-01-03 21:51:55
+date: 2022-06-15 23:51:00
 categories:
   - 网站搭建
 tags: Hexo
 description: 本文简单介绍了使用Hexo搭建个人博客的方法。
 ---
 
-## 1. 环境配置
+## 1. Install Node.js
 
-搭建个人网站前，首先从[链接](http://nodejs.cn/download/)下载`nodejs`安装包并进行安装，建议安装最新版本。安装后需确认将`node.js`安装路径添加到了系统环境变量中，例如：
+### 1.1 Window
+
+首先从[官网](http://nodejs.cn/download/)下载`nodejs`安装包进行安装，建议安装最新版本。安装后需确认将`node.js`安装路径添加到了系统环境变量中。安装路径示例如下：
 
 ```bash
 D:\Program\nodejs\
 ```
 
-## 2. Hexo安装及操作
+### 1.2 Ubuntu
 
-### 2.1 安装Hexo
+在Ubuntu环境下通过如下命令进行安装：
+
+```bash
+sudo apt update
+sudo apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - # specify version >= 12.0, required for hexo-cli-i
+sudo apt -y install nodejs
+node --version
+npm --version
+```
+
+## 2. Install Hexo and Configure
+
+### 2.1 Install Hexo
 
 输入如下命令安装`Hexo`:
 
 ```bash
-npm i hexo-cli -g
+npm install hexo-cli -g # it's same for different os
 ```
 
 安装完成后输入以下指令验证是否安装成功：
@@ -31,10 +46,16 @@ npm i hexo-cli -g
 hexo -v
 ```
 
-运行上述指令时可能弹出“在此系统上禁止运行脚本”错误，其原因是Windows系统处于安全考虑，默认禁止脚本文件运行，可以通过在以管理员身份运行的`Powershell`中执行以下命令并选择`Y`选项解决：
+在Windows环境运行上述指令时可能弹出“在此系统上禁止运行脚本”错误，其原因是Windows系统处于安全考虑，默认禁止脚本文件运行，可以通过在以管理员身份运行的`Powershell`中执行以下命令并选择`Y`选项解决：
 
 ```bash
 set-executionpolicy remotesigned
+```
+
+另外因为众所周知的原因，国内网络环境下上述安装命令可能timeout，此时可以通过使用淘宝镜像解决此问题：
+
+```bash
+npm config set registry https://registry.npm.taobao.org
 ```
 
 之后输入如下命令安装其他依赖项：
@@ -45,11 +66,14 @@ npm install
 
 ### 2.2 初始化博客文件夹
 
-创建用于存放博客内容的文件夹，并在该文件夹内打开`Powershell`输入如下命令，初始化文件夹：
+创建用于存放博客内容的目录，在该目录打开终端输入如下命令，初始化文件夹：
 
 ```bash
 hexo init 
 ```
+
+如果是已有的hexo项目，则可以直接跳过这一步。
+
 
 ### 2.3 常用操作
 

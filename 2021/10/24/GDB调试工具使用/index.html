@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文记录了使用GDB进行调试的一些经验。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-10-24T13:29:21.000Z">
-<meta property="article:modified_time" content="2021-11-28T08:58:19.019Z">
+<meta property="article:modified_time" content="2022-06-15T14:39:24.361Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="编程">
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-28 16:58:19" itemprop="dateModified" datetime="2021-11-28T16:58:19+08:00">2021-11-28</time>
+                <time title="Modified: 2022-06-15 22:39:24" itemprop="dateModified" datetime="2022-06-15T22:39:24+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -241,7 +241,12 @@
       
         <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gdb --args executable_program arg1 arg2 arg3</span><br><span class="line">&gt; show args</span><br><span class="line">&gt; start</span><br><span class="line">&gt; step</span><br><span class="line">&gt; <span class="built_in">continue</span></span><br><span class="line">&gt; <span class="built_in">return</span></span><br><span class="line">&gt; <span class="built_in">return</span> <span class="comment"># or `r`</span></span><br><span class="line">&gt; quit <span class="comment"># or `q`</span></span><br><span class="line">&gt; b function_name</span><br><span class="line">&gt; b lidar/lib/main.cc:60</span><br><span class="line">&gt; bt</span><br></pre></td></tr></table></figure>
 <h3 id="查看变量和代码"><a href="#查看变量和代码" class="headerlink" title="查看变量和代码"></a>查看变量和代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; info variables <span class="comment"># list all static and global variables</span></span><br><span class="line">&gt; info locals <span class="comment"># list all local variables</span></span><br><span class="line">&gt; info args <span class="comment"># list all args</span></span><br></pre></td></tr></table></figure>
-<h3 id="关于调试：使用GDB调试从Shell脚本调用的C-程序"><a href="#关于调试：使用GDB调试从Shell脚本调用的C-程序" class="headerlink" title="关于调试：使用GDB调试从Shell脚本调用的C ++程序"></a>关于调试：使用GDB调试从Shell脚本调用的C ++程序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv program _program</span><br><span class="line">(<span class="built_in">echo</span><span class="string">&quot;#!/bin/sh&quot;</span>; <span class="built_in">echo</span><span class="string">&quot;exec gdb <span class="variable">$PWD</span>/_program&quot;</span>) &gt; program</span><br><span class="line">chmod +x program</span><br></pre></td></tr></table></figure>
+<h3 id="关于调试：使用GDB调试从Shell脚本调用的C-程序"><a href="#关于调试：使用GDB调试从Shell脚本调用的C-程序" class="headerlink" title="关于调试：使用GDB调试从Shell脚本调用的C ++程序"></a>关于调试：使用GDB调试从Shell脚本调用的C ++程序</h3><p>方法一：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb progname [pid]</span><br></pre></td></tr></table></figure>
+
+
+<p>方法二：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv program _program</span><br><span class="line">(<span class="built_in">echo</span><span class="string">&quot;#!/bin/sh&quot;</span>; <span class="built_in">echo</span><span class="string">&quot;exec gdb <span class="variable">$PWD</span>/_program&quot;</span>) &gt; program</span><br><span class="line">chmod +x program</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -351,20 +356,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">36</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -399,7 +404,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

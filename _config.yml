@@ -105,7 +105,7 @@ theme: next
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: 'git'
-  repo: https://github.com/Tenant/Tenant.github.io.git
+  repo: git@github.com:Tenant/Tenant.github.io.git
   branch: master
 
 plugins:

@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文对使用Dockerfile进行镜像构建进行了详解。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-08T06:48:22.000Z">
-<meta property="article:modified_time" content="2021-08-01T02:57:04.339Z">
+<meta property="article:modified_time" content="2022-06-15T15:33:05.760Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="Docker">
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+                <time title="Modified: 2022-06-15 23:33:05" itemprop="dateModified" datetime="2022-06-15T23:33:05+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,7 +242,6 @@
         <p>Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。本节内容参考<a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-dockerfile.html">链接</a>。</p>
 <p>下面所示是一个基本的Dockerfile示例：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM ros:kinetic-perception</span><br><span class="line"></span><br><span class="line">ENV CATKIN_WS=/root/catkin_ws</span><br><span class="line">RUN git clone https://github.com/ceres-solver/ceres-solver.git</span><br></pre></td></tr></table></figure>
-
 <p><code>FROM</code>指令用于指定构建的镜像所依赖的基础镜像文件，实例中设置为<code>ros:kinetic-perception</code></p>
 <p><code>RUN</code>指令用于执行后面跟着的命令行命令</p>
 <p><code>ENV</code>指令用于设置环境变量，定义了环境变量，那么在后续的指令中，就可以使用这个环境变量</p>
@@ -250,10 +249,8 @@
 <p><code>WORKDIR</code>指令用于指定工作目录。用 WORKDIR 指定的工作目录，会在构建镜像的每一层中都存在。<code>WORKDIR</code> 指定的工作目录，必须是提前创建好的。docker build 构建镜像过程中的，每一个 RUN 命令都是新建的一层。只有通过 <code>WORKDIR</code> 创建的目录才会一直存在。</p>
 <p><strong>注意</strong>：Dockerfile 的指令每执行一次都会在 docker 上新建一层。所以过多无意义的层，会造成镜像膨胀过大。例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line">RUN yum install wget</span><br><span class="line">RUN wget -O redis.tar.gz <span class="string">&quot;http://download.redis.io/releases/redis-5.0.3.tar.gz&quot;</span></span><br><span class="line">RUN tar -xvf redis.tar.gz</span><br><span class="line">以上执行会创建 3 层镜像。可简化为以下格式：</span><br><span class="line">FROM centos</span><br><span class="line">RUN yum install wget \</span><br><span class="line">    &amp;&amp; wget -O redis.tar.gz <span class="string">&quot;http://download.redis.io/releases/redis-5.0.3.tar.gz&quot;</span> \</span><br><span class="line">    &amp;&amp; tar -xvf redis.tar.gz</span><br></pre></td></tr></table></figure>
-
 <p>使用以下命令，根据当前路径下的Dockerfile构建名为<code>my-ros</code>的镜像：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t my-ros .</span><br></pre></td></tr></table></figure>
-
 
     </div>
 

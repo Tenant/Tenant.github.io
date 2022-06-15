@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文介绍了Git常用的命令。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-14T05:24:00.000Z">
-<meta property="article:modified_time" content="2021-08-01T02:57:04.339Z">
+<meta property="article:modified_time" content="2022-06-15T15:33:05.760Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+                <time title="Modified: 2022-06-15 23:33:05" itemprop="dateModified" datetime="2022-06-15T23:33:05+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,31 +236,23 @@
       
         <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><strong>Convert remote’s URL from <code>https</code> to <code>ssh</code></strong>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># To check if remote&#x27;s URL is ssh or https</span></span><br><span class="line">git remote -v</span><br><span class="line"><span class="comment"># To switch from https to ssh</span></span><br><span class="line">git remote set-url origin git@github.com:USERNAME/REPOSITORY.git</span><br></pre></td></tr></table></figure>
-
 <p><strong>Untrack files and don’t change working directory</strong>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached [filename]</span><br></pre></td></tr></table></figure>
-
 <p><strong>Reset <code>git add</code> operations</strong>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># reset staging area, but leave the working directory unchanged</span></span><br><span class="line">git reset HEAD .</span><br><span class="line">git reset</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove &lt;file&gt; from the staging area, but leave the working directory unchanged</span></span><br><span class="line">git reset &lt;file&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># reset staging area and reset working directory to match last commit</span></span><br><span class="line">git reset --hard</span><br><span class="line"></span><br><span class="line"><span class="comment"># move the current brach tip backward to &lt;commit&gt;, reset the staging area to match, but leave the working directory alone</span></span><br><span class="line">git reset &lt;commit&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># same as precious, but resets both the staging area and working directory</span></span><br><span class="line">git reset --hard &lt;commit&gt;</span><br></pre></td></tr></table></figure>
-
 <p><strong>Clean files</strong>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Show which files would be removed from working directory</span></span><br><span class="line">git clean -n</span><br><span class="line"></span><br><span class="line"><span class="comment"># Execute the clean</span></span><br><span class="line">git clean -f</span><br></pre></td></tr></table></figure>
-
 <p><strong>Append changes to last commit</strong>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
-
 <p><strong>Display <code>commits</code> concerned with the specific file</strong>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> -- &lt;file&gt;</span><br></pre></td></tr></table></figure>
-
 <p><strong>Git diff</strong>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># show difference between working directory and last commit</span></span><br><span class="line">git diff HEAD</span><br><span class="line"></span><br><span class="line"><span class="comment"># show difference between changes and last commit</span></span><br><span class="line">git diff --cached</span><br></pre></td></tr></table></figure>
-
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="部分仓库下载缓慢-失败问题"><a href="#部分仓库下载缓慢-失败问题" class="headerlink" title="部分仓库下载缓慢/失败问题"></a>部分仓库下载缓慢/失败问题</h3><p><strong>方法一</strong></p>
 <p>对于不包含submodule的仓库，出现这种问题后，从网页版GitHub中下载源码即可。</p>
 <p><strong>方法二</strong></p>
 <p>对于包含submodule的仓库，一般是主仓库可以下载，但是其submodule下载失败。此时，可以在clone主仓库后，分别clone每个子仓库，再将其放置到父仓库对应的目录下，然后通过<code>git reset --hard commit_id</code>将子仓库切换到对应版本。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> xxx.git repo-a --recursive <span class="comment"># failed</span></span><br><span class="line">git <span class="built_in">clone</span> xxx.git repo-a <span class="comment"># success</span></span><br><span class="line"><span class="built_in">cd</span> repo-a/third_parth</span><br><span class="line">git <span class="built_in">clone</span> xxxx.git repo-b --recursive <span class="comment"># success or fail</span></span><br><span class="line"><span class="built_in">cd</span> repo-b</span><br><span class="line">git reset --hard commit_id</span><br></pre></td></tr></table></figure>
-
 <p><strong>方法三</strong></p>
 <p>除了上述两种方法外，可以借助<a target="_blank" rel="noopener" href="https://gitee.com/">我的工作台 - Gitee.com</a>解决该问题。操作时首先将需要clone的仓库从GitHub中fork到Gitee中，然后从Gitee clone即可。对于包含submodule的仓库，可以将其submodule均fork到Gitee，并修改<code>.submodule</code>中对应仓库的路径为Gitee下的路径（注意此处路径结尾不包含<code>.git</code>字段）.</p>
 

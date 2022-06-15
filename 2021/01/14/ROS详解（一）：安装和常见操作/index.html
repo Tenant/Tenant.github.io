@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文对ROS的安装和常见操作进行了总结归纳。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-14T05:44:57.000Z">
-<meta property="article:modified_time" content="2021-08-01T02:57:04.349Z">
+<meta property="article:modified_time" content="2022-06-15T15:33:05.764Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="ROS">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+                <time title="Modified: 2022-06-15 23:33:05" itemprop="dateModified" datetime="2022-06-15T23:33:05+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,50 +236,40 @@
       
         <p><a target="_blank" rel="noopener" href="http://wiki.ros.org/ROS/Tutorials0">Tutorial</a></p>
 <h2 id="1-BUILD"><a href="#1-BUILD" class="headerlink" title="1. BUILD"></a>1. BUILD</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">catkin_make_isolated --only-pkg-with-deps [your_packages] --use-ninja</span><br><span class="line">catkin_make --only-pkg-with-deps [your_package] -DCMAKE_BUILD_TYPE=Release</span><br></pre></td></tr></table></figure>
-
 <p><strong>Refresh WorkingSpace</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> devel/setup.sh</span><br></pre></td></tr></table></figure>
-
 
 
 <p><strong>rosparam</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rosparam get /use_sim_time</span><br><span class="line">rosparam <span class="built_in">set</span> /use_sim_time <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
 
-
 <p><strong>rosbag play</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rosbag play [your_bag] -l --clock --pause -r 0.8</span><br><span class="line">rosbag info [your_bag]</span><br></pre></td></tr></table></figure>
-
 
 
 <p><strong>Convert pcap to rosbag</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rosrun ve lodyne_driver velodyne_node _model:=VLP16 [32E] _pcap:=/your/file.pcap _read_once:=<span class="literal">true</span></span><br><span class="line">rosrun rosbag record -O your_output.bag -a [/velodyne_packets]</span><br></pre></td></tr></table></figure>
 
 
-
 <p><strong>Initialize Workspace</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir catkin_ws</span><br><span class="line"><span class="built_in">cd</span> catkin_ws</span><br><span class="line">wstool init src</span><br><span class="line">wstool update -t src</span><br></pre></td></tr></table></figure>
-
 
 
 <p><strong>How to Create a package</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> catkin_ws/src</span><br><span class="line">catkin_create_pkg [package-name]</span><br></pre></td></tr></table></figure>
 
 
-
 <p><strong>Start ROS server</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure>
-
 
 
 <p><strong>rostopic</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rostopic <span class="built_in">echo</span> /velodyne_points | grep frame_id</span><br><span class="line">rostopic <span class="built_in">echo</span> /tf | grep frame_id</span><br><span class="line">rostopic list</span><br><span class="line">rosrun rviz rviz</span><br><span class="line">rosbag record [topic1] [topic2] -O bagfile.bag</span><br></pre></td></tr></table></figure>
 
 
-
 <p><strong>rviz</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rviz</span><br><span class="line">rosrun rviz rviz</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rviz</span><br><span class="line">rosrun rviz rviz</span><br></pre></td></tr></table></figure>
 
 
 
@@ -287,13 +277,10 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">remap</span> <span class="attr">from</span>=<span class="string">&quot;original_defined_topic&quot;</span> <span class="attr">to</span>=<span class="string">&quot;acturally_used_topic&quot;</span> / &gt;</span></span><br></pre></td></tr></table></figure>
 
 
-
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roslaunch loam_velodyne loam_velodyne.launch</span><br></pre></td></tr></table></figure>
 
 
-
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roslaunch velodyne_pointcloud 64e_points-2.launch</span><br></pre></td></tr></table></figure>
-
 
     </div>
 

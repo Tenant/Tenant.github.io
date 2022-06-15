@@ -28,7 +28,7 @@
 <meta property="og:description" content="本节详述了如何在Docker中配置VINS-Mono的环境并使用本地的Clion进行调试开发。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-09T07:41:43.000Z">
-<meta property="article:modified_time" content="2021-08-01T02:57:04.358Z">
+<meta property="article:modified_time" content="2022-06-15T15:33:05.764Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="SLAM">
 <meta property="article:tag" content="vSLAM">
@@ -212,7 +212,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+                <time title="Modified: 2022-06-15 23:33:05" itemprop="dateModified" datetime="2022-06-15T23:33:05+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,23 +247,17 @@
         <p>本节内容参考<a target="_blank" rel="noopener" href="https://blog.jetbrains.com/clion/2020/01/using-docker-with-clion/">链接</a>。</p>
 <h2 id="1-构建Docker"><a href="#1-构建Docker" class="headerlink" title="1. 构建Docker"></a>1. 构建Docker</h2><p>为了构建支持远程调试的Docker，需要在<code>Docker</code>文件中添加如下命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">RUN apt-get update &amp;&amp; apt-get install -y openssh-server rsync gdb gdbserver &amp;&amp; \</span><br><span class="line">    mkdir /var/run/sshd &amp;&amp; \</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&#x27;root:root&#x27;</span> | chpasswd &amp;&amp; \</span><br><span class="line">    sed -i <span class="string">&#x27;s/PermitRootLogin prohibit-password/PermitRootLogin yes/&#x27;</span> /etc/ssh/sshd_config</span><br><span class="line">    sed -i <span class="string">&#x27;s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g&#x27;</span> /etc/pam.d/sshd &amp;&amp; \</span><br><span class="line">    sed -i <span class="string">&#x27;s/\(^Port\)/#\1/&#x27;</span> /etc/ssh/sshd_config &amp;&amp; <span class="built_in">echo</span> Port 2233 &gt;&gt; /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line">ENV NOTVISIBLE <span class="string">&quot;in users profile&quot;</span></span><br><span class="line">RUN <span class="built_in">echo</span> <span class="string">&quot;export VISIBLE=now&quot;</span> &gt;&gt; /etc/profile</span><br><span class="line"></span><br><span class="line">EXPOSE 2233 7777 <span class="comment"># 22 for ssh server. 7777 for gdb server</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># RUN useradd -ms /bin/bash debugger</span></span><br><span class="line"><span class="comment"># RUN echo &#x27;debugger:pwd&#x27; | chpasswd</span></span><br></pre></td></tr></table></figure>
-
 <p>注意，上面的命令中，为了防止<code>Docker</code>和<code>Host</code>的SSH端口发生冲突，将<code>Docke</code>的<code>SSH</code>端口重定向到了<code>2233</code></p>
 <p>端口。</p>
 <p>然后运行如下命令，构建镜像：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t ros:vins-mono-screen .</span><br></pre></td></tr></table></figure>
-
 <h2 id="2-实例化镜像"><a href="#2-实例化镜像" class="headerlink" title="2. 实例化镜像"></a>2. 实例化镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name vins-mono-screen --network host ros:vins-mono-screen</span><br></pre></td></tr></table></figure>
-
 <p>示例化镜像后通过以下命令测试<code>ssh</code>配置是否成功：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -p 2233 root@localhost</span><br></pre></td></tr></table></figure>
-
 <p>若提示密码设置不成功，可以通过以下命令重设密码：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd root</span><br></pre></td></tr></table></figure>
-
 <p>若<code>Docker</code>中SSH服务没有启动，或手工更改了<code>\etc\ssh\sshd_config</code>中的参数，可以通过以下命令操作：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/ssh restart</span><br><span class="line">/etc/init.d/ssh start</span><br></pre></td></tr></table></figure>
-
 <h2 id="3-配置Clion"><a href="#3-配置Clion" class="headerlink" title="3. 配置Clion"></a>3. 配置Clion</h2><h3 id="3-1-配置Toolchains"><a href="#3-1-配置Toolchains" class="headerlink" title="3.1 配置Toolchains"></a>3.1 配置Toolchains</h3><img src = "http://qmt3iojod.hn-bkt.clouddn.com/FoyKTY1LxsYpFCEwtE3zlbWjckQ-" width="600px"/>
 
 
@@ -275,10 +269,8 @@
 <p><code>Local Path</code>的文件会上传到<code>Deployment Path</code>，然后在远程编译，完成配置后记得Resync代码。</p>
 <h3 id="4-打开项目"><a href="#4-打开项目" class="headerlink" title="4. 打开项目"></a>4. 打开项目</h3><p>完成以上配置后，打开工程项目。此时注意因为Clion通过SSH连接到Container时，是没有<code>source</code>ROS的安装路径的，所以此时<code>CMakelists.txt</code>中<code>find_package(catkin)</code>将报错，此时，需要在<code>CMakelists.txt</code>中<code>find_package(catkin)</code>前添加如下命令：</p>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_PREFIX_PATH /opt/ros/kinetic /root/catkin_ws/devel)</span><br></pre></td></tr></table></figure>
-
 <p>另外，需要在Clion的Run/Debug Configurations中，增加相应的环境变量：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROS_MASTER_URI=http://localhost:11311 <span class="comment"># ros master</span></span><br></pre></td></tr></table></figure>
-
 
 
 

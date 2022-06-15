@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Tenant/Tenant.github.io/assets/images/image-20210114005827658.png">
 <meta property="og:image" content="https://blog.calria.plus/2021/01/03/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%A6%E8%A7%A3/%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%AF%A6%E8%A7%A3.assets/20210116155856.png">
 <meta property="article:published_time" content="2021-01-03T13:51:55.000Z">
-<meta property="article:modified_time" content="2021-08-01T02:57:04.366Z">
+<meta property="article:modified_time" content="2022-06-15T15:33:05.764Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary">
@@ -214,7 +214,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+                <time title="Modified: 2022-06-15 23:33:05" itemprop="dateModified" datetime="2022-06-15T23:33:05+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,34 +240,24 @@
       
         <h2 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1. 环境配置"></a>1. 环境配置</h2><p>搭建个人网站前，首先从<a target="_blank" rel="noopener" href="http://nodejs.cn/download/">链接</a>下载<code>nodejs</code>安装包并进行安装，建议安装最新版本。安装后需确认将<code>node.js</code>安装路径添加到了系统环境变量中，例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Program\nodejs\</span><br></pre></td></tr></table></figure>
-
 <h2 id="2-Hexo安装及操作"><a href="#2-Hexo安装及操作" class="headerlink" title="2. Hexo安装及操作"></a>2. Hexo安装及操作</h2><h3 id="2-1-安装Hexo"><a href="#2-1-安装Hexo" class="headerlink" title="2.1 安装Hexo"></a>2.1 安装Hexo</h3><p>输入如下命令安装<code>Hexo</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-cli -g</span><br></pre></td></tr></table></figure>
-
 <p>安装完成后输入以下指令验证是否安装成功：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-
 <p>运行上述指令时可能弹出“在此系统上禁止运行脚本”错误，其原因是Windows系统处于安全考虑，默认禁止脚本文件运行，可以通过在以管理员身份运行的<code>Powershell</code>中执行以下命令并选择<code>Y</code>选项解决：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set-executionpolicy remotesigned</span><br></pre></td></tr></table></figure>
-
 <p>之后输入如下命令安装其他依赖项：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
 <h3 id="2-2-初始化博客文件夹"><a href="#2-2-初始化博客文件夹" class="headerlink" title="2.2 初始化博客文件夹"></a>2.2 初始化博客文件夹</h3><p>创建用于存放博客内容的文件夹，并在该文件夹内打开<code>Powershell</code>输入如下命令，初始化文件夹：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init </span><br></pre></td></tr></table></figure>
-
 <h3 id="2-3-常用操作"><a href="#2-3-常用操作" class="headerlink" title="2.3 常用操作"></a>2.3 常用操作</h3><p>创建新的`post：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;文件名&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>从当前<code>Markdown</code>文档生成网页：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-
 <p>本地预览生成的网站：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo static</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
 <p>将网站布置到云端：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br><span class="line">hexo d                                                              </span><br></pre></td></tr></table></figure>
-
 <h2 id="3-主题选择"><a href="#3-主题选择" class="headerlink" title="3. 主题选择"></a>3. 主题选择</h2><h2 id="4-图床选择"><a href="#4-图床选择" class="headerlink" title="4. 图床选择"></a>4. 图床选择</h2><h3 id="4-1-Github图床"><a href="#4-1-Github图床" class="headerlink" title="4.1 Github图床"></a>4.1 Github图床</h3><p>我们可以选择Github仓库作为图床。</p>
 <h4 id="4-1-1-创建Github-Repository"><a href="#4-1-1-创建Github-Repository" class="headerlink" title="4.1.1 创建Github Repository"></a>4.1.1 创建Github Repository</h4><p>创建用于保存图片的仓库，将访问权限设置为公开。</p>
 <h4 id="4-1-2-创建Token"><a href="#4-1-2-创建Token" class="headerlink" title="4.1.2 创建Token"></a>4.1.2 创建Token</h4><p>点击Github网页版右上角头像，进入<code>设置</code>，在页面最下找到<code>Developer settings</code>点击进入，然后依次点击<code>Personal access token </code>，<code>创建token</code>，创建时设置如下：</p>
@@ -279,7 +269,6 @@
 <p>配置完成后将剪切板中的图片复制到Typora，然后右键选择“上传图片”即可。</p>
 <h4 id="4-1-5-其它问题"><a href="#4-1-5-其它问题" class="headerlink" title="4.1.5 其它问题"></a>4.1.5 其它问题</h4><p>将Github作为图床有时候会出现图片加载失败的现象，这多半是由于DNS污染引起的，通过在<code>C:\Windows\System32\drivers\etc</code>内的<code>hosts</code>文件中添加如下内容直接对相关IP地址进行解析即可。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">192.30.253.112    github.com </span><br><span class="line">192.30.253.119    gist.github.com</span><br><span class="line">151.101.184.133    assets-cdn.github.com</span><br><span class="line">151.101.184.133    raw.githubusercontent.com</span><br><span class="line">151.101.184.133    gist.githubusercontent.com</span><br><span class="line">151.101.184.133    cloud.githubusercontent.com</span><br><span class="line">151.101.184.133    camo.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars0.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars1.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars2.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars3.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars4.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars5.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars6.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars7.githubusercontent.com</span><br><span class="line">151.101.184.133    avatars8.githubusercontent.com</span><br></pre></td></tr></table></figure>
-
 <h3 id="4-2-七牛云"><a href="#4-2-七牛云" class="headerlink" title="4.2 七牛云"></a>4.2 七牛云</h3><p>七牛云的免费域名只有一个月的使用期，到期将被回收，所以暂时不使用。</p>
 <h2 id="5-设置自定义域名"><a href="#5-设置自定义域名" class="headerlink" title="5. 设置自定义域名"></a>5. 设置自定义域名</h2><p>使用GitHub搭建网站时会根据你的用户名获得一个<code>*.github.io</code>域名，但考虑到未来将网站迁移到自建服务器的可能性，可以申请自己的域名，并将<code>*.github.io</code>域名重新向到自己的固定域名。</p>
 <h3 id="5-1-购买域名"><a href="#5-1-购买域名" class="headerlink" title="5.1 购买域名"></a>5.1 购买域名</h3><p>可以前往<a target="_blank" rel="noopener" href="https://dnspod.cloud.tencent.com/">腾讯云</a>购买自己的域名。</p>
@@ -288,19 +277,15 @@
 <p>其中，<code>主机记录</code>对应于域名的前缀，可以自行设置，<code>记录类型</code>须设置为<code>CNAME</code>，记录值为你的GitHub域名，其他项无需修改，然后点击确认即可。</p>
 <p>然后打开本地终端，输入如下命令安装插件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-cname --save</span><br></pre></td></tr></table></figure>
-
 <p>之后打开站点配置文件<code>_config.yaml</code>，进行如下配置：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://example.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">https://blog.calria.plus</span></span><br><span class="line"></span><br><span class="line"><span class="attr">plugins:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">hexo-generator-cname</span></span><br></pre></td></tr></table></figure>
-
 <p>其中，<code>url</code>是文件已有项，进行替换即可，<code>plugins</code>项非默认项，通常需要手工添加（不排除你之前安装其他插件时已经添加）。</p>
 <p>至此，配置完成，可以使用新注册的域名访问自己之前配置的GitHub博客了。</p>
 <h2 id="6-SEO"><a href="#6-SEO" class="headerlink" title="6. SEO"></a>6. SEO</h2><h3 id="6-1-添加百度统计"><a href="#6-1-添加百度统计" class="headerlink" title="6.1 添加百度统计"></a>6.1 添加百度统计</h3><p>在[管理页面](<a target="_blank" rel="noopener" href="https://tongji.baidu.com/sc-web/10000313605/home/site/index?from=3">网站列表 - 网站中心 (baidu.com)</a>)中新增网站，添加自己的博客域名，然后在弹出的页面中可以看到如下一段javascript代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> _hmt = _hmt || [];</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> hm = <span class="built_in">document</span>.createElement(<span class="string">&quot;script&quot;</span>);</span><br><span class="line">  hm.src = <span class="string">&quot;https://hm.baidu.com/hm.js?9f1****************dd&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> s = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;script&quot;</span>)[<span class="number">0</span>]; </span><br></pre></td></tr></table></figure>
-
 <p>这段代码本来是要手动嵌入到网页中的，但是<code>NexT</code>主题已经帮我们嵌入了，所以我们只需配置Baidu Analytics ID即可，这个ID就是上述代码的<code>hm.js?</code>后面那一串。</p>
 <p>打开<code>hexo</code>站点根目录<code>\themes\next\</code>路径下的配置文件<code>_config.yml</code>，然后搜索<code>Baidu Analytics ID</code>，找到如下配置项：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Baidu Analytics ID</span></span><br><span class="line">baidu_analytics: 9f1****************dd</span><br></pre></td></tr></table></figure>
-
 <p>去掉<code>baidu_analytics</code>前面的#号开启百度统计，值设置成刚在百度统计后台复制的Baidu Analytics ID即可。</p>
 <p>至此配置完成，可以在刚刚复制Baidu Analytics ID的页面点击<code>代码安装检查</code>查看安装结果，也可打开[页面](<a target="_blank" rel="noopener" href="https://tongji.baidu.com/web/homepage/index">主页 - 百度统计 (baidu.com)</a>)查看统计数据。</p>
 

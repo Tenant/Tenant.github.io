@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文对常用的Docker指令进行了详细的归纳总结。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-05T04:19:28.000Z">
-<meta property="article:modified_time" content="2021-08-01T02:57:04.339Z">
+<meta property="article:modified_time" content="2022-06-15T15:33:05.760Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="Docker">
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 10:57:04" itemprop="dateModified" datetime="2021-08-01T10:57:04+08:00">2021-08-01</time>
+                <time title="Modified: 2022-06-15 23:33:05" itemprop="dateModified" datetime="2022-06-15T23:33:05+08:00">2022-06-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -241,79 +241,56 @@
       
         <h2 id="1-Docker-Install"><a href="#1-Docker-Install" class="headerlink" title="1. Docker Install"></a>1. Docker Install</h2><p>完整Docker安装过程参考<a target="_blank" rel="noopener" href="https://docs.docker.com/get-docker/">链接</a>。下面的安装以Ubuntu系统为例。</p>
 <h3 id="1-1-卸载原有安装"><a href="#1-1-卸载原有安装" class="headerlink" title="1.1 卸载原有安装"></a>1.1 卸载原有安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
-
 <h3 id="1-2-添加Docker源仓库"><a href="#1-2-添加Docker源仓库" class="headerlink" title="1.2 添加Docker源仓库"></a>1.2 添加Docker源仓库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    gnupg-agent \</span><br><span class="line">    software-properties-common</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line">sudo add-apt-repository \</span><br><span class="line">   <span class="string">&quot;deb [arch=arm64] https://download.docker.com/linux/ubuntu \</span></span><br><span class="line"><span class="string">   <span class="subst">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">   stable&quot;</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="1-3-安装Docker-Engine"><a href="#1-3-安装Docker-Engine" class="headerlink" title="1.3 安装Docker Engine"></a>1.3 安装Docker Engine</h3><p>安装最新版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
-
 <p>安装指定版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt-cache madison docker-ce</span><br><span class="line"><span class="comment"># select from the all available versions</span></span><br><span class="line">sudo apt-get install docker-ce=&lt;VERSION_STRING&gt; docker-ce-cli=&lt;VERSION_STRING&gt; containerd.io</span><br></pre></td></tr></table></figure>
-
 <h3 id="1-4-验证安装-Optional"><a href="#1-4-验证安装-Optional" class="headerlink" title="1.4 验证安装(Optional)"></a>1.4 验证安装(Optional)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world <span class="comment"># This command downloads a test image and runs it in a container</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="1-5-卸载Docker"><a href="#1-5-卸载Docker" class="headerlink" title="1.5 卸载Docker"></a>1.5 卸载Docker</h3><p>使用以下命令卸载安装：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get purge docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
-
 <p>如需彻底删除Docker产生的文件，执行以下命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /var/lib/docker</span><br></pre></td></tr></table></figure>
-
 <h2 id="2-Docker配置"><a href="#2-Docker配置" class="headerlink" title="2. Docker配置"></a>2. Docker配置</h2><p>本节内容不影响Docker的正常使用，但恰当的配置可以改善Docker使用体验。</p>
 <h3 id="2-1-允许非root用户使用docker"><a href="#2-1-允许非root用户使用docker" class="headerlink" title="2.1 允许非root用户使用docker"></a>2.1 允许非root用户使用docker</h3><p>因Docker使用Unix socket进行通讯，而在Linux系统中仅root用户可以访问Unix socket，所以通常使用Docker时需要添加<code>sudo</code>命令。为了解决这个问题，需要为系统添加一个名为<code>docker</code>的组，设置该组拥有和<code>root</code>相同的权限，并令当前用户属于该组。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd docker <span class="comment"># create a group named `docker`</span></span><br><span class="line">sudo usermod -aG docker <span class="variable">$USER</span> <span class="comment"># add current user to the group `docker`</span></span><br><span class="line">newgrp docker <span class="comment"># force re-evaluate the group membership</span></span><br><span class="line">docker run hello-world <span class="comment"># verify docker can be runned without sudo</span></span><br></pre></td></tr></table></figure>
-
 <p>若系统之前运行过Docker，修改后可能出现以下错误：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WARNING: Error loading config file: /home/user/.docker/config.json -</span><br><span class="line"><span class="built_in">stat</span> /home/user/.docker/config.json: permission denied</span><br></pre></td></tr></table></figure>
-
 <p>使用下述命令修复：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown <span class="string">&quot;<span class="variable">$USER</span>&quot;</span>:<span class="string">&quot;<span class="variable">$USER</span>&quot;</span> /home/<span class="string">&quot;<span class="variable">$USER</span>&quot;</span>/.docker -R</span><br><span class="line">sudo chmod g+rwx <span class="string">&quot;<span class="variable">$HOME</span>/.docker&quot;</span> -R</span><br></pre></td></tr></table></figure>
-
 <p>本部分内容完整版见<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/linux-postinstall/">链接</a>。</p>
 <h2 id="3-Docker使用"><a href="#3-Docker使用" class="headerlink" title="3. Docker使用"></a>3. Docker使用</h2><h3 id="3-1-获取Image"><a href="#3-1-获取Image" class="headerlink" title="3.1 获取Image"></a>3.1 获取Image</h3><p>List all <code>image</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images ls</span><br></pre></td></tr></table></figure>
-
 <p>产出指定<code>Image</code>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image rm &#123;imageName&#125;</span><br></pre></td></tr></table></figure>
 
 
-
 <h3 id="3-2-创建Container"><a href="#3-2-创建Container" class="headerlink" title="3.2 创建Container"></a>3.2 创建Container</h3><p>Create <code>container</code> from <code>image</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name=&#123;containerName&#125; &#123;imageName&#125; tail -f /dev/null</span><br></pre></td></tr></table></figure>
-
 <p>Create <code>container</code> with <code>X11</code> from <code>image</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xhost +</span><br><span class="line">sudo docker run -d -v /etc/localtime:/etc/localtime:ro -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix<span class="variable">$DISPLAY</span> -e GDK_SCALE -e GDK_DPI_SCALE --name &#123;containerName&#125; &#123;imageName&#125;</span><br></pre></td></tr></table></figure>
-
 <p>显示当前所有运行中的<code>container</code>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container ls</span><br></pre></td></tr></table></figure>
-
 <p>显示当前已创建的所有<code>container</code>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container ls -a</span><br></pre></td></tr></table></figure>
-
 <p>删除指定<code>container</code>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container rm  &#123;containerName&#125;</span><br></pre></td></tr></table></figure>
-
 <h3 id="3-3-Container的运行与停止"><a href="#3-3-Container的运行与停止" class="headerlink" title="3.3 Container的运行与停止"></a>3.3 Container的运行与停止</h3><p>Start or stop <code>container</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker start/stop &#123;containerName&#125;</span><br></pre></td></tr></table></figure>
-
 <p>Open a running <code>container</code> in <code>bash</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="built_in">exec</span> -it &#123;containerName&#125; bash</span><br></pre></td></tr></table></figure>
-
 <h3 id="3-4-Container和Host间操作"><a href="#3-4-Container和Host间操作" class="headerlink" title="3.4 Container和Host间操作"></a>3.4 Container和Host间操作</h3><p>Copy files between <code>host</code> and <code>container</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker cp ~/code/notepanda  &#123;containerId&#125;:/code</span><br></pre></td></tr></table></figure>
-
 <h3 id="3-5-保存Container"><a href="#3-5-保存Container" class="headerlink" title="3.5 保存Container"></a>3.5 保存Container</h3><p>Save <code>container</code> as <code>image</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit &#123;containerId&#125; &#123;savedImageName&#125;</span><br></pre></td></tr></table></figure>
-
 
 
 <h3 id="3-2-Update-Image"><a href="#3-2-Update-Image" class="headerlink" title="3.2 Update Image"></a>3.2 Update Image</h3><p>Update <code>image</code> with <code>container</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker commit &#123;containerId&#125; &#123;savedImageName&#125;</span><br></pre></td></tr></table></figure>
 
 
-
 <h3 id="3-3-Pull-and-Push"><a href="#3-3-Pull-and-Push" class="headerlink" title="3.3 Pull and Push"></a>3.3 Pull and Push</h3><p>Login</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker login</span><br></pre></td></tr></table></figure>
-
 <p>Push local<code>image</code> to remote:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker push &#123;userName&#125;/&#123;imageName&#125;</span><br></pre></td></tr></table></figure>
     </div>

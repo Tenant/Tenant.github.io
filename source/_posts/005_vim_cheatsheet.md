@@ -1,6 +1,5 @@
 ---
 title: Vim使用手册
-date: 2021-10-24 21:29:21
 categories:
   - 操作系统
   - Linux

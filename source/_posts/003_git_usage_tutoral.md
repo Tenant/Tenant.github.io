@@ -1,6 +1,5 @@
 ---
 title: Git使用详解
-date: 2021-01-14 13:24:00
 categories:
   - Git
 tags:
@@ -8,14 +7,18 @@ tags:
 description: 本文介绍了Git常用的命令。
 ---
 
-
-
-## 常用命令
+## 1. 常用操作
 
 **设置默认编辑器为vim**
 
 ```bash
 git config --global core.editor "vim"
+```
+
+**终端显示中文乱码**
+
+```bash
+git config --global core.quotepath false
 ```
 
 **Convert remote's URL from `https` to `ssh`**:
@@ -30,25 +33,18 @@ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
 **Untrack files and don't change working directory**:
 
 ```bash
-git rm --cached [filename]
+git rm --cached [filename]# untrack specified file
+git reset HEAD file
+git reset HEAD . # untrack all files
 ```
 
-**Reset `git add` operations**:
+**Reset**
 
 ```bash
-# reset staging area, but leave the working directory unchanged
-git reset HEAD .
-git reset
-
-# Remove <file> from the staging area, but leave the working directory unchanged
-git reset <file>
-
 # reset staging area and reset working directory to match last commit
 git reset --hard
-
 # move the current brach tip backward to <commit>, reset the staging area to match, but leave the working directory alone
 git reset <commit>
-
 # same as precious, but resets both the staging area and working directory
 git reset --hard <commit>
 ```
@@ -58,7 +54,6 @@ git reset --hard <commit>
 ```bash
 # Show which files would be removed from working directory
 git clean -n
-
 # Execute the clean
 git clean -f
 ```
@@ -75,17 +70,65 @@ git commit --amend
 git log -- <file>
 ```
 
-**Git diff**:
+**Diff**
 
 ```bash
 # show difference between working directory and last commit
-git diff HEAD
-
+git diff
 # show difference between changes and last commit
 git diff --cached
+git diff --name-only
+git diff --name-status
 ```
 
-## 常见问题
+**Stash**
+
+```bash
+git stash
+git stash -- file_01 file_02
+git stash -p
+git stash list
+git stash show -p stash@{0}
+git stash drop stash@{0}
+```
+
+**Patch**
+
+```
+git format-patch <commit-id-head>
+git am --abort
+git am *.patch
+git am *.patch --reject
+```
+
+**Reflog**
+
+```bash
+git reflog
+```
+
+**Tag**
+
+```bash
+git tag -a v0.1 -m ""
+git tag -a v0.2 9fceb028
+git push origin tag_name
+git push origin --tags
+```
+
+**CherryPick**
+
+```bash
+git cherry-pick A^...B
+```
+
+**Checkout**
+
+```bash
+git checkout branch_name/commit_id/tag_name -- file_name
+```
+
+## 2. 常见问题
 
 ### 部分仓库下载缓慢/失败问题
 

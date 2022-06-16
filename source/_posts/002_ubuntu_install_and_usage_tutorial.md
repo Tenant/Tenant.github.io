@@ -1,6 +1,5 @@
 ---
 title: Ubuntu安装及使用指南
-date: 2022-06-15 23:43:00
 categories:
   - 操作系统
   - Linux
@@ -11,16 +10,29 @@ tags:
 description: 本文记录了Ubuntu系统安装方法及日常使用命令。
 ---
 
-## 系统内核和文件系统
+## 1. 系统安装与环境配置
 
-### 系统安装与配置
+### 1.1 系统安装
+
+Ubuntu系统安装过程不加赘述，只是简单记录一下常用的挂载分区：
+
+````bash
+/
+/home
+swap
+boost
+````
+
+不过只挂在`/`目录也没问题。
+
+### 1.2 更新软件源
 
 **更新系统软件源**
 
 由于国内访问Ubuntu默认软件源速度较慢，在安装系统后需要更新软件源为国内镜像地址。下面的设置以阿里云为例。通过如下命令打开系统软件源文件。
 
 ```bash
-vim /etc/apt/sources.list
+sudo vim /etc/apt/sources.list
 ```
 
 使用如下内容替换`sources.list`里面的内容：
@@ -72,37 +84,40 @@ trusted-host = https://pypi.tuna.tsinghua.edu.cn
 
 替换完成后，之后的Python包安装就会使用国内源了。
 
-**检查系统内核版本**
+### 1.3 系统配置
 
-使用如下命令查看系统内核版本。
+修改用户文件夹路径
+
+```
+vim ~/.config/user-dirs.dirs
+```
+
+## 2. 开发环境配置
+
+查看系统内核版本：
 
 ```bash
 lsb_release -a
 ```
 
-### 开发环境配置
-
-#### Python
-
-Python版本确定
+查看Python版本：
 
 ```bash
 python -V
 ```
 
-#### CMake
-
-查询CMAKE版本：
+查看编译工具版本：
 
 ```python
 cmake --version
+gcc -v
+g++ -v
+make -v
 ```
 
 Ubuntu系统自带的CMake通常为低版本。由于CMake在3.12版本后进行了较大的更新，因此一些开源程序不支持使用低版本CMake进行编译。为此需要自行安装高版本CMake。CMake安装方法见[CMake用法详解 | 亓淇小站 (calria.plus)](https://blog.calria.plus/2021/01/05/CMake%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/)。
 
-#### CUDA
-
-CUDA版本确定
+查看CUDA版本：
 
 ```bash
 nvcc --version
@@ -118,7 +133,7 @@ export LD_LIBRARY_PATH=/home/sukie/program/cuda-10.1/lib64:$LD_LIBRARY_PATH
 lspci -vnn | grep VGA -A 12
 ```
 
-列出当前可以按照的全部驱动：
+列出当前可以安装的全部显卡驱动：
 
 ```bash
 sudo apt list nvidia-driver*
@@ -131,7 +146,9 @@ sudo apt install nvidia-driver-450
 sudo reboot
 ```
 
-### 联网协同
+## 3. 联网
+
+### 3.1 SSH Key
 
 **生成`SSH`公钥和密钥**
 
@@ -140,23 +157,41 @@ On your client computer generate public key:
 ssh-keygen
 ```
 
-Copy the client public key to the server:
-```bash
-scp ~/.ssh/id_rsa.pub user@222.22.2.2.:~
-```
+**免密登录**
 
-Check whether `authorized_keys` exists in the directory `~/.ssh/` on the server. If not, create it:
 ```bash
+# method 1
+ssh-copy-id user@222.22.22.2
+# method 2
+cat ~/.ssh/id_*.pub |ssh user@22.22.2.2 'cat >> .ssh/authorized_keys'
+# method 2
+scp ~/.ssh/id_rsa.pub user@222.22.2.2.:~
+ssh user@222.22.2.2
+cd ~/.ssh
 touch authorized_keys
 chmod 600 authorized_keys
-```
-
-Append the client public key to the server's authorized_keys:
-```bash
 cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
 ```
 
-### 1.3 Change Shell Version
+## 4. 系统命令
+
+**watch**
+
+使用如下命令每0.5秒查看一次显卡状态
+
+```bash
+watch -n 0.5 nvidia-smi
+```
+
+**nohup**
+
+```bash
+nohup ./scripts/train.sh > log.txt 2>&1 &
+```
+
+## 5. 常用工具
+
+### 5.1 Terminal
 
 ```bash
 # List the all installed shells
@@ -177,19 +212,31 @@ exec /bin/dash
 exec /bin/zsh
 ```
 
+### 5.2 Files System
+
+**更改文件夹权限**
+
+```bash
+sudo chmod -R 755 folder
+sudo chown -R user.group folder
+```
+
 **Mount and unmount disk remotely**
 
 ```bash
+# method 1
 fdisk -l # list all available disks
 mount -t ntfs /dev/sdb2 /media/sukie/Data # mount
-df -lh # check disk usage
 umount /dev/sdb2 # unmount
+# method 2
+sudo fusermount -uz /mnt/data
+sudo mount /mnt/data
 ```
 
-**Check disk usage & spare space**
+**Check disk usage & free space**
 
 ```bash
-df -h # list all partions' usage condition
+df -lh # list all partions' usage condition
 du -hs /path/to/directory # list the disk usage of each FILE recursively
 ```
 
@@ -207,11 +254,6 @@ Recursively coping files with specified extension**
 cp --parents -R folder_src/**/*.mp4 ./folder_dst
 ```
 
-**nohup**
-
-```bash
-nohup ./scripts/train.sh > log.txt 2>&1 &
-```
 
 **Batch rename files**
 
@@ -219,7 +261,7 @@ nohup ./scripts/train.sh > log.txt 2>&1 &
 ls *jpg | awk -F\. '{print "mv "$0" C"NR".jpg"}' | sh
 ```
 
-批量去除文件行尾的^M字符
+**批量去除文件行尾的^M字符**
 
 ```bash
 dos2unix ./*/*.txt
@@ -239,26 +281,19 @@ certutil -hashfile filename MD5 # windows
 md5sum filename # ubuntu
 ```
 
-**Summarize disk usage of each FILE recursively**
-
-```bash
-du -hs /path/to/directory # ubuntu
-```
-
 `grep` display multiple lines infomation
 
  ```bash
  grep -C 5 foo file 显示file文件里匹配foo字串那行以及上下5行
 grep -B 5 foo file 显示foo及前5行
 grep -A 5 foo file 显示foo及后5行
+tail -f file
+tail -5 file
+head -n file
  ```
-修改用户文件夹路径
 
-```
-vim ~/.config/user-dirs.dirs
-```
 
-### 2. SSH
+### 5.3 SSH Server
 
 **Install SSH server**
 
@@ -326,9 +361,7 @@ sudo systemctl restart sshd.service
 localhost:0
 ```
 
-
-
-### 3. VNC
+### 5.4 VNC
 
 **Install VNC server**
 
@@ -347,7 +380,7 @@ x11vnc -storepasswd
 x11vnc -usepw
 ```
 
-### 4. TensorboardX
+### 5.5 TensorboardX
 
 ```bash
 tensorboard --host 0.0.0.0 --logdir runs --port 6006 # tensorflow and tensorboardX are required
@@ -371,7 +404,7 @@ mkdir -p $TMPDIR;
 tensorboard --logdir $LOGDIR
 ```
 
-### 5. CUDA
+### 5.6 CUDA
 
 **Check cuda version**
 
@@ -394,7 +427,7 @@ conda install jupyter
 conda install opencv
 ```
 
-### 6. Virtualenv
+### 5.7 Virtualenv
 
 **Install virtualenv and create new venv**
 
@@ -430,7 +463,7 @@ make install
 deactivate venv
 ```
 
-### 7. Media
+### 5.8 Media
 
 **Converting batches images into video**
 
@@ -438,7 +471,7 @@ deactivate venv
 ffmpeg -framerate 25 -i C%06d.jpg -c:v libx264 -profile:v high -crf 20 -pix_fmt yuv420p output.mp4
 ```
 
-### 8. Jupyter Notebook
+### 5.9 Jupyter Notebook
 
 **Install**
 
@@ -478,12 +511,4 @@ nohup jupyter notebook > /dev/null 2>&1 &
 ```
 
 Now you can access the jupyter notebook in your server at the url `http://162.122.11.23:8888`.
-
-### 9. 系统命令
-
-使用如下命令每0.5秒查看一次显卡状态
-
-```bash
-watch -n 0.5 nvidia-smi
-```
 

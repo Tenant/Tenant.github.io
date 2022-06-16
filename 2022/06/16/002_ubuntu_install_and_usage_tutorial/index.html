@@ -23,19 +23,19 @@
   <meta name="description" content="本文记录了Ubuntu系统安装方法及日常使用命令。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu安装及使用指南">
-<meta property="og:url" content="https://blog.calria.plus/2022/06/15/002_ubuntu_install_and_usage_tutorial/index.html">
+<meta property="og:url" content="https://blog.calria.plus/2022/06/16/002_ubuntu_install_and_usage_tutorial/index.html">
 <meta property="og:site_name" content="亓淇小站">
 <meta property="og:description" content="本文记录了Ubuntu系统安装方法及日常使用命令。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-06-15T15:43:00.000Z">
-<meta property="article:modified_time" content="2022-06-15T15:46:28.298Z">
+<meta property="article:published_time" content="2022-06-16T15:15:15.218Z">
+<meta property="article:modified_time" content="2022-06-16T15:15:15.218Z">
 <meta property="article:author" content="亓淇">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="Ubuntu">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.calria.plus/2022/06/15/002_ubuntu_install_and_usage_tutorial/">
+<link rel="canonical" href="https://blog.calria.plus/2022/06/16/002_ubuntu_install_and_usage_tutorial/">
 
 
 <script id="page-configurations">
@@ -182,7 +182,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2022/06/15/002_ubuntu_install_and_usage_tutorial/">
+    <link itemprop="mainEntityOfPage" href="https://blog.calria.plus/2022/06/16/002_ubuntu_install_and_usage_tutorial/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -204,9 +204,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-15 23:43:00 / Modified: 23:46:28" itemprop="dateCreated datePublished" datetime="2022-06-15T23:43:00+08:00">2022-06-15</time>
+              <time title="Created: 2022-06-16 23:15:15" itemprop="dateCreated datePublished" datetime="2022-06-16T23:15:15+08:00">2022-06-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -234,9 +233,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="系统内核和文件系统"><a href="#系统内核和文件系统" class="headerlink" title="系统内核和文件系统"></a>系统内核和文件系统</h2><h3 id="系统安装与配置"><a href="#系统安装与配置" class="headerlink" title="系统安装与配置"></a>系统安装与配置</h3><p><strong>更新系统软件源</strong></p>
+        <h2 id="1-系统安装与环境配置"><a href="#1-系统安装与环境配置" class="headerlink" title="1. 系统安装与环境配置"></a>1. 系统安装与环境配置</h2><h3 id="1-1-系统安装"><a href="#1-1-系统安装" class="headerlink" title="1.1 系统安装"></a>1.1 系统安装</h3><p>Ubuntu系统安装过程不加赘述，只是简单记录一下常用的挂载分区：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line">/home</span><br><span class="line">swap</span><br><span class="line">boost</span><br></pre></td></tr></table></figure>
+<p>不过只挂在<code>/</code>目录也没问题。</p>
+<h3 id="1-2-更新软件源"><a href="#1-2-更新软件源" class="headerlink" title="1.2 更新软件源"></a>1.2 更新软件源</h3><p><strong>更新系统软件源</strong></p>
 <p>由于国内访问Ubuntu默认软件源速度较慢，在安装系统后需要更新软件源为国内镜像地址。下面的设置以阿里云为例。通过如下命令打开系统软件源文件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
 <p>使用如下内容替换<code>sources.list</code>里面的内容：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"> </span><br><span class="line"><span class="comment"># src</span></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br></pre></td></tr></table></figure>
 <p>需要注意，不同版本Ubuntu内核名称不同。其中，16.04对应的内核名称为<code>bionic</code>，18.04对应的内核名称为<code>melodic</code>，20.04对应的内核名称为<code>focal</code>。</p>
@@ -250,61 +252,61 @@
 <p>使用如下内容替换<code>pip.conf</code>中的内容。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">index-url = https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">[install]</span><br><span class="line">trusted-host = https://pypi.tuna.tsinghua.edu.cn</span><br></pre></td></tr></table></figure>
 <p>替换完成后，之后的Python包安装就会使用国内源了。</p>
-<p><strong>检查系统内核版本</strong></p>
-<p>使用如下命令查看系统内核版本。</p>
+<h3 id="1-3-系统配置"><a href="#1-3-系统配置" class="headerlink" title="1.3 系统配置"></a>1.3 系统配置</h3><p>修改用户文件夹路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~&#x2F;.config&#x2F;user-dirs.dirs</span><br></pre></td></tr></table></figure>
+<h2 id="2-开发环境配置"><a href="#2-开发环境配置" class="headerlink" title="2. 开发环境配置"></a>2. 开发环境配置</h2><p>查看系统内核版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsb_release -a</span><br></pre></td></tr></table></figure>
-<h3 id="开发环境配置"><a href="#开发环境配置" class="headerlink" title="开发环境配置"></a>开发环境配置</h3><h4 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h4><p>Python版本确定</p>
+<p>查看Python版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -V</span><br></pre></td></tr></table></figure>
-<h4 id="CMake"><a href="#CMake" class="headerlink" title="CMake"></a>CMake</h4><p>查询CMAKE版本：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake --version</span><br></pre></td></tr></table></figure>
+<p>查看编译工具版本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cmake --version</span><br><span class="line">gcc -v</span><br><span class="line">g++ -v</span><br><span class="line">make -v</span><br></pre></td></tr></table></figure>
 <p>Ubuntu系统自带的CMake通常为低版本。由于CMake在3.12版本后进行了较大的更新，因此一些开源程序不支持使用低版本CMake进行编译。为此需要自行安装高版本CMake。CMake安装方法见<a href="https://blog.calria.plus/2021/01/05/CMake%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/">CMake用法详解 | 亓淇小站 (calria.plus)</a>。</p>
-<h4 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a>CUDA</h4><p>CUDA版本确定</p>
+<p>查看CUDA版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc --version</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export LD_LIBRARY_PATH&#x3D;&#x2F;home&#x2F;sukie&#x2F;program&#x2F;cuda-10.1&#x2F;lib64:$LD_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
 <p>查看显卡信息：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci -vnn | grep VGA -A 12</span><br></pre></td></tr></table></figure>
-<p>列出当前可以按照的全部驱动：</p>
+<p>列出当前可以安装的全部显卡驱动：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt list nvidia-driver*</span><br></pre></td></tr></table></figure>
 <p>安装指定版本驱动</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install nvidia-driver-450</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-<h3 id="联网协同"><a href="#联网协同" class="headerlink" title="联网协同"></a>联网协同</h3><p><strong>生成<code>SSH</code>公钥和密钥</strong></p>
+<h2 id="3-联网"><a href="#3-联网" class="headerlink" title="3. 联网"></a>3. 联网</h2><h3 id="3-1-SSH-Key"><a href="#3-1-SSH-Key" class="headerlink" title="3.1 SSH Key"></a>3.1 SSH Key</h3><p><strong>生成<code>SSH</code>公钥和密钥</strong></p>
 <p>On your client computer generate public key:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
-<p>Copy the client public key to the server:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ~/.ssh/id_rsa.pub user@222.22.2.2.:~</span><br></pre></td></tr></table></figure>
-<p>Check whether <code>authorized_keys</code> exists in the directory <code>~/.ssh/</code> on the server. If not, create it:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch authorized_keys</span><br><span class="line">chmod 600 authorized_keys</span><br></pre></td></tr></table></figure>
-<p>Append the client public key to the server’s authorized_keys:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
-<h3 id="1-3-Change-Shell-Version"><a href="#1-3-Change-Shell-Version" class="headerlink" title="1.3 Change Shell Version"></a>1.3 Change Shell Version</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># List the all installed shells</span></span><br><span class="line">cat /etc/shells</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check which Terminal you are using</span></span><br><span class="line">ls -l /proc/$$/exe</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$SHELL</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Change default shell for the current user</span></span><br><span class="line">chsh -s /path/to/shell</span><br></pre></td></tr></table></figure>
+<p><strong>免密登录</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># method 1</span></span><br><span class="line">ssh-copy-id user@222.22.22.2</span><br><span class="line"><span class="comment"># method 2</span></span><br><span class="line">cat ~/.ssh/id_*.pub |ssh user@22.22.2.2 <span class="string">&#x27;cat &gt;&gt; .ssh/authorized_keys&#x27;</span></span><br><span class="line"><span class="comment"># method 2</span></span><br><span class="line">scp ~/.ssh/id_rsa.pub user@222.22.2.2.:~</span><br><span class="line">ssh user@222.22.2.2</span><br><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br><span class="line">touch authorized_keys</span><br><span class="line">chmod 600 authorized_keys</span><br><span class="line">cat ~/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<h2 id="4-系统命令"><a href="#4-系统命令" class="headerlink" title="4. 系统命令"></a>4. 系统命令</h2><p><strong>watch</strong></p>
+<p>使用如下命令每0.5秒查看一次显卡状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">watch -n 0.5 nvidia-smi</span><br></pre></td></tr></table></figure>
+<p><strong>nohup</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./scripts/train.sh &gt; log.txt 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<h2 id="5-常用工具"><a href="#5-常用工具" class="headerlink" title="5. 常用工具"></a>5. 常用工具</h2><h3 id="5-1-Terminal"><a href="#5-1-Terminal" class="headerlink" title="5.1 Terminal"></a>5.1 Terminal</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># List the all installed shells</span></span><br><span class="line">cat /etc/shells</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check which Terminal you are using</span></span><br><span class="line">ls -l /proc/$$/exe</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$SHELL</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Change default shell for the current user</span></span><br><span class="line">chsh -s /path/to/shell</span><br></pre></td></tr></table></figure>
 <p>However, if you are using ssh to connect to a remote server, the abovementioned prompt may be invalid. Using the following prompt instead.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> /bin/dash</span><br><span class="line"><span class="built_in">exec</span> /bin/zsh</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-Files-System"><a href="#5-2-Files-System" class="headerlink" title="5.2 Files System"></a>5.2 Files System</h3><p><strong>更改文件夹权限</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod -R 755 folder</span><br><span class="line">sudo chown -R user.group folder</span><br></pre></td></tr></table></figure>
 <p><strong>Mount and unmount disk remotely</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l <span class="comment"># list all available disks</span></span><br><span class="line">mount -t ntfs /dev/sdb2 /media/sukie/Data <span class="comment"># mount</span></span><br><span class="line">df -lh <span class="comment"># check disk usage</span></span><br><span class="line">umount /dev/sdb2 <span class="comment"># unmount</span></span><br></pre></td></tr></table></figure>
-<p><strong>Check disk usage &amp; spare space</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df -h <span class="comment"># list all partions&#x27; usage condition</span></span><br><span class="line">du -hs /path/to/directory <span class="comment"># list the disk usage of each FILE recursively</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># method 1</span></span><br><span class="line">fdisk -l <span class="comment"># list all available disks</span></span><br><span class="line">mount -t ntfs /dev/sdb2 /media/sukie/Data <span class="comment"># mount</span></span><br><span class="line">umount /dev/sdb2 <span class="comment"># unmount</span></span><br><span class="line"><span class="comment"># method 2</span></span><br><span class="line">sudo fusermount -uz /mnt/data</span><br><span class="line">sudo mount /mnt/data</span><br></pre></td></tr></table></figure>
+<p><strong>Check disk usage &amp; free space</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df -lh <span class="comment"># list all partions&#x27; usage condition</span></span><br><span class="line">du -hs /path/to/directory <span class="comment"># list the disk usage of each FILE recursively</span></span><br></pre></td></tr></table></figure>
 <p><strong>Calculate amounts of FILES</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Reference: https://blog.csdn.net/xh_hit/article/details/80651565</span></span><br><span class="line">ls -l|grep <span class="string">&quot;^-&quot;</span>| wc -l</span><br><span class="line">ls -lR|grep <span class="string">&quot;^-&quot;</span>| wc -l</span><br><span class="line">ls -l|grep <span class="string">&quot;^d&quot;</span>| wc -l</span><br></pre></td></tr></table></figure>
 <p>Recursively coping files with specified extension**</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp --parents -R folder_src/**/*.mp4 ./folder_dst</span><br></pre></td></tr></table></figure>
-<p><strong>nohup</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./scripts/train.sh &gt; log.txt 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
 <p><strong>Batch rename files</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls *jpg | awk -F\. <span class="string">&#x27;&#123;print &quot;mv &quot;$0&quot; C&quot;NR&quot;.jpg&quot;&#125;&#x27;</span> | sh</span><br></pre></td></tr></table></figure>
-<p>批量去除文件行尾的^M字符</p>
+<p><strong>批量去除文件行尾的^M字符</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dos2unix ./*/*.txt</span><br></pre></td></tr></table></figure>
 
 <p><strong>Empty Trash in Command Line</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/.<span class="built_in">local</span>/share/Trash/*</span><br></pre></td></tr></table></figure>
 <p><strong>Calculate md5</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">certutil -hashfile filename MD5 <span class="comment"># windows</span></span><br><span class="line">md5sum filename <span class="comment"># ubuntu</span></span><br></pre></td></tr></table></figure>
-<p><strong>Summarize disk usage of each FILE recursively</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -hs /path/to/directory <span class="comment"># ubuntu</span></span><br></pre></td></tr></table></figure>
 <p><code>grep</code> display multiple lines infomation</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> grep -C 5 foo file 显示file文件里匹配foo字串那行以及上下5行</span><br><span class="line">grep -B 5 foo file 显示foo及前5行</span><br><span class="line">grep -A 5 foo file 显示foo及后5行</span><br></pre></td></tr></table></figure>
-<p>修改用户文件夹路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~&#x2F;.config&#x2F;user-dirs.dirs</span><br></pre></td></tr></table></figure>
-<h3 id="2-SSH"><a href="#2-SSH" class="headerlink" title="2. SSH"></a>2. SSH</h3><p><strong>Install SSH server</strong></p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> grep -C 5 foo file 显示file文件里匹配foo字串那行以及上下5行</span><br><span class="line">grep -B 5 foo file 显示foo及前5行</span><br><span class="line">grep -A 5 foo file 显示foo及后5行</span><br><span class="line">tail -f file</span><br><span class="line">tail -5 file</span><br><span class="line">head -n file</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-SSH-Server"><a href="#5-3-SSH-Server" class="headerlink" title="5.3 SSH Server"></a>5.3 SSH Server</h3><p><strong>Install SSH server</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure>
 <p><strong>Start SSH server</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/ssh start</span><br><span class="line">sudo service sshd start</span><br><span class="line">sudo service sshd restart</span><br><span class="line">sudo service sshd status</span><br><span class="line">sudo service sshd stop</span><br></pre></td></tr></table></figure>
@@ -325,27 +327,25 @@
 <p>至此，Ubuntu Server的配置已经完成。</p>
 <p>在Windows Client上，需要安装XMing软件，提供可视化服务。XMing软件安装运行后，可以在托盘区看到一个X形的图标，鼠标悬浮在上面可以看到当前映射的桌面的编号，在ssh软件中使能X11连接，并且填入桌面变换，如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost:0</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="3-VNC"><a href="#3-VNC" class="headerlink" title="3. VNC"></a>3. VNC</h3><p><strong>Install VNC server</strong></p>
+<h3 id="5-4-VNC"><a href="#5-4-VNC" class="headerlink" title="5.4 VNC"></a>5.4 VNC</h3><p><strong>Install VNC server</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install x11vnc</span><br></pre></td></tr></table></figure>
 <p><strong>Set VNC password</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -storepasswd</span><br></pre></td></tr></table></figure>
 <p><strong>Start VNC service</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x11vnc -usepw</span><br></pre></td></tr></table></figure>
-<h3 id="4-TensorboardX"><a href="#4-TensorboardX" class="headerlink" title="4. TensorboardX"></a>4. TensorboardX</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --host 0.0.0.0 --logdir runs --port 6006 <span class="comment"># tensorflow and tensorboardX are required</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-5-TensorboardX"><a href="#5-5-TensorboardX" class="headerlink" title="5.5 TensorboardX"></a>5.5 TensorboardX</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --host 0.0.0.0 --logdir runs --port 6006 <span class="comment"># tensorflow and tensorboardX are required</span></span><br></pre></td></tr></table></figure>
 <p>Then open the link <code>http://162.105.92.77:6006</code> in your local browser.</p>
 <p>The following command may be useful</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsof -i: 6006 <span class="comment"># list process that occupying port 6006</span></span><br><span class="line"><span class="built_in">kill</span> PID <span class="comment"># use the actual value instead of PID</span></span><br></pre></td></tr></table></figure>
 <p>tensorboard: <code>Permission denied: &#39;/tmp/.tensorboard-info/pid-2274.info&#39;</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 申明环境变量</span></span><br><span class="line"><span class="built_in">export</span> TMPDIR=/tmp/<span class="variable">$USER</span>; </span><br><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">mkdir -p <span class="variable">$TMPDIR</span>;</span><br><span class="line"><span class="comment"># 打开tensorboard</span></span><br><span class="line">tensorboard --logdir <span class="variable">$LOGDIR</span></span><br></pre></td></tr></table></figure>
-<h3 id="5-CUDA"><a href="#5-CUDA" class="headerlink" title="5. CUDA"></a>5. CUDA</h3><p><strong>Check cuda version</strong></p>
+<h3 id="5-6-CUDA"><a href="#5-6-CUDA" class="headerlink" title="5.6 CUDA"></a>5.6 CUDA</h3><p><strong>Check cuda version</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/cuda/bin/nvcc --version</span><br></pre></td></tr></table></figure>
 <p><strong>Activate and deactivate enviroment</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> activate tensorflow</span><br><span class="line"><span class="built_in">source</span> deactive tensorflow</span><br></pre></td></tr></table></figure>
 <p><strong>Install commonly used packages</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda install ipython</span><br><span class="line">conda install jupyter</span><br><span class="line">conda install opencv</span><br></pre></td></tr></table></figure>
-<h3 id="6-Virtualenv"><a href="#6-Virtualenv" class="headerlink" title="6. Virtualenv"></a>6. Virtualenv</h3><p><strong>Install virtualenv and create new venv</strong></p>
+<h3 id="5-7-Virtualenv"><a href="#5-7-Virtualenv" class="headerlink" title="5.7 Virtualenv"></a>5.7 Virtualenv</h3><p><strong>Install virtualenv and create new venv</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install pip // install pip</span><br><span class="line"></span><br><span class="line">pip3 install virtualenv // install virtualenv via pip3</span><br><span class="line"></span><br><span class="line">python -m virtualenv venv <span class="comment"># 用这个命令替换下面的</span></span><br><span class="line">virtualenv -p /usr/bin/python3 --no-site-packages venv // create new virtual enviroments named venv</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> venv/bin/activate // activate virtual enviroment</span><br></pre></td></tr></table></figure>
 <p><strong>List all installed packaegs</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 list</span><br></pre></td></tr></table></figure>
@@ -353,9 +353,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> <span class="variable">$VIRTUAL_ENV</span>=[your_path_to_env]</span><br><span class="line">cmake -D MAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=<span class="variable">$VIRTUAL_ENV</span>/<span class="built_in">local</span>/ -D PYTHON_EXECUTABLE=<span class="variable">$VIRTUAL_ENV</span>/bin/python -D PYTHON_PACKAGES_PATH=<span class="variable">$VIRTUAL_ENV</span>/lib/python2.7/site-packages -D INSTALL_PYTHON_EXAMPLES=ON ..</span><br><span class="line">make -j</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
 <p><strong>Deactivate virtalenv</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate venv</span><br></pre></td></tr></table></figure>
-<h3 id="7-Media"><a href="#7-Media" class="headerlink" title="7. Media"></a>7. Media</h3><p><strong>Converting batches images into video</strong></p>
+<h3 id="5-8-Media"><a href="#5-8-Media" class="headerlink" title="5.8 Media"></a>5.8 Media</h3><p><strong>Converting batches images into video</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -framerate 25 -i C%06d.jpg -c:v libx264 -profile:v high -crf 20 -pix_fmt yuv420p output.mp4</span><br></pre></td></tr></table></figure>
-<h3 id="8-Jupyter-Notebook"><a href="#8-Jupyter-Notebook" class="headerlink" title="8. Jupyter Notebook"></a>8. Jupyter Notebook</h3><p><strong>Install</strong></p>
+<h3 id="5-9-Jupyter-Notebook"><a href="#5-9-Jupyter-Notebook" class="headerlink" title="5.9 Jupyter Notebook"></a>5.9 Jupyter Notebook</h3><p><strong>Install</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create a virtual environment to install ipython and jupyter notebbook</span></span><br><span class="line">pip3 install ipython[all] <span class="comment"># Install packages in the virutal environment</span></span><br></pre></td></tr></table></figure>
 <p><strong>Set remote access</strong></p>
 <p>Generate the template configuration file.</p>
@@ -367,8 +367,6 @@
 <p>Run the jupyter notebook in thte background</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup jupyter notebook &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 <p>Now you can access the jupyter notebook in your server at the url <code>http://162.122.11.23:8888</code>.</p>
-<h3 id="9-系统命令"><a href="#9-系统命令" class="headerlink" title="9. 系统命令"></a>9. 系统命令</h3><p>使用如下命令每0.5秒查看一次显卡状态</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">watch -n 0.5 nvidia-smi</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -398,12 +396,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/10/24/Vim%E4%BD%BF%E7%94%A8/" rel="prev" title="Vim使用手册">
-      <i class="fa fa-chevron-left"></i> Vim使用手册
+    <a href="/2022/06/16/003_git_usage_tutoral/" rel="prev" title="Git使用详解">
+      <i class="fa fa-chevron-left"></i> Git使用详解
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/06/15/000_build_blog_site_using_hexo/" rel="next" title="使用Hexo搭建个人博客详解">
-      使用Hexo搭建个人博客详解 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/06/16/005_vim_cheatsheet/" rel="next" title="Vim使用手册">
+      Vim使用手册 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -463,7 +461,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E5%92%8C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">系统内核和文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">系统安装与配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">开发环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Python"><span class="nav-number">1.2.1.</span> <span class="nav-text">Python</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMake"><span class="nav-number">1.2.2.</span> <span class="nav-text">CMake</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CUDA"><span class="nav-number">1.2.3.</span> <span class="nav-text">CUDA</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E7%BD%91%E5%8D%8F%E5%90%8C"><span class="nav-number">1.3.</span> <span class="nav-text">联网协同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Change-Shell-Version"><span class="nav-number">1.4.</span> <span class="nav-text">1.3 Change Shell Version</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-SSH"><span class="nav-number">1.5.</span> <span class="nav-text">2. SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-VNC"><span class="nav-number">1.6.</span> <span class="nav-text">3. VNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-TensorboardX"><span class="nav-number">1.7.</span> <span class="nav-text">4. TensorboardX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CUDA"><span class="nav-number">1.8.</span> <span class="nav-text">5. CUDA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Virtualenv"><span class="nav-number">1.9.</span> <span class="nav-text">6. Virtualenv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Media"><span class="nav-number">1.10.</span> <span class="nav-text">7. Media</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Jupyter-Notebook"><span class="nav-number">1.11.</span> <span class="nav-text">8. Jupyter Notebook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">1.12.</span> <span class="nav-text">9. 系统命令</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%B8%8E%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">1. 系统安装与环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 系统安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%9B%B4%E6%96%B0%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 更新软件源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 系统配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">2. 开发环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%81%94%E7%BD%91"><span class="nav-number">3.</span> <span class="nav-text">3. 联网</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-SSH-Key"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 SSH Key</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">4. 系统命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="nav-number">5.</span> <span class="nav-text">5. 常用工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-Terminal"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 Terminal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Files-System"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 Files System</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-SSH-Server"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 SSH Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-VNC"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 VNC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-TensorboardX"><span class="nav-number">5.5.</span> <span class="nav-text">5.5 TensorboardX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-6-CUDA"><span class="nav-number">5.6.</span> <span class="nav-text">5.6 CUDA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-Virtualenv"><span class="nav-number">5.7.</span> <span class="nav-text">5.7 Virtualenv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-8-Media"><span class="nav-number">5.8.</span> <span class="nav-text">5.8 Media</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-9-Jupyter-Notebook"><span class="nav-number">5.9.</span> <span class="nav-text">5.9 Jupyter Notebook</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

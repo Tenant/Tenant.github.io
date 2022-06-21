@@ -6,7 +6,7 @@ categories:
 tags:
   - 编程
   - Python
-descriptions:
+description: 本文记录了Python常用命令
 ---
 
 ## 1. 常用命令
